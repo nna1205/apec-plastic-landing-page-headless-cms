@@ -10,7 +10,7 @@ type Props = {
 };
 
 const HeroSection = ({ fragment }: Props) => {
-  const { sectionHeader, ctas, image } = getFragmentData(
+  const { sectionHeader, callToActions, image } = getFragmentData(
     HeroSectionFragmentDoc,
     fragment
   );
@@ -32,7 +32,7 @@ const HeroSection = ({ fragment }: Props) => {
             </p>
           </header>
           <div className="flex items-center gap-3 lg:gap-9 mt-3">
-            {ctas.map((item) => {
+            {callToActions.map((item) => {
               return (
                 <Button
                   key={item.id}

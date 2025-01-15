@@ -16,6 +16,9 @@ query Page($slug: String) {
       ... on ServicesSectionRecord {
         ...ServiceSection
       }
+      ... on FeaturedProductSectionRecord {
+        ...FeaturedProductSection
+      }
     }
   }
 }

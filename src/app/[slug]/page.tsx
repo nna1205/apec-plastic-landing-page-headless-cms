@@ -6,6 +6,7 @@ import {
 import { notFound } from "next/navigation";
 import HeroSection from "@/components/sections/HeroSectionRecord/HeroSection";
 import TestimonialSection from "@/components/sections/TestimonialSectionRecord/TestimonialSection";
+import ServiceSection from "@/components/sections/ServiceSectionRecord/ServiceSection";
 
 export async function generateStaticParams() {
   const { allPages } = await request(PageStaticParamsDocument, {});
@@ -33,6 +34,8 @@ export default async function Page({
             return (
               <TestimonialSection fragment={section} key={section.__typename} />
             );
+          case "ServicesSectionRecord":
+            return <ServiceSection fragment={section} key={section.__typename} />
           default:
             return null;
         }

@@ -19,7 +19,7 @@ const ServiceSection = ({ fragment }: Props) => {
     <section className="flex flex-col-reverse justify-between gap-3 lg:flex-row lg:gap-6">
       <motion.div
         className="relative w-full h-80 rounded-xl lg:w-1/2 lg:h-full"
-        initial={{ opacity: 0, x: -100, y: -50 }}
+        initial={{ opacity: 0, x: -50, y: -50 }}
         whileInView={{ opacity: 1, x: 0, y: 0 }}
         transition={{ duration: 0.5 }}
         viewport={{ once: true, amount: 0.25 }}
@@ -48,9 +48,6 @@ const ServiceSection = ({ fragment }: Props) => {
               {callToActions[0].label}
             </Link>
           </Button>
-          <button className="w-fit mr-auto mt-3 bg-transparent border border-slate-300 box-border rounded-md px-6 py-2 text-green-800 text-lg font-bold lg:mt-6 lg:px-9 lg:py-3 lg:text-2xl">
-            <Link href="/">Liên hệ đặt hàng</Link>
-          </button>
         </motion.div>
         <div className="w-full flex lg:justify-between lg:items-end gap-3 mt-3 lg:mt-9">
           <motion.div
