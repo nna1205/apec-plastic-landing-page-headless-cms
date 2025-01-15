@@ -1,0 +1,9 @@
+fragment DatoImage on ResponsiveImage {
+  src
+  srcSet
+  base64
+  width
+  height
+  alt
+  title
+}

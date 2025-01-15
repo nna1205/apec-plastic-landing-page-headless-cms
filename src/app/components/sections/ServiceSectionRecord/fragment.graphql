@@ -1,0 +1,26 @@
+fragment ServiceSection on ServicesSectionRecord {
+  sectionHeader {
+    id
+    title
+    subtitle
+  }
+  services {
+    id
+    label
+    description
+    icon
+    highlight
+  }
+  callToActions {
+    id
+    label
+    url
+    variant
+  }
+  image {
+    id
+    responsiveImage {
+      ...DatoImage
+    }
+  }
+}

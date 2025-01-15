@@ -1,0 +1,21 @@
+query Page($slug: String) {
+  page(filter: { slug: { eq: $slug } }) {
+    _seoMetaTags {
+      attributes
+      content
+      tag
+    }
+    sections {
+      __typename
+      ... on HeroSectionRecord {
+        ...HeroSection
+      }
+      ... on TestimonialSectionRecord {
+        ...TestimonialSection
+      }
+      ... on ServicesSectionRecord {
+        ...ServiceSection
+      }
+    }
+  }
+}

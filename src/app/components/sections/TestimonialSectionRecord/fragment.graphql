@@ -1,0 +1,20 @@
+fragment TestimonialSection on TestimonialSectionRecord {
+  sectionHeader {
+    id
+    subtitle
+    title
+  }
+  customerFeedback {
+    id
+    variant
+    customerName
+    customerLocation
+    content
+    image {
+      id
+      responsiveImage {
+        ...DatoImage
+      }
+    }
+  }
+}

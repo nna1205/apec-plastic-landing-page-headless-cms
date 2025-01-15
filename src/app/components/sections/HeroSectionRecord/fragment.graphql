@@ -1,0 +1,19 @@
+fragment HeroSection on HeroSectionRecord {
+  sectionHeader {
+    id
+    title
+    subtitle
+  }
+  callToActions {
+    id
+    label
+    url
+    variant
+  }
+  image {
+    id
+    responsiveImage {
+      ...DatoImage
+    }
+  }
+}
