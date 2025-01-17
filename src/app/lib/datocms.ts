@@ -1,6 +1,8 @@
 import type { TypedDocumentNode } from '@graphql-typed-document-node/core';
 import { print } from 'graphql';
 
+export const cacheTag = 'datocms';
+
 export async function request<
   TResult = unknown,
   TVariables = Record<string, unknown>,
@@ -25,8 +27,8 @@ export async function request<
   if (isDraft) headers['X-Include-Drafts'] = 'true';
 
   const response = await fetch('https://graphql.datocms.com/', {
-    cache: 'force-cache',
-    next: { tags: ['datocms'] },
+    // cache: 'force-cache',
+    next: { tags: [cacheTag] },
     method: 'POST',
     headers,
     body: JSON.stringify({ query: print(document), variables }),
