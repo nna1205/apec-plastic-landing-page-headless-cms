@@ -7,33 +7,26 @@ fragment FeaturedProductSection on FeaturedProductSectionRecord {
   featuredProductsList {
     id
     category {
-        id
-        title
-        url
-        description
+      id
+      title
+      url
+      description
     }
     categoryIcon
     highlightCategory
     featuredProducts {
-        id
+      id
+      title
+      url
+      productCategory {
         title
-        url
-        description
-        variant
-        material
-        weight
-        packaging
-        dimension {
-            width
-            length
-            height
+      }
+      productImages {
+        id
+        responsiveImage {
+          ...DatoImage
         }
-        productImages {
-            id
-            responsiveImage {
-                ...DatoImage
-            }
-        }
+      }
     }
   }
 }
