@@ -1,0 +1,33 @@
+query Product($slug: String) {
+  product(filter: { url: { eq: $slug }, title: { isBlank: "false" } }) {
+    id
+    title
+    url
+    description
+    material
+    variant
+    weight
+    packaging
+    retailPrice
+    dimension {
+      width
+      height
+      length
+    }
+    productImages {
+      id
+      responsiveImage {
+        src
+        srcSet
+        title
+        alt
+        width
+        height
+      }
+    }
+    productCategory {
+      id
+      title
+    }
+  }
+}

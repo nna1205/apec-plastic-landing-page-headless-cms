@@ -4,19 +4,22 @@ import { useState } from "react";
 import * as motion from "motion/react-client";
 import { AnimatePresence } from "motion/react";
 import Image from "next/image";
-import { ProductRecord } from "@/graphql/types/graphql";
+import { ProductQuery } from "@/graphql/types/graphql";
 
 const ProductImageCarousel: React.FC<{
-  data: ProductRecord["productImages"];
+  data: ProductQuery["product"];
 }> = ({ data }) => {
+  const imagesData = data?.productImages;
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % data.length);
+    setCurrentIndex((prev) => (prev + 1) % imagesData!.length);
   };
 
   const handlePrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + data.length) % data.length);
+    setCurrentIndex(
+      (prev) => (prev - 1 + imagesData!.length) % imagesData!.length
+    );
   };
 
   return (
@@ -24,7 +27,7 @@ const ProductImageCarousel: React.FC<{
       {/* Carousel Container */}
       <div className="overflow-hidden relative w-full h-[280px] bg-gray-200 rounded-lg lg:h-[480px]">
         <AnimatePresence>
-          {data.map(
+          {imagesData!.map(
             (image, index) =>
               index === currentIndex && (
                 <motion.div
@@ -36,8 +39,8 @@ const ProductImageCarousel: React.FC<{
                   transition={{ duration: 0.5 }}
                 >
                   <Image
-                    src={image.url}
-                    alt={image.alt}
+                    src={image.responsiveImage!.src}
+                    alt={image.responsiveImage!.alt || "Product Image"}
                     fill
                     sizes="(min-width: 1024px) 50%, 100%"
                     className="object-cover rounded-lg"
@@ -64,7 +67,7 @@ const ProductImageCarousel: React.FC<{
 
       {/* Pagination Thumbnails */}
       <div className="mt-4 flex justify-start items-center gap-4 overflow-x-auto">
-        {data.map((image, index) => (
+        {imagesData!.map((image, index) => (
           <div
             key={image.id}
             className={`relative w-12 h-12 cursor-pointer border-2 rounded-md lg:w-20 lg:h-20${
@@ -73,8 +76,8 @@ const ProductImageCarousel: React.FC<{
             onClick={() => setCurrentIndex(index)}
           >
             <Image
-              src={image.url}
-              alt={image.alt}
+              src={image.responsiveImage!.src}
+              alt={image.responsiveImage!.alt || "Product Image"}
               fill
               sizes="(min-width: 1024px) 50%, 100%"
               className={`object-cover rounded-md ${

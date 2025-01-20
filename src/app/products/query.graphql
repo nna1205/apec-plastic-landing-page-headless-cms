@@ -1,4 +1,4 @@
-query ProductQuery {
+query Products {
   allProducts {
     id
     title

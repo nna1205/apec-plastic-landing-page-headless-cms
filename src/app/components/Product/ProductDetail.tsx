@@ -1,8 +1,10 @@
-import { ProductRecord } from "@/graphql/types/graphql";
+import { ProductQuery } from "@/graphql/types/graphql";
 import Link from "next/link";
 import ProductShare from "@/components/Product/ProductShare";
 
-const ProductDetail: React.FC<{ data: ProductRecord }> = ({ data }) => {
+const ProductDetail: React.FC<{ data: ProductQuery["product"] }> = ({
+  data,
+}) => {
   if (!data) return <div>Product not found</div>;
   return (
     <div className="w-full flex flex-col md:w-1/2 gap-2 lg:gap-6">

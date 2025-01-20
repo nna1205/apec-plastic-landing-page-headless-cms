@@ -3,12 +3,14 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Facebook, Share, ClipboardCopy } from "lucide-react";
-import { ProductRecord } from "@/graphql/types/graphql";
+import { ProductQuery } from "@/graphql/types/graphql";
 
-const ProductShare: React.FC<{ data: ProductRecord }> = ({ data }) => {
+const ProductShare: React.FC<{ data: ProductQuery["product"] }> = ({
+  data,
+}) => {
   const productUrl = `${
     process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
-  }/products/${data.id}`;
+  }/products/${data!.id}`;
 
   const [supportsWebShare, setSupportsWebShare] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
@@ -28,10 +30,10 @@ const ProductShare: React.FC<{ data: ProductRecord }> = ({ data }) => {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: data.title,
+          title: data!.title,
           text:
-            data.description && data.description.trim() !== ""
-              ? data.description
+            data!.description && data!.description.trim() !== ""
+              ? data!.description
               : "No description",
           url: productUrl,
         });
@@ -54,17 +56,20 @@ const ProductShare: React.FC<{ data: ProductRecord }> = ({ data }) => {
     <>
       {/* Open Graph and Meta Tags */}
       <Head>
-        <title>{data.title}</title>
-        <meta property="og:title" content={data.title} />
+        <title>{data!.title}</title>
+        <meta property="og:title" content={data!.title} />
         <meta
           property="og:description"
           content={
-            data.description && data.description.trim() !== ""
-              ? data.description
+            data!.description && data!.description.trim() !== ""
+              ? data!.description
               : "No description"
           }
         />
-        <meta property="og:image" content={data.productImages[0].url} />
+        <meta
+          property="og:image"
+          content={data!.productImages[0].responsiveImage?.src}
+        />
         <meta property="og:url" content={productUrl} />
         <meta property="og:type" content="product" />
       </Head>

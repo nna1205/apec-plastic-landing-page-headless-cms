@@ -1,7 +1,7 @@
 import CategoryFilter from "@/components/Category";
 import ProductThumbnail from "@/components/Product/ProductThumbnail";
 import { request } from "@/lib/datocms";
-import { ProductQueryDocument } from "@/graphql/types/graphql";
+import { ProductsDocument } from "@/graphql/types/graphql";
 
 interface SearchQueryProps {
   type: string;
@@ -14,7 +14,7 @@ export default async function Page(props: {
     value?: string;
   }>;
 }) {
-  const productData = await request(ProductQueryDocument, {});
+  const productData = await request(ProductsDocument, {});
   const searchParams = await props.searchParams;
 
   const query: SearchQueryProps = {

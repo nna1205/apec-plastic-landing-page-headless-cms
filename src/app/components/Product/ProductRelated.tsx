@@ -1,16 +1,16 @@
-import { ProductQueryDocument } from "@/graphql/types/graphql";
+import { ProductsDocument } from "@/graphql/types/graphql";
 import ProductThumbnail from "@/components/Product/ProductThumbnail";
 import { request } from "@/lib/datocms";
 
 async function ProductRelated({
   productCategory,
 }: {
-  productCategory: string;
+  productCategory: string | undefined;
 }) {
-  const allProductData = await request(ProductQueryDocument, {});
+  const allProductData = await request(ProductsDocument, {});
 
   const relatedProducts = allProductData.allProducts.filter((product) =>
-    product.productCategory.url.includes(productCategory)
+    product.productCategory.title.includes(productCategory || "")
   );
   return (
     <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-6">

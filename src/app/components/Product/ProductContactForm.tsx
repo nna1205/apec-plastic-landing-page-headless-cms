@@ -3,7 +3,7 @@
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ProductRecord } from "@/graphql/types/graphql";
+import { ProductQuery } from "@/graphql/types/graphql";
 
 // Define the form schema with Zod
 const contactFormSchema = z.object({
@@ -42,7 +42,9 @@ const contactFormSchema = z.object({
 // Define the TypeScript type based on the schema
 type ContactFormData = z.infer<typeof contactFormSchema>;
 
-const ProductContactForm: React.FC<{ data: ProductRecord }> = ({ data }) => {
+const ProductContactForm: React.FC<{ data: ProductQuery["product"] }> = ({
+  data,
+}) => {
   const {
     handleSubmit,
     control,
@@ -67,8 +69,8 @@ const ProductContactForm: React.FC<{ data: ProductRecord }> = ({ data }) => {
   const onSubmit: SubmitHandler<ContactFormData> = (formData) => {
     console.log({
       product: {
-        name: data.title,
-        id: data.id,
+        name: data!.title,
+        id: data!.id,
       },
       customer: formData,
     });
@@ -83,7 +85,7 @@ const ProductContactForm: React.FC<{ data: ProductRecord }> = ({ data }) => {
       <div className="flex flex-col text-start justify-start items-start bg-gray-100 rounded-lg mb-3 px-3 py-2">
         <span className="font-bold text-xs text-green-400">SẢN PHẨM</span>
         <span className="font-black text-base lg:text-xl text-green-800">
-          {data.title}
+          {data!.title}
         </span>
       </div>
 

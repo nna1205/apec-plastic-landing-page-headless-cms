@@ -42,7 +42,7 @@ const Navigation: React.FC<{ data: LayoutRecord["navigation"] }> = ({
                 className="flex items-center p-1 text-4xl gap-x-2 hover:text-green-400"
               >
                 <Link
-                  href={item.page.slug}
+                  href={`/${item.page.slug}`}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="flex items-center"
                 >
@@ -62,7 +62,7 @@ const Navigation: React.FC<{ data: LayoutRecord["navigation"] }> = ({
                 className="flex items-center p-1 text-lg gap-x-2 hover:text-green-400"
               >
                 <Link
-                  href={item.page.slug}
+                  href={`/${item.page.slug}`}
                   className="line-clamp-1 flex items-center"
                 >
                   {item.page.title}
