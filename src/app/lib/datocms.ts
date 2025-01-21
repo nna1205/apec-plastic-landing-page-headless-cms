@@ -1,7 +1,13 @@
 import type { TypedDocumentNode } from '@graphql-typed-document-node/core';
 import { print } from 'graphql';
+import { buildClient, LogLevel } from '@datocms/cma-client-browser';
 
 export const cacheTag = 'datocms';
+
+export const client = buildClient({
+  apiToken: process.env.NEXT_PUBLIC_DATOCMS_API_TOKEN as string,
+  logLevel: LogLevel.BASIC,
+});
 
 export async function request<
   TResult = unknown,

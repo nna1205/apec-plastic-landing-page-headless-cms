@@ -3,16 +3,11 @@
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ProductQuery } from "@/graphql/types/graphql";
 import { client } from "@/lib/datocms";
 import { ApiError } from "@datocms/cma-client-browser";
 
-const productContactFormSchema = z.object({
+const contactFormSchema = z.object({
   name: z.string().min(1, "Tên khách hàng không được để trống"),
-  message: z
-    .string()
-    .min(1, "Tin nhắn không được để trống")
-    .max(500, { message: "Không được vượt quá 500 ký tự" }),
   contact: z
     .object({
       method: z.enum(["email", "phone"]),
@@ -40,11 +35,9 @@ const productContactFormSchema = z.object({
     ),
 });
 
-type ProductContactFormData = z.infer<typeof productContactFormSchema>;
+type ContactFormData = z.infer<typeof contactFormSchema>;
 
-const ProductContactForm: React.FC<{
-  data: ProductQuery["product"];
-}> = ({ data }) => {
+const ContactForm = () => {
   const {
     handleSubmit,
     control,
@@ -52,11 +45,10 @@ const ProductContactForm: React.FC<{
     watch,
     reset,
     formState: { errors },
-  } = useForm<ProductContactFormData>({
-    resolver: zodResolver(productContactFormSchema),
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactFormSchema),
     defaultValues: {
       name: "",
-      message: "",
       contact: {
         method: "email",
         value: "",
@@ -64,21 +56,15 @@ const ProductContactForm: React.FC<{
     },
   });
 
-  const productData = data;
   const contactMethod = watch("contact.method"); // Watch the selected contact method
 
-  const onSubmit: SubmitHandler<ProductContactFormData> = async (formData) => {
+  const onSubmit: SubmitHandler<ContactFormData> = async (formData) => {
     const result = {
-      product: {
-        name: productData!.title,
-        id: productData!.id,
-      },
       customer: formData,
     };
     try {
       await client.items.create({
-        item_type: { type: "item_type", id: "HUuou7VGSOit4M2dVjU9eg" },
-        message: formData.message,
+        item_type: { type: "item_type", id: "I2zzp4buRZatIT1rh-vPwA" },
         customerInformation: {
           name: formData.name,
           email:
@@ -86,7 +72,6 @@ const ProductContactForm: React.FC<{
           phone:
             formData.contact.method === "phone" ? formData.contact.value : "",
         },
-        product: productData,
       });
     } catch (error) {
       if (error instanceof ApiError) {
@@ -104,15 +89,7 @@ const ProductContactForm: React.FC<{
 
   return (
     <div className="w-full box-border p-3 bg-white border border-slate-100 rounded-lg shadow-md lg:p-6 lg:w-1/2">
-      {/* Product Summary */}
-      <div className="flex flex-col text-start justify-start items-start bg-gray-100 rounded-lg mb-3 px-3 py-2">
-        <span className="font-bold text-xs text-green-400">SẢN PHẨM</span>
-        <span className="font-black text-base lg:text-xl text-green-800">
-          {productData!.title}
-        </span>
-      </div>
-
-      {/* Product Contact Form */}
+      {/* Contact Form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full box-border flex flex-col text-sm gap-1 lg:gap-3 lg:text-xl"
@@ -174,26 +151,6 @@ const ProductContactForm: React.FC<{
           )}
         </div>
 
-        {/* Message */}
-        <div>
-          <label className="hidden mb-1 font-medium">Lời nhắn</label>
-          <textarea
-            {...register("message")}
-            rows={4}
-            placeholder="Tin nhắn"
-            className={`w-full max-h-20 box-border p-3 border rounded focus:outline-none focus:ring-1 ${
-              errors.message
-                ? "border-red-400 focus:ring-red-400"
-                : "border-gray-300 focus:ring-green-400"
-            }`}
-          ></textarea>
-          {errors.message && (
-            <p className="text-red-400 text-sm mt-1">
-              {errors.message.message}
-            </p>
-          )}
-        </div>
-
         <button
           type="submit"
           className="w-full bg-green-400 text-white py-3 rounded font-bold hover:bg-green-400 transition"
@@ -205,4 +162,4 @@ const ProductContactForm: React.FC<{
   );
 };
 
-export default ProductContactForm;
+export default ContactForm;
