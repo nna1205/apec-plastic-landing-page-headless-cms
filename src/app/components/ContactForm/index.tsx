@@ -59,20 +59,26 @@ const ContactForm = () => {
   const contactMethod = watch("contact.method"); // Watch the selected contact method
 
   const onSubmit: SubmitHandler<ContactFormData> = async (formData) => {
-    const result = {
-      customer: formData,
-    };
     try {
-      await client.items.create({
+      const result = await client.items.create({
         item_type: { type: "item_type", id: "I2zzp4buRZatIT1rh-vPwA" },
-        customerInformation: {
-          name: formData.name,
-          email:
-            formData.contact.method === "email" ? formData.contact.value : "",
-          phone:
-            formData.contact.method === "phone" ? formData.contact.value : "",
+        customer_information: {
+          type: "item",
+          attributes: {
+            name: formData.name,
+            email:
+              formData.contact.method === "email" ? formData.contact.value : "",
+            phone:
+              formData.contact.method === "phone" ? formData.contact.value : "",
+          },
+          relationships: {
+            item_type: {
+              data: { type: "item_type", id: "IeGLw8eLSeqoET9G9NmVCA" },
+            },
+          },
         },
       });
+      console.log(result);
     } catch (error) {
       if (error instanceof ApiError) {
         console.log(error.response.body);
@@ -80,9 +86,6 @@ const ContactForm = () => {
         throw error;
       }
     }
-
-    console.log(result);
-
     // Reset the form after submission
     reset();
   };

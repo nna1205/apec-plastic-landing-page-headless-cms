@@ -68,26 +68,28 @@ const ProductContactForm: React.FC<{
   const contactMethod = watch("contact.method"); // Watch the selected contact method
 
   const onSubmit: SubmitHandler<ProductContactFormData> = async (formData) => {
-    const result = {
-      product: {
-        name: productData!.title,
-        id: productData!.id,
-      },
-      customer: formData,
-    };
     try {
-      await client.items.create({
+      const result = await client.items.create({
         item_type: { type: "item_type", id: "HUuou7VGSOit4M2dVjU9eg" },
         message: formData.message,
-        customerInformation: {
-          name: formData.name,
-          email:
-            formData.contact.method === "email" ? formData.contact.value : "",
-          phone:
-            formData.contact.method === "phone" ? formData.contact.value : "",
+        product: productData?.id,
+        customer_information: {
+          type: "item",
+          attributes: {
+            name: formData.name,
+            email:
+              formData.contact.method === "email" ? formData.contact.value : "",
+            phone:
+              formData.contact.method === "phone" ? formData.contact.value : "",
+          },
+          relationships: {
+            item_type: {
+              data: { type: "item_type", id: "IeGLw8eLSeqoET9G9NmVCA" },
+            },
+          },
         },
-        product: productData,
       });
+      console.log(result);
     } catch (error) {
       if (error instanceof ApiError) {
         console.log(error.response.body);
@@ -95,9 +97,6 @@ const ProductContactForm: React.FC<{
         throw error;
       }
     }
-
-    console.log(result);
-
     // Reset the form after submission
     reset();
   };
