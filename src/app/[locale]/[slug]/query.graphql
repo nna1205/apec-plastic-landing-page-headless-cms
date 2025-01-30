@@ -1,5 +1,9 @@
-query Page($slug: String) {
-  page(filter: { slug: { eq: $slug } }) {
+query Page($slug: String, $locale: SiteLocale, $fallbackLocale: [SiteLocale!]) {
+  page(
+    filter: { slug: { eq: $slug } }
+    locale: $locale
+    fallbackLocales: $fallbackLocale
+  ) {
     _seoMetaTags {
       attributes
       content

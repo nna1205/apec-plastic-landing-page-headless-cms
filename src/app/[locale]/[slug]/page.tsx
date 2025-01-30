@@ -2,25 +2,36 @@ import { request } from "@/lib/datocms";
 import {
   PageStaticParamsDocument,
   PageDocument,
+  type SiteLocale,
 } from "@/graphql/types/graphql";
 import { notFound } from "next/navigation";
 import HeroSection from "@/components/Sections/HeroSectionRecord/HeroSection";
 import TestimonialSection from "@/components/Sections/TestimonialSectionRecord/TestimonialSection";
 import ServiceSection from "@/components/Sections/ServiceSectionRecord/ServiceSection";
 import FeaturedProductSection from "@/components/Sections/FeaturedProductSectionRecord/FeaturedProductSection";
+import getAvailableLocales from "@/i18n/setting";
 
 export async function generateStaticParams() {
+  const locales = await getAvailableLocales();
+
   const { allPages } = await request(PageStaticParamsDocument, {});
-  return allPages.map((page) => ({ slug: page.slug }));
+
+  return allPages.flatMap((page) =>
+    locales.map((locale) => ({
+      locale,
+      slug: page.slug,
+    }))
+  );
 }
 
 export default async function Page({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: SiteLocale }>;
 }) {
-  const slug = (await params).slug;
-  const pageData = await request(PageDocument, { slug: slug });
+  const { slug, locale } = await params;
+  const locales = await getAvailableLocales();
+  const pageData = await request(PageDocument, { slug: slug, locale: locale });
 
   if (!pageData) {
     notFound();
