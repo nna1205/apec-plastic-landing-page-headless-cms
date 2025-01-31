@@ -1,8 +1,8 @@
-import { ProductQueryQuery } from "@/graphql/types/graphql";
+import { ProductsQuery } from "@/graphql/types/graphql";
 import Link from "next/link";
 import Image from "next/image";
 
-type ProductProps = ProductQueryQuery["allProducts"][0];
+type ProductProps = ProductsQuery["allProducts"][0];
 
 const ProductThumbnail: React.FC<{ data: ProductProps }> = ({ data }) => {
   return (
