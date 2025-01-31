@@ -1,10 +1,9 @@
 "use client";
 
-import { ProductQueryQuery } from "@/graphql/types/graphql";
+import { ProductsQuery } from "@/graphql/types/graphql";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
-type CategoryFilterProps =
-  ProductQueryQuery["allProducts"][0]["productCategory"];
+type CategoryFilterProps = ProductsQuery["allProducts"][0]["productCategory"];
 
 const CategoryFilter: React.FC<{ data: CategoryFilterProps[] }> = ({
   data,
