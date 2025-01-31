@@ -38,7 +38,7 @@ const HeroSection = ({ fragment }: Props) => {
                   key={item.id}
                   variant={item.variant as ButtonProps["variant"]}
                 >
-                  <Link href={item.url || "#"}>{item.label}</Link>
+                  <Link href={item.slug || "#"}>{item.label}</Link>
                 </Button>
               );
             })}

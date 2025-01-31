@@ -14,7 +14,7 @@ fragment ServiceSection on ServicesSectionRecord {
   callToActions {
     id
     label
-    url
+    slug
     variant
   }
   image {

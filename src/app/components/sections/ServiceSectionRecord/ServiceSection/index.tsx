@@ -48,7 +48,7 @@ const ServiceSection = ({ fragment }: Props) => {
             variant={callToActions[0].variant as ButtonProps["variant"]}
             className="mr-auto"
           >
-            <Link href={callToActions[0].url || "#"}>
+            <Link href={callToActions[0].slug || "#"}>
               {callToActions[0].label}
             </Link>
           </Button>
