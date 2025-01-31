@@ -4,6 +4,7 @@ import Image from "next/image";
 import Icon, { IconName } from "@/components/LucideIcon";
 import Navigation from "./Navigation";
 import SearchModal from "@/components/SearchModal";
+import LocaleSelector from "@/components/LocaleSelector";
 
 type HeaderProps = LayoutRecord;
 
@@ -44,7 +45,10 @@ const Header: React.FC<{ data: HeaderProps }> = ({ data }) => {
           </div>
         </Link>
         <Navigation data={data.navigation} />
-        <SearchModal />
+        <div className="flex gap-2 items-center">
+          <SearchModal />
+          <LocaleSelector />
+        </div>
       </div>
     </header>
   );
