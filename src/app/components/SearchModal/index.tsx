@@ -31,6 +31,8 @@ export default function SearchModal() {
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const params = new URLSearchParams(searchParams);
+    let locale = pathname.split("/")[1];
+
     if (searchInput.trim()) {
       params.set("type", "search");
       params.set("value", searchInput.trim());
@@ -38,10 +40,11 @@ export default function SearchModal() {
       params.delete("type");
       params.delete("value");
     }
-    if (pathname !== "/products") {
-      replace(`/products?${params.toString()}`);
-    } else {
+
+    if (pathname.includes("/products")) {
       replace(`${pathname}?${params.toString()}`);
+    } else {
+      replace(`/${locale}/products?${params.toString()}`);
     }
     setSearchInput("");
     closeModal();
