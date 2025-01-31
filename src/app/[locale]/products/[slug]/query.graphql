@@ -1,0 +1,41 @@
+query Product(
+  $slug: String
+  $locale: SiteLocale
+  $fallbackLocale: [SiteLocale!]
+) {
+  product(
+    filter: { url: { eq: $slug }, title: { isBlank: "false" } }
+    locale: $locale
+    fallbackLocales: $fallbackLocale
+  ) {
+    id
+    title
+    url
+    description
+    material
+    variant
+    weight
+    packaging
+    retailPrice
+    dimension {
+      width
+      height
+      length
+    }
+    productImages {
+      id
+      responsiveImage {
+        src
+        srcSet
+        title
+        alt
+        width
+        height
+      }
+    }
+    productCategory {
+      id
+      title
+    }
+  }
+}

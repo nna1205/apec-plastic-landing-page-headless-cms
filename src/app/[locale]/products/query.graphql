@@ -1,0 +1,17 @@
+query Products($locale: SiteLocale, $fallbackLocale: [SiteLocale!]) {
+  allProducts(locale: $locale, fallbackLocales: $fallbackLocale) {
+    id
+    title
+    url
+    productCategory {
+      id
+      title
+      url
+    }
+    productImages {
+      id
+      title
+      url
+    }
+  }
+}
