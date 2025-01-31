@@ -9,7 +9,8 @@ import HeroSection from "@/components/Sections/HeroSectionRecord/HeroSection";
 import TestimonialSection from "@/components/Sections/TestimonialSectionRecord/TestimonialSection";
 import ServiceSection from "@/components/Sections/ServiceSectionRecord/ServiceSection";
 import FeaturedProductSection from "@/components/Sections/FeaturedProductSectionRecord/FeaturedProductSection";
-import getAvailableLocales from "@/i18n/setting";
+import getAvailableLocales, { getFallbackLocale } from "@/i18n/setting";
+import { toNextMetadata } from "@/utils/SEO";
 
 export async function generateStaticParams() {
   const locales = await getAvailableLocales();
@@ -24,16 +25,37 @@ export async function generateStaticParams() {
   );
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string; locale: SiteLocale }>;
+}) {
+  const { slug, locale } = await params;
+  const allLocales = await getAvailableLocales();
+  const fallbackLocale = await getFallbackLocale();
+  const pageData = await request(PageDocument, {
+    slug: slug,
+    locale: locale,
+    fallbackLocale: [fallbackLocale],
+  });
+
+  if (!pageData || !allLocales.includes(locale)) {
+    return notFound();
+  }
+
+  return toNextMetadata(pageData.page?._seoMetaTags || []);
+}
+
 export default async function Page({
   params,
 }: {
   params: Promise<{ slug: string; locale: SiteLocale }>;
 }) {
   const { slug, locale } = await params;
-  const locales = await getAvailableLocales();
+  const allLocales = await getAvailableLocales();
   const pageData = await request(PageDocument, { slug: slug, locale: locale });
 
-  if (!pageData) {
+  if (!pageData || !allLocales.includes(locale)) {
     notFound();
   }
   return (
