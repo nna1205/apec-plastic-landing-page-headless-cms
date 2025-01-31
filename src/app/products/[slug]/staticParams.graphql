@@ -1,5 +1,0 @@
-query ProductStaticParams {
-  allProducts {
-    url
-  }
-}
