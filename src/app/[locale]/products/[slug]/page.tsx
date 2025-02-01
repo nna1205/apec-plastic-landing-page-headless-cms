@@ -36,14 +36,14 @@ export default async function Page({
       <main className="w-full flex flex-col justify-center items-start gap-6">
         <ProductContainer data={productData.product} />
         <section className="flex flex-col justify-start">
-          <span className="text-lg lg:text-2xl font-black">
+          <span className="text-xl lg:text-3xl font-black">
             NHỰA APEC CAM KẾT
           </span>
-          <ul className="flex flex-col list-disc pl-3 lg:pl-6 text-sm lg:base">
+          <ul className="flex flex-col list-disc pl-3 lg:pl-6 text-sm lg:text-2xl">
             <li className="">Giao hàng trong thời gian ngắn nhất.</li>
             <li className="">
-              Được đổi trả 1 đổi 1 hoàn toàn miễn phí nếu sản phẩm khi nhận hàng
-              bị VỠ – HỎNG – KHÔNG GIỐNG VỚI HÌNH ẢNH.
+              Được đổi trả 1 đổi 1 hoàn toàn miễn phí nếu khi nhận sản phẩm bị
+              VỠ – HỎNG – KHÔNG GIỐNG VỚI HÌNH ẢNH.
             </li>
             <li className="">
               Hỗ trợ giải quyết đơn hàng trong thời gian sớm nhất với phương án
@@ -51,40 +51,15 @@ export default async function Page({
               sắm.
             </li>
           </ul>
-        </section>
-        <section className="flex flex-col gap-1 lg:gap-3">
-          <span className="text-lg lg:text-2xl font-black">
+          <span className="text-xl lg:text-3xl font-black mt-3">
             Chúng tôi nhận gia công theo khuôn của khách hoặc ra khuôn khi đủ số
             lượng sản xuất tối thiểu. Hân hạnh được hợp tác cùng quý khách!
           </span>
-          <ul className="flex flex-col gap-1 lg:gap-3 text-sm">
-            <li>
-              <span className="text-green-800 font-bold">
-                <span className="text-green-400 text-nowrap font-light mr-1">
-                  Địa chỉ văn phòng:
-                </span>
-                Số 55 Trần Khát Chân, Hai Bà Trưng, Hà Nội
-              </span>
-            </li>
-            <li>
-              <span className="text-green-800 font-bold">
-                <span className="text-green-400 text-nowrap font-light mr-1">
-                  Địa chỉ nhà máy:
-                </span>
-                Số 8 ngõ 156 Phú Viên, Bồ Đề, Long Biên, Hà Nội
-              </span>
-            </li>
-            <li>
-              <span className="text-green-800 font-bold">
-                <span className="text-green-400 text-nowrap font-light mr-1">
-                  Liên hệ:
-                </span>
-                0987900669
-              </span>
-            </li>
-          </ul>
         </section>
-        <section id="contact-form" className="relative w-full my-9">
+        <section
+          id="contact-form"
+          className="relative w-full my-9 scroll-mt-40"
+        >
           <div className="flex gap-6 justify-center py-9 w-full flex-col lg:flex-row lg:gap-10 before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-screen before:-z-10 before:h-full before:bg-slate-100">
             <span className="w-full text-black font-black text-2xl lg:line-clamp-4 lg:w-1/2 lg:text-5xl lg:leading-[64px]">
               ĐỂ LẠI THÔNG TIN LIÊN LẠC CỦA BẠN ĐỂ NHỰA APEC CÓ THỂ TƯ VẤN KĨ
