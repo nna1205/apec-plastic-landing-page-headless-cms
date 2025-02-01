@@ -8,6 +8,7 @@ import { notFound } from "next/navigation";
 import ProductContainer from "@/components/Product";
 import ProductContactForm from "@/components/Product/ProductContactForm";
 import ProductRelated from "@/components/Product/ProductRelated";
+import ProductPolicySection from "@/components/Sections/ProductPolicySectionRecord/ProductPolicySection";
 import { getFallbackLocale } from "@/i18n/setting";
 
 export async function generateStaticParams() {
@@ -35,27 +36,7 @@ export default async function Page({
     <div className="w-screen min-h-screen px-4 py-10 my-20 gap-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="w-full flex flex-col justify-center items-start gap-6">
         <ProductContainer data={productData.product} />
-        <section className="flex flex-col justify-start">
-          <span className="text-xl lg:text-3xl font-black">
-            NHỰA APEC CAM KẾT
-          </span>
-          <ul className="flex flex-col list-disc pl-3 lg:pl-6 text-sm lg:text-2xl">
-            <li className="">Giao hàng trong thời gian ngắn nhất.</li>
-            <li className="">
-              Được đổi trả 1 đổi 1 hoàn toàn miễn phí nếu khi nhận sản phẩm bị
-              VỠ – HỎNG – KHÔNG GIỐNG VỚI HÌNH ẢNH.
-            </li>
-            <li className="">
-              Hỗ trợ giải quyết đơn hàng trong thời gian sớm nhất với phương án
-              tốt nhất để khách hàng luôn cảm thấy hài lòng và yên tâm khi mua
-              sắm.
-            </li>
-          </ul>
-          <span className="text-xl lg:text-3xl font-black mt-3">
-            Chúng tôi nhận gia công theo khuôn của khách hoặc ra khuôn khi đủ số
-            lượng sản xuất tối thiểu. Hân hạnh được hợp tác cùng quý khách!
-          </span>
-        </section>
+        <ProductPolicySection locale={locale} fallbackLocale={fallbackLocale} />
         <section
           id="contact-form"
           className="relative w-full my-9 scroll-mt-40"

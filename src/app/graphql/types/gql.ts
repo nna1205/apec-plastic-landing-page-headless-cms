@@ -22,6 +22,7 @@ const documents = {
     "fragment DatoImage on ResponsiveImage {\n  src\n  srcSet\n  base64\n  width\n  height\n  alt\n  title\n}": types.DatoImageFragmentDoc,
     "fragment FeaturedProductSection on FeaturedProductSectionRecord {\n  sectionHeader {\n    id\n    title\n    subtitle\n  }\n  featuredProductsList {\n    id\n    category {\n      id\n      title\n      url\n      description\n    }\n    categoryIcon\n    highlightCategory\n    featuredProducts {\n      id\n      title\n      url\n      productCategory {\n        title\n      }\n      productImages {\n        id\n        responsiveImage {\n          ...DatoImage\n        }\n      }\n    }\n  }\n}": types.FeaturedProductSectionFragmentDoc,
     "fragment HeroSection on HeroSectionRecord {\n  sectionHeader {\n    id\n    title\n    subtitle\n  }\n  callToActions {\n    id\n    label\n    slug\n    variant\n  }\n  image {\n    id\n    responsiveImage {\n      ...DatoImage\n    }\n  }\n}": types.HeroSectionFragmentDoc,
+    "query ProductPolicySection($locale: SiteLocale, $fallbackLocale: [SiteLocale!]) {\n  productPolicy(locale: $locale, fallbackLocales: $fallbackLocale) {\n    id\n    content(locale: $locale, fallbackLocales: $fallbackLocale, markdown: false)\n  }\n}": types.ProductPolicySectionDocument,
     "fragment ServiceSection on ServicesSectionRecord {\n  sectionHeader {\n    id\n    title\n    subtitle\n  }\n  services {\n    id\n    label\n    description\n    icon\n    highlight\n  }\n  callToActions {\n    id\n    label\n    slug\n    variant\n  }\n  image {\n    id\n    responsiveImage {\n      ...DatoImage\n    }\n  }\n}": types.ServiceSectionFragmentDoc,
     "fragment TestimonialSection on TestimonialSectionRecord {\n  sectionHeader {\n    id\n    subtitle\n    title\n  }\n  customerFeedback {\n    id\n    variant\n    customerName\n    customerLocation\n    content\n    image {\n      id\n      responsiveImage {\n        ...DatoImage\n      }\n    }\n  }\n}": types.TestimonialSectionFragmentDoc,
     "query Locales {\n  _site {\n    locales\n  }\n}": types.LocalesDocument,
@@ -74,6 +75,10 @@ export function graphql(source: "fragment FeaturedProductSection on FeaturedProd
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "fragment HeroSection on HeroSectionRecord {\n  sectionHeader {\n    id\n    title\n    subtitle\n  }\n  callToActions {\n    id\n    label\n    slug\n    variant\n  }\n  image {\n    id\n    responsiveImage {\n      ...DatoImage\n    }\n  }\n}"): (typeof documents)["fragment HeroSection on HeroSectionRecord {\n  sectionHeader {\n    id\n    title\n    subtitle\n  }\n  callToActions {\n    id\n    label\n    slug\n    variant\n  }\n  image {\n    id\n    responsiveImage {\n      ...DatoImage\n    }\n  }\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query ProductPolicySection($locale: SiteLocale, $fallbackLocale: [SiteLocale!]) {\n  productPolicy(locale: $locale, fallbackLocales: $fallbackLocale) {\n    id\n    content(locale: $locale, fallbackLocales: $fallbackLocale, markdown: false)\n  }\n}"): (typeof documents)["query ProductPolicySection($locale: SiteLocale, $fallbackLocale: [SiteLocale!]) {\n  productPolicy(locale: $locale, fallbackLocales: $fallbackLocale) {\n    id\n    content(locale: $locale, fallbackLocales: $fallbackLocale, markdown: false)\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
