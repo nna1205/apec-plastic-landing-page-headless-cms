@@ -1,16 +1,40 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { Search } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
+import { Search, Trash } from "lucide-react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 export default function SearchModal() {
   const [searchInput, setSearchInput] = useState("");
   const dialogRef = useRef<HTMLDialogElement>(null);
 
+  const [searchHistory, setSearchHistory] = useState<string[]>([]);
+
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
+
+  useEffect(() => {
+    const storedHistory = JSON.parse(
+      localStorage.getItem("searchHistory") || "[]"
+    );
+    setSearchHistory(storedHistory);
+  }, []);
+
+  const updateSearchHistory = (query: string) => {
+    if (!query.trim()) return;
+    let updatedHistory = [
+      query,
+      ...searchHistory.filter((q) => q !== query),
+    ].slice(0, 10);
+    setSearchHistory(updatedHistory);
+    localStorage.setItem("searchHistory", JSON.stringify(updatedHistory));
+  };
+
+  const clearSearchHistory = () => {
+    localStorage.removeItem("searchHistory");
+    setSearchHistory([]);
+  };
 
   const openModal = () => {
     dialogRef.current?.showModal();
@@ -34,6 +58,7 @@ export default function SearchModal() {
     let locale = pathname.split("/")[1];
 
     if (searchInput.trim()) {
+      updateSearchHistory(searchInput.trim());
       params.set("type", "search");
       params.set("value", searchInput.trim());
     } else {
@@ -73,12 +98,12 @@ export default function SearchModal() {
           <h2 className="text-2xl text-green-800 font-bold">
             Tìm kiếm sản phẩm
           </h2>
-          <div className="flex justify-start items-center gap-2">
+          <div className="flex justify-start items-center gap-2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-400">
             <input
               type="text"
               value={searchInput}
               placeholder="Bạn đang tìm sản phẩm gì?"
-              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="w-full focus:outline-none focus:ring-0"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setSearchInput(e.target.value)
               }
@@ -87,6 +112,32 @@ export default function SearchModal() {
               <Search size={24} color="green" />
             </button>
           </div>
+          {searchHistory.length > 0 && (
+            <div className="max-h-40 overflow-y-auto mt-2">
+              <div className="flex justify-between items-center mb-1">
+                <span className="text-gray-500 text-sm opacity-60">
+                  Lịch sử tìm kiếm
+                </span>
+              </div>
+              <ul className="flex max-w-full gap-2">
+                {searchHistory.map((query, index) => (
+                  <li
+                    key={index}
+                    className="cursor-pointer border border-gray-300 px-3 py-1 rounded"
+                    onClick={() => setSearchInput(query)}
+                  >
+                    {query}
+                  </li>
+                ))}
+              </ul>
+              <button
+                onClick={clearSearchHistory}
+                className="text-red-300 text-center w-max mx-auto text-sm flex justify-center items-center gap-2"
+              >
+                <Trash size={16} /> Xóa tất cả lịch sử
+              </button>
+            </div>
+          )}
           <button
             type="button"
             onClick={closeModal}
