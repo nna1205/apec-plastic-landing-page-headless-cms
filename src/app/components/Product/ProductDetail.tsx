@@ -55,7 +55,6 @@ const ProductDetail: React.FC<{ data: ProductQuery["product"] }> = ({
       </div>
       <Link
         href="#contact-form"
-        scroll={false}
         className="bg-green-800 rounded-md px-9 py-3 text-white text-center text-lg lg:text-2xl font-bold"
       >
         Liên hệ mua hàng
