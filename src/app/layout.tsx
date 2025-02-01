@@ -1,7 +1,11 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { request } from "@/lib/datocms";
-import { LayoutDocument, LayoutRecord } from "@/graphql/types/graphql";
+import {
+  LayoutDocument,
+  LayoutRecord,
+  type SiteLocale,
+} from "@/graphql/types/graphql";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { PostHogProvider } from "@/lib/PostHogProviders";
@@ -18,13 +22,15 @@ const geistMono = Geist_Mono({
 
 export default async function RootLayout({
   children,
+  params: { locale },
 }: Readonly<{
   children: React.ReactNode;
+  params: { locale: SiteLocale };
 }>) {
   const data = await request(LayoutDocument, {});
 
   return (
-    <html lang="en">
+    <html lang={locale as string}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

@@ -39,8 +39,8 @@ export async function generateMetadata({
     fallbackLocale: [fallbackLocale],
   });
 
-  if (!pageData || !allLocales.includes(locale)) {
-    return notFound();
+  if (!pageData.page) {
+    notFound();
   }
 
   return toNextMetadata(pageData.page?._seoMetaTags || []);
