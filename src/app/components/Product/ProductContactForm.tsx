@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ProductQuery } from "@/graphql/types/graphql";
 import { client } from "@/lib/datocms";
 import { ApiError } from "@datocms/cma-client-browser";
+import SubmitButton from "@/components/Button/SubmitButton";
 
 const productContactFormSchema = z.object({
   name: z.string().min(1, "Tên khách hàng không được để trống"),
@@ -67,7 +69,12 @@ const ProductContactForm: React.FC<{
   const productData = data;
   const contactMethod = watch("contact.method"); // Watch the selected contact method
 
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+
   const onSubmit: SubmitHandler<ProductContactFormData> = async (formData) => {
+    setStatus("loading");
     try {
       const result = await client.items.create({
         item_type: { type: "item_type", id: "HUuou7VGSOit4M2dVjU9eg" },
@@ -90,7 +97,11 @@ const ProductContactForm: React.FC<{
         },
       });
       console.log(result);
+      setStatus("success");
+      setTimeout(() => setStatus("idle"), 3000);
     } catch (error) {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 3000);
       if (error instanceof ApiError) {
         console.log(error.response.body);
       } else {
@@ -193,12 +204,9 @@ const ProductContactForm: React.FC<{
           )}
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-green-400 text-white py-3 rounded font-bold hover:bg-green-400 transition"
-        >
+        <SubmitButton type="submit" status={status} variant="primary">
           Gửi thông tin
-        </button>
+        </SubmitButton>
       </form>
     </div>
   );
