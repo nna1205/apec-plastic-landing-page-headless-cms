@@ -10,10 +10,34 @@ import ProductContactForm from "@/components/Product/ProductContactForm";
 import ProductRelated from "@/components/Product/ProductRelated";
 import ProductPolicySection from "@/components/Sections/ProductPolicySectionRecord/ProductPolicySection";
 import { getFallbackLocale } from "@/i18n/setting";
+import type { Metadata, ResolvingMetadata } from "next";
 
 export async function generateStaticParams() {
   const { allProducts } = await request(ProductStaticParamsDocument, {});
   return allProducts.map((product) => ({ slug: product.url }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string; locale: SiteLocale }>;
+}): Promise<Metadata> {
+  const { slug, locale } = await params;
+  const fallbackLocale = await getFallbackLocale();
+  const productData = await request(ProductDocument, {
+    slug: slug,
+    locale: locale,
+    fallbackLocale: [fallbackLocale],
+  });
+
+  if (!productData) {
+    return notFound();
+  }
+
+  return {
+    title: productData.product?.title,
+    description: productData.product?.description,
+  };
 }
 
 export default async function Page({
