@@ -17,7 +17,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
         return (
           <>
             <LoaderCircle className="animate-spin w-5 h-5 text-white mr-3" />
-            Đang gửi...
+            Loading...
           </>
         );
       case "success":
