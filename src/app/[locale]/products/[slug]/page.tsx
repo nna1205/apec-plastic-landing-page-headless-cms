@@ -10,7 +10,7 @@ import ProductContactForm from "@/components/Product/ProductContactForm";
 import ProductRelated from "@/components/Product/ProductRelated";
 import ProductPolicySection from "@/components/Sections/ProductPolicySectionRecord/ProductPolicySection";
 import { getFallbackLocale } from "@/i18n/setting";
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
 
 export async function generateStaticParams() {
   const { allProducts } = await request(ProductStaticParamsDocument, {});
