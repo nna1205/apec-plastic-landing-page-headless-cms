@@ -1,0 +1,13 @@
+query CompanyProfile($locale: SiteLocale, $fallbackLocale: [SiteLocale!]) {
+  upload(
+    locale: $locale
+    fallbackLocales: $fallbackLocale
+    filter: { id: { eq: "EbZ9mRzET9aLsMl83Yc3pw" } }
+  ) {
+    id
+    filename
+    format
+    title
+    url
+  }
+}
