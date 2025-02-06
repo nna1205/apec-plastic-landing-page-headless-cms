@@ -1,16 +1,15 @@
 query Product(
-  $slug: String
+  $id: ItemId
   $locale: SiteLocale
   $fallbackLocale: [SiteLocale!]
 ) {
   product(
-    filter: { url: { eq: $slug }, title: { isBlank: "false" } }
+    filter: { id: { eq: $id }, title: { isBlank: "false" } }
     locale: $locale
     fallbackLocales: $fallbackLocale
   ) {
     id
     title
-    url
     description
     material
     variant

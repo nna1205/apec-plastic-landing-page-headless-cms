@@ -3,6 +3,7 @@ import {
   ProductStaticParamsDocument,
   ProductDocument,
   type SiteLocale,
+  type ProductRecord,
 } from "@/graphql/types/graphql";
 import { notFound } from "next/navigation";
 import ProductContainer from "@/components/Product";
@@ -14,18 +15,18 @@ import type { Metadata } from "next";
 
 export async function generateStaticParams() {
   const { allProducts } = await request(ProductStaticParamsDocument, {});
-  return allProducts.map((product) => ({ slug: product.url }));
+  return allProducts.map((product) => ({ id: product.id }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string; locale: SiteLocale }>;
+  params: Promise<{ id: ProductRecord["id"]; locale: SiteLocale }>;
 }): Promise<Metadata> {
-  const { slug, locale } = await params;
+  const { id, locale } = await params;
   const fallbackLocale = await getFallbackLocale();
   const productData = await request(ProductDocument, {
-    slug: slug,
+    id: id,
     locale: locale,
     fallbackLocale: [fallbackLocale],
   });
@@ -43,12 +44,12 @@ export async function generateMetadata({
 export default async function Page({
   params,
 }: {
-  params: Promise<{ slug: string; locale: SiteLocale }>;
+  params: Promise<{ id: ProductRecord["id"]; locale: SiteLocale }>;
 }) {
-  const { slug, locale } = await params;
+  const { id, locale } = await params;
   const fallbackLocale = await getFallbackLocale();
   const productData = await request(ProductDocument, {
-    slug: slug,
+    id: id,
     locale: locale,
     fallbackLocale: [fallbackLocale],
   });
@@ -75,6 +76,8 @@ export default async function Page({
         </section>
         <ProductRelated
           productCategory={productData.product?.productCategory.title}
+          locale={locale}
+          fallbackLocale={fallbackLocale}
         />
       </main>
     </div>
