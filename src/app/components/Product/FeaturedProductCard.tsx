@@ -39,7 +39,7 @@ const FeaturedProductCard: React.FC<{
         </h3>
       </div>
       <Link
-        href={`/products/${data.url}`}
+        href={`/products/${data.id}`}
         className="flex justify-center items-center mt-3 ml-auto w-fit text-sm text-green-800 lg:text-xl lg:mt-9"
       >
         Chi tiết &#8594;

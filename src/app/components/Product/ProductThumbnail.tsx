@@ -25,7 +25,7 @@ const ProductThumbnail: React.FC<{ data: ProductProps }> = ({ data }) => {
         <h3 className="text-md lg:text-2xl font-bold">{data.title}</h3>
       </div>
       <Link
-        href={`/products/${data.url}`}
+        href={`/products/${data.id}`}
         className="flex justify-center items-center mt-6 lg:mt-9 ml-auto w-fit text-sm lg:text-xl text-green-800"
       >
         Chi tiết &#8594;
