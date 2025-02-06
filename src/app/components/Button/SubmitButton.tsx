@@ -1,6 +1,7 @@
 import React from "react";
 import { LoaderCircle, CheckCircle, AlertTriangle } from "lucide-react";
 import Button, { ButtonProps } from ".";
+import { useTranslation } from "react-i18next";
 
 type SubmitButtonProps = {
   status?: "idle" | "loading" | "success" | "error"; // Handle different states
@@ -11,6 +12,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   children,
   ...rest
 }) => {
+  const { t } = useTranslation();
   const getButtonContent = () => {
     switch (status) {
       case "loading":
@@ -24,14 +26,14 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
         return (
           <>
             <CheckCircle className="w-5 h-5 text-white mr-3" />
-            Thành công!
+            {t("form_success")}
           </>
         );
       case "error":
         return (
           <>
             <AlertTriangle className="w-5 h-5 text-white mr-3" />
-            Lỗi, thử lại
+            {t("form_error")}
           </>
         );
       default:

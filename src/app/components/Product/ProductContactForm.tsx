@@ -8,6 +8,7 @@ import { ProductQuery } from "@/graphql/types/graphql";
 import { client } from "@/lib/datocms";
 import { ApiError } from "@datocms/cma-client-browser";
 import SubmitButton from "@/components/Button/SubmitButton";
+import { useTranslation } from "react-i18next";
 
 const productContactFormSchema = z.object({
   name: z.string().min(1, "Tên khách hàng không được để trống"),
@@ -112,13 +113,18 @@ const ProductContactForm: React.FC<{
     reset();
   };
 
+  const { t } = useTranslation();
+
+  if (!productData) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="w-full box-border p-3 bg-white border border-slate-100 rounded-lg shadow-md lg:p-6 lg:w-1/2">
       {/* Product Summary */}
       <div className="flex flex-col text-start justify-start items-start bg-gray-100 rounded-lg mb-3 px-3 py-2">
         <span className="font-bold text-xs text-green-400">SẢN PHẨM</span>
         <span className="font-black text-base lg:text-xl text-green-800">
-          {productData!.title}
+          {productData?.title}
         </span>
       </div>
 
@@ -205,7 +211,7 @@ const ProductContactForm: React.FC<{
         </div>
 
         <SubmitButton type="submit" status={status} variant="primary">
-          Gửi thông tin
+          {t("form_submit")}
         </SubmitButton>
       </form>
     </div>

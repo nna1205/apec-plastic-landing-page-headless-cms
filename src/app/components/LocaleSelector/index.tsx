@@ -7,8 +7,11 @@ import { type SiteLocale } from "@/graphql/types/graphql";
 import * as motion from "motion/react-client";
 import { AnimatePresence } from "motion/react";
 import { Globe, ChevronDown, Check } from "lucide-react";
+import i18n from "@/i18n";
+import { useTranslation } from "react-i18next";
 
 export default function LocaleSelector() {
+  const { t } = useTranslation();
   const [locales, setLocales] = useState<SiteLocale[]>([]);
   const [selectedLocale, setSelectedLocale] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -23,6 +26,7 @@ export default function LocaleSelector() {
       const fallbackLocale = savedLocale || (await getFallbackLocale());
       setLocales(availableLocales);
       setSelectedLocale(fallbackLocale);
+      i18n.changeLanguage(fallbackLocale);
     }
     fetchLocales();
   }, []);
@@ -30,12 +34,13 @@ export default function LocaleSelector() {
   const handleSelect = (locale: SiteLocale) => {
     setSelectedLocale(locale);
     localStorage.setItem("selectedLocale", locale);
+    i18n.changeLanguage(locale);
 
     // Extract current path without the locale part
     const pathSegments = pathname.split("/").filter(Boolean);
     pathSegments[0] = locale; // Replace the first segment with the selected locale
-
     router.push(`/${pathSegments.join("/")}`);
+
     setIsOpen(false);
   };
 
@@ -70,7 +75,7 @@ export default function LocaleSelector() {
         focus:outline-none"
           >
             <p className="text-xs opacity-30 px-3 pt-1 w-full truncate">
-              Chọn ngôn ngữ
+              {t("search_language")}
             </p>
             {locales.map((locale) => (
               <li

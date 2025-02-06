@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import { Search, Trash } from "lucide-react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 export default function SearchModal() {
   const [searchInput, setSearchInput] = useState("");
@@ -75,13 +76,15 @@ export default function SearchModal() {
     closeModal();
   };
 
+  const { t } = useTranslation();
+
   return (
     <div>
       <button
         onClick={openModal}
         className="lg:w-[240px] flex justify-between items-center text-gray-300 bg-white lg:border-gray-300 lg:border px-3 py-1 text-sm rounded-lg"
       >
-        <span className="hidden lg:block">Tìm kiếm sản phẩm</span>
+        <span className="hidden lg:block">{t("search_title")}</span>
         <Search size={24} color="green" />
       </button>
 
@@ -96,7 +99,7 @@ export default function SearchModal() {
           className="relative flex flex-col gap-4 p-4 bg-white rounded-md"
         >
           <h2 className="text-2xl text-green-800 font-bold">
-            Tìm kiếm sản phẩm
+            {t("search_title")}
           </h2>
           <div className="flex justify-start items-center gap-2 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-400">
             <input
@@ -116,7 +119,7 @@ export default function SearchModal() {
             <div className="max-h-40 overflow-y-auto mt-2">
               <div className="flex justify-between items-center mb-1">
                 <span className="text-gray-500 text-sm opacity-60">
-                  Lịch sử tìm kiếm
+                  {t("search_history")}
                 </span>
               </div>
               <ul className="flex max-w-full gap-2">
@@ -134,7 +137,7 @@ export default function SearchModal() {
                 onClick={clearSearchHistory}
                 className="text-red-300 text-center w-max mx-auto text-sm flex justify-center items-center gap-2"
               >
-                <Trash size={16} /> Xóa tất cả lịch sử
+                <Trash size={16} /> {t("clear_history")}
               </button>
             </div>
           )}
