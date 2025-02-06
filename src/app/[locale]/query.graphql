@@ -1,0 +1,56 @@
+query Layout($locale: SiteLocale, $fallbackLocale: [SiteLocale!]) {
+  rootLayout(locale: $locale, fallbackLocales: $fallbackLocale) {
+    id
+    navigtionLinks {
+      id
+      label
+      page {
+        id
+        slug
+        title
+      }
+    }
+    copyrightStatement
+    footerImage {
+      id
+      alt
+      title
+      url
+    }
+    footerLogo {
+      id
+      alt
+      title
+      url
+    }
+  }
+  brandDetail(locale: $locale, fallbackLocales: $fallbackLocale) {
+    id
+    companyName
+    companyFullname
+    socialMedias {
+      id
+      label
+      showlabel
+      icon
+      url
+    }
+    contacts {
+      id
+      label
+      value
+      icon
+    }
+    addresses {
+      id
+      label
+      addressDetail
+    }
+    logo {
+      id
+      alt
+      title
+      url
+    }
+  }
+}
