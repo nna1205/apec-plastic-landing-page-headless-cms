@@ -31,7 +31,6 @@ export async function generateMetadata({
   params: Promise<{ slug: string; locale: SiteLocale }>;
 }) {
   const { slug, locale } = await params;
-  const allLocales = await getAvailableLocales();
   const fallbackLocale = await getFallbackLocale();
   const pageData = await request(PageDocument, {
     slug: slug,

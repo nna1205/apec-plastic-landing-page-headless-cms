@@ -5,6 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { client } from "@/lib/datocms";
 import { ApiError } from "@datocms/cma-client-browser";
+import { useTranslation } from "react-i18next";
 
 const contactFormSchema = z.object({
   name: z.string().min(1, "Tên khách hàng không được để trống"),
@@ -90,6 +91,8 @@ const ContactForm = () => {
     reset();
   };
 
+  const { t } = useTranslation();
+
   return (
     <div className="w-full box-border p-3 bg-white border border-slate-100 rounded-lg shadow-md lg:p-6 lg:w-1/2">
       {/* Contact Form */}
@@ -158,7 +161,7 @@ const ContactForm = () => {
           type="submit"
           className="w-full bg-green-400 text-white py-3 rounded font-bold hover:bg-green-400 transition"
         >
-          Gửi thông tin
+          {t("form_submit")}
         </button>
       </form>
     </div>

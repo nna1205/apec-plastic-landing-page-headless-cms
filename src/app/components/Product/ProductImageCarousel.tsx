@@ -9,7 +9,7 @@ import { ProductQuery } from "@/graphql/types/graphql";
 const ProductImageCarousel: React.FC<{
   data: ProductQuery["product"];
 }> = ({ data }) => {
-  const imagesData = data?.productImages;
+  const imagesData = data?.productImages || [];
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
