@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { useState } from "react";
 import { X, Menu } from "lucide-react";
-import { LayoutRecord } from "@/graphql/types/graphql";
+import { LayoutQuery } from "@/graphql/types/graphql";
 
-const Navigation: React.FC<{ data: LayoutRecord["navigation"] }> = ({
+const Navigation: React.FC<{ data: LayoutQuery["rootLayout"] }> = ({
   data,
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -36,7 +36,7 @@ const Navigation: React.FC<{ data: LayoutRecord["navigation"] }> = ({
             <X size={24} />
           </button>
           <ul className="flex flex-col h-full gap-6 p-4 mt-9 ml-9">
-            {data.map((item, index) => (
+            {data?.navigtionLinks.map((item, index) => (
               <li
                 key={index}
                 className="flex items-center p-1 text-4xl gap-x-2 hover:text-green-400"
@@ -56,7 +56,7 @@ const Navigation: React.FC<{ data: LayoutRecord["navigation"] }> = ({
         {/* Desktop Menu */}
         <div className="w-full hidden lg:block">
           <ul className="flex gap-2 mt-2 mb-4 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-            {data.map((item, index) => (
+            {data?.navigtionLinks.map((item, index) => (
               <li
                 key={index}
                 className="flex items-center p-1 text-lg gap-x-2 hover:text-green-400"

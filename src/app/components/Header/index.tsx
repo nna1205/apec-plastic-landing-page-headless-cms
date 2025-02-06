@@ -1,4 +1,4 @@
-import { LayoutRecord } from "@/graphql/types/graphql";
+import { LayoutQuery } from "@/graphql/types/graphql";
 import Link from "next/link";
 import Image from "next/image";
 import Icon, { IconName } from "@/components/LucideIcon";
@@ -6,13 +6,13 @@ import Navigation from "./Navigation";
 import SearchModal from "@/components/SearchModal";
 import LocaleSelector from "@/components/LocaleSelector";
 
-type HeaderProps = LayoutRecord;
+type HeaderProps = LayoutQuery;
 
 const Header: React.FC<{ data: HeaderProps }> = ({ data }) => {
   return (
     <header className="fixed top-0 left-0 w-screen z-50">
       <div className="w-full bg-green-800 flex items-center gap-6 py-3 px-6 lg:px-20 text-white text-sm lg:text-lg">
-        {data.contacts.map((item) => (
+        {data.brandDetail?.contacts.map((item) => (
           <a key={item.id} className="flex justify-center items-center">
             <Icon
               name={item.icon as IconName}
@@ -29,7 +29,7 @@ const Header: React.FC<{ data: HeaderProps }> = ({ data }) => {
         >
           <div className="relative w-10 h-10 lg:w-16 lg:h-16">
             <Image
-              src={data.logo.url as string}
+              src={data.brandDetail?.logo.url as string}
               alt="logo"
               fill
               sizes="(min-width: 1024px) 50%, 100%"
@@ -37,14 +37,14 @@ const Header: React.FC<{ data: HeaderProps }> = ({ data }) => {
           </div>
           <div className="hidden lg:flex lg:w-full flex-col items-start">
             <span className="line-clamp-1 text-2xl font-bold">
-              {data.companyName}
+              {data.brandDetail?.companyName}
             </span>
             <span className="line-clamp-1 text-sm font-light">
-              {data.companyFullname}
+              {data.brandDetail?.companyFullname}
             </span>
           </div>
         </Link>
-        <Navigation data={data.navigation} />
+        <Navigation data={data.rootLayout} />
         <div className="flex gap-2 items-center">
           <SearchModal />
           <LocaleSelector />
