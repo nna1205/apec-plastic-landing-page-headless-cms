@@ -1,32 +1,12 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { ReactNode } from "react";
 import "./globals.css";
-import { PostHogProvider } from "@/lib/PostHogProviders";
-import { I18nProvider } from "@/i18n/provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+type Props = {
+  children: ReactNode;
+};
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export default async function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="vi">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <PostHogProvider>
-          <I18nProvider>{children}</I18nProvider>
-        </PostHogProvider>
-      </body>
-    </html>
-  );
+// Since we have a `not-found.tsx` page on the root, a layout file
+// is required, even if it's just passing children through.
+export default function RootLayout({ children }: Props) {
+  return children;
 }
