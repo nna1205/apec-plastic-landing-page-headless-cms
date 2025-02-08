@@ -9,11 +9,12 @@ import HeroSection from "@/components/Sections/HeroSectionRecord/HeroSection";
 import TestimonialSection from "@/components/Sections/TestimonialSectionRecord/TestimonialSection";
 import ServiceSection from "@/components/Sections/ServiceSectionRecord/ServiceSection";
 import FeaturedProductSection from "@/components/Sections/FeaturedProductSectionRecord/FeaturedProductSection";
-import getAvailableLocales, { getFallbackLocale } from "@/i18n/setting";
 import { toNextMetadata } from "@/utils/SEO";
+import { routing } from "@/../i18n/routing";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 
 export async function generateStaticParams() {
-  const locales = await getAvailableLocales();
+  const locales = routing.locales;
 
   const { allPages } = await request(PageStaticParamsDocument, {});
 
@@ -31,7 +32,8 @@ export async function generateMetadata({
   params: Promise<{ slug: string; locale: SiteLocale }>;
 }) {
   const { slug, locale } = await params;
-  const fallbackLocale = await getFallbackLocale();
+  const fallbackLocale = routing.defaultLocale;
+  const t = await getTranslations("page_title");
   const pageData = await request(PageDocument, {
     slug: slug,
     locale: locale,
@@ -42,7 +44,11 @@ export async function generateMetadata({
     notFound();
   }
 
-  return toNextMetadata(pageData.page?._seoMetaTags || []);
+  const metadata = toNextMetadata(pageData.page?._seoMetaTags || []);
+  return {
+    ...metadata,
+    title: `${pageData.page?.title} | ${t("company_name")}`,
+  };
 }
 
 export default async function Page({
@@ -51,12 +57,14 @@ export default async function Page({
   params: Promise<{ slug: string; locale: SiteLocale }>;
 }) {
   const { slug, locale } = await params;
-  const allLocales = await getAvailableLocales();
   const pageData = await request(PageDocument, { slug: slug, locale: locale });
 
-  if (!pageData || !allLocales.includes(locale)) {
+  if (!pageData || !routing.locales.includes(locale as SiteLocale)) {
     notFound();
   }
+
+  // Enable static rendering
+  setRequestLocale(locale);
   return (
     <div className="w-screen min-h-screen py-10 my-20 gap-8 px-4 lg:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-40 row-start-2 items-center sm:items-start">

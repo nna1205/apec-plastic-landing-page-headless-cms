@@ -10,12 +10,16 @@ import ProductContainer from "@/components/Product";
 import ProductContactForm from "@/components/Product/ProductContactForm";
 import ProductRelated from "@/components/Product/ProductRelated";
 import ProductPolicySection from "@/components/Sections/ProductPolicySectionRecord/ProductPolicySection";
-import { getFallbackLocale } from "@/i18n/setting";
 import type { Metadata } from "next";
+import { routing } from "@/../i18n/routing";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 
 export async function generateStaticParams() {
+  const locales = routing.locales;
   const { allProducts } = await request(ProductStaticParamsDocument, {});
-  return allProducts.map((product) => ({ id: product.id }));
+  return allProducts.flatMap((product) =>
+    locales.map((locale) => ({ locale, id: product.id }))
+  );
 }
 
 export async function generateMetadata({
@@ -24,7 +28,8 @@ export async function generateMetadata({
   params: Promise<{ id: ProductRecord["id"]; locale: SiteLocale }>;
 }): Promise<Metadata> {
   const { id, locale } = await params;
-  const fallbackLocale = await getFallbackLocale();
+  const fallbackLocale = routing.defaultLocale;
+  const t = await getTranslations("page_title");
   const productData = await request(ProductDocument, {
     id: id,
     locale: locale,
@@ -36,7 +41,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: productData.product?.title,
+    title: `${productData.product?.title} | ${t("company_name")}`,
     description: productData.product?.description,
   };
 }
@@ -47,14 +52,18 @@ export default async function Page({
   params: Promise<{ id: ProductRecord["id"]; locale: SiteLocale }>;
 }) {
   const { id, locale } = await params;
-  const fallbackLocale = await getFallbackLocale();
+  const fallbackLocale = routing.defaultLocale;
+
+  setRequestLocale(locale);
+  const t = await getTranslations("product");
+
   const productData = await request(ProductDocument, {
     id: id,
     locale: locale,
     fallbackLocale: [fallbackLocale],
   });
 
-  if (!productData) {
+  if (!productData || !routing.locales.includes(locale as SiteLocale)) {
     notFound();
   }
   return (
@@ -68,8 +77,7 @@ export default async function Page({
         >
           <div className="flex gap-6 justify-center py-9 w-full flex-col lg:flex-row lg:gap-10 before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-screen before:-z-10 before:h-full before:bg-slate-100">
             <span className="w-full text-black font-black text-2xl lg:line-clamp-4 lg:w-1/2 lg:text-5xl lg:leading-[64px]">
-              ĐỂ LẠI THÔNG TIN LIÊN LẠC CỦA BẠN ĐỂ NHỰA APEC CÓ THỂ TƯ VẤN KĨ
-              HƠN VỀ SẢN PHẨM
+              {t("form_contact.section_title")}
             </span>
             <ProductContactForm data={productData.product} />
           </div>

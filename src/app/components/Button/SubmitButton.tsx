@@ -1,7 +1,7 @@
 import React from "react";
 import { LoaderCircle, CheckCircle, AlertTriangle } from "lucide-react";
 import Button, { ButtonProps } from ".";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 type SubmitButtonProps = {
   status?: "idle" | "loading" | "success" | "error"; // Handle different states
@@ -12,7 +12,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   children,
   ...rest
 }) => {
-  const { t } = useTranslation();
+  const t = useTranslations();
   const getButtonContent = () => {
     switch (status) {
       case "loading":

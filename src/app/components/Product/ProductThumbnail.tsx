@@ -1,10 +1,13 @@
 import { ProductsQuery } from "@/graphql/types/graphql";
-import Link from "next/link";
+import { Link } from "@/../i18n/routing";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 type ProductProps = ProductsQuery["allProducts"][0];
 
 const ProductThumbnail: React.FC<{ data: ProductProps }> = ({ data }) => {
+  const t = useTranslations("product");
+
   return (
     <div
       key={data.id}
@@ -28,7 +31,7 @@ const ProductThumbnail: React.FC<{ data: ProductProps }> = ({ data }) => {
         href={`/products/${data.id}`}
         className="flex justify-center items-center mt-6 lg:mt-9 ml-auto w-fit text-sm lg:text-xl text-green-800"
       >
-        Chi tiết &#8594;
+        {t("detail_cta")} &#8594;
       </Link>
     </div>
   );

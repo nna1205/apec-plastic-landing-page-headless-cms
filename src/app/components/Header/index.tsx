@@ -1,5 +1,5 @@
 import { LayoutQuery } from "@/graphql/types/graphql";
-import Link from "next/link";
+import { Link } from "@/../i18n/routing";
 import Image from "next/image";
 import Icon, { IconName } from "@/components/LucideIcon";
 import Navigation from "./Navigation";
@@ -23,10 +23,7 @@ const Header: React.FC<{ data: HeaderProps }> = ({ data }) => {
         ))}
       </div>
       <div className="bg-white w-full px-6 lg:px-20 py-1 lg:py-3 relative flex lg:justify-between items-center shadow-sm">
-        <Link
-          href={process.env.NEXT_PUBLIC_BASE_PATH || "/home"}
-          className="flex justify-center items-center gap-3"
-        >
+        <Link href="/home" className="flex justify-center items-center gap-3">
           <div className="relative w-10 h-10 lg:w-16 lg:h-16">
             <Image
               src={data.brandDetail?.logo.url as string}

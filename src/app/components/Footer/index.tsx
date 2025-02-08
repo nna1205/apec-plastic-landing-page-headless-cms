@@ -42,9 +42,9 @@ const Footer: React.FC<{ data: FooterProps }> = ({ data }) => {
             {data.brandDetail?.addresses.map((item) => (
               <p
                 key={item.id}
-                className="flex flex-wrap items-center opacity-80"
+                className="inline-block flex-wrap items-center opacity-80"
               >
-                {item.label}
+                {item.label}:{" "}
                 <span className="font-bold opacity-100">
                   {item.addressDetail}
                 </span>

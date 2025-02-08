@@ -2,6 +2,7 @@
 
 import { ProductsQuery } from "@/graphql/types/graphql";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 type CategoryFilterProps = ProductsQuery["allProducts"][0]["productCategory"];
 
@@ -13,6 +14,7 @@ const CategoryFilter: React.FC<{ data: CategoryFilterProps[] }> = ({
     searchParams?.get("type") === "category" && searchParams?.get("value");
   const pathname = usePathname();
   const { replace } = useRouter();
+  const t = useTranslations("product");
 
   const handleCategoryChange = (category: string) => {
     const params = new URLSearchParams(searchParams);
@@ -30,18 +32,18 @@ const CategoryFilter: React.FC<{ data: CategoryFilterProps[] }> = ({
     <ul className="w-full lg:w-1/5 flex lg:flex-col justify-start lg:gap-9 text-xs lg:text-xl">
       <li>
         <button
-          className={`w-max lg:w-full flex items-center hover:font-bold p-3 rounded-lg box-border ${
+          className={`w-max lg:w-full flex items-center text-start hover:font-bold p-3 rounded-lg box-border ${
             !selectedCategory && "bg-green-400 text-white font-bold"
           }`}
           onClick={() => handleCategoryChange("")}
         >
-          Tất cả sản phẩm
+          {t("filter_label")}
         </button>
       </li>
       {data.map((category) => (
         <li key={category.id}>
           <button
-            className={`w-max lg:w-full flex items-center hover:font-bold p-3 rounded-lg box-border ${
+            className={`w-max lg:w-full flex items-center text-start hover:font-bold p-3 rounded-lg box-border ${
               selectedCategory === category.url &&
               "bg-green-400 text-white font-bold"
             }`}

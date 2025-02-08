@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import { Search, Trash } from "lucide-react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 export default function SearchModal() {
   const [searchInput, setSearchInput] = useState("");
@@ -76,7 +76,7 @@ export default function SearchModal() {
     closeModal();
   };
 
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   return (
     <div>

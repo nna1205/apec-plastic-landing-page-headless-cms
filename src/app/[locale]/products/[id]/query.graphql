@@ -16,6 +16,7 @@ query Product(
     weight
     packaging
     retailPrice
+    wholesalePrice
     dimension {
       width
       height

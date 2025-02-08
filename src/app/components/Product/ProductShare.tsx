@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Facebook, Share, ClipboardCopy } from "lucide-react";
 import { ProductQuery } from "@/graphql/types/graphql";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 const ProductShare: React.FC<{ data: ProductQuery["product"] }> = ({
   data,
@@ -53,7 +53,7 @@ const ProductShare: React.FC<{ data: ProductQuery["product"] }> = ({
     });
   };
 
-  const { t } = useTranslation();
+  const t = useTranslations("product");
 
   return (
     <>
@@ -78,7 +78,7 @@ const ProductShare: React.FC<{ data: ProductQuery["product"] }> = ({
       </Head>
 
       <div className="mr-auto flex justify-center items-center gap-3">
-        <span className="">{`${t("product.share")}:`}</span>
+        <span className="">{`${t("share")}:`}</span>
         {supportsWebShare ? (
           <>
             {/* Facebook Share */}
@@ -94,7 +94,7 @@ const ProductShare: React.FC<{ data: ProductQuery["product"] }> = ({
               onClick={handleWebShare}
               className="bg-slate-300 w-min flex justify-center items-center text-sm gap-2 px-3 py-2 rounded lg:text-base lg:px-4"
             >
-              {t("product.send")}
+              {t("send")}
               <Share className="w-4 h-4 lg:w-5 lg:h-5" />
             </button>
           </>

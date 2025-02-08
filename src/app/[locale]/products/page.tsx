@@ -1,12 +1,44 @@
 import CategoryFilter from "@/components/Category";
 import ProductThumbnail from "@/components/Product/ProductThumbnail";
 import { request } from "@/lib/datocms";
-import { ProductsDocument, type SiteLocale } from "@/graphql/types/graphql";
-import { getFallbackLocale } from "@/i18n/setting";
+import {
+  PageDocument,
+  ProductsDocument,
+  type SiteLocale,
+} from "@/graphql/types/graphql";
+import { routing } from "@/../i18n/routing";
+import { setRequestLocale, getTranslations } from "next-intl/server";
+import { toNextMetadata } from "@/utils/SEO";
+import { notFound } from "next/navigation";
 
 interface SearchQueryProps {
   type: string;
   value: string;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string; locale: SiteLocale }>;
+}) {
+  const { slug, locale } = await params;
+  const fallbackLocale = routing.defaultLocale;
+  const t = await getTranslations("page_title");
+  const pageData = await request(PageDocument, {
+    slug: slug,
+    locale: locale,
+    fallbackLocale: [fallbackLocale],
+  });
+
+  if (!pageData.page) {
+    notFound();
+  }
+
+  const metadata = toNextMetadata(pageData.page?._seoMetaTags || []);
+  return {
+    ...metadata,
+    title: `${pageData.page?.title} | ${t("company_name")}`,
+  };
 }
 
 export default async function Page(props: {
@@ -17,7 +49,8 @@ export default async function Page(props: {
   }>;
 }) {
   const { locale } = await props.params;
-  const fallbackLocale = await getFallbackLocale();
+  const fallbackLocale = routing.defaultLocale;
+  setRequestLocale(locale);
   const productData = await request(ProductsDocument, {
     locale: locale,
     fallbackLocale: [fallbackLocale],

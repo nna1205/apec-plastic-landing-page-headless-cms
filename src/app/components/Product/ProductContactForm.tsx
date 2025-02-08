@@ -8,7 +8,7 @@ import { ProductQuery } from "@/graphql/types/graphql";
 import { client } from "@/lib/datocms";
 import { ApiError } from "@datocms/cma-client-browser";
 import SubmitButton from "@/components/Button/SubmitButton";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 const productContactFormSchema = z.object({
   name: z.string().min(1, "Tên khách hàng không được để trống"),
@@ -113,7 +113,7 @@ const ProductContactForm: React.FC<{
     reset();
   };
 
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   if (!productData) {
     return <div>Loading...</div>;
