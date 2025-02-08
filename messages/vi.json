@@ -1,0 +1,43 @@
+{
+    "select_language": "Chọn ngôn ngữ",
+    "search_placeholder": "Bạn đang tìm sản phẩm gì?",
+    "search_title": "Tìm kiếm sản phẩm",
+    "search_history": "Lịch sử tìm kiếm",
+    "clear_history": "Xóa tất cả",
+    "form_submit": "Gửi thông tin",
+    "form_success": "Thành công",
+    "form_error": "Đã có lỗi xảy ra",
+    "page_title": {
+      "company_name": "Nhựa Apec",
+      "product_detail": "Sản phẩm của Nhựa Apec"
+    },
+    "not_found": {
+      "title": "Không tìm thấy trang",
+      "description": "Có vẻ bạn đang cố truy cập một địa chỉ không tồn tại hoặc đã được xóa.",
+      "back_cta": "Về trang chủ"
+    },
+    "product": {
+      "share": "Chia sẻ",
+      "send": "Gửi",
+      "detail_cta": "Xem chi tiết",
+      "related_label": "SẢN PHẨM LIÊN QUAN",
+      "filter_label": "Tất cả sản phẩm",
+      "detail": {
+        "title": "Thông tin sản phẩm",
+        "contact_cta": "Liên hệ mua hàng",
+        "label": {
+          "variant": "Phân loại",
+          "weight": "Khối lượng",
+          "packaging": "Đóng gói",
+          "dimension": "Kích thước",
+          "retail_price": "Giá bán lẻ",
+          "wholesale_price": "Gián bán số lượng lớn"
+        }
+      },
+      "form_contact": {
+        "section_title": "ĐỂ LẠI THÔNG TIN LIÊN LẠC CỦA BẠN ĐỂ NHỰA APEC CÓ THỂ TƯ VẤN KĨ HƠN VỀ SẢN PHẨM",
+        "product_label": "SẢN PHẨM"
+      }
+    }
+  }
+  

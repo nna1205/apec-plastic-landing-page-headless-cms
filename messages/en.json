@@ -1,0 +1,43 @@
+{
+    "select_language": "Select Language",
+    "search_placeholder": "What are you looking for?",
+    "search_title": "Search for products",
+    "search_history": "Search History",
+    "clear_history": "Clear all",
+    "form_submit": "Submit",
+    "form_success": "Successfully",
+    "form_error": "Something went wrong",
+    "page_title": {
+      "company_name": "Apec Plastic",
+      "product_detail": "Products of Apec Plastic"
+    },
+    "not_found": {
+      "title": "Page not found",
+      "description": "There may be a broken link or the page may have been removed.",
+      "back_cta": "Back to home"
+    },
+    "product": {
+      "share": "Share",
+      "send": "Send",
+      "detail_cta": "View details",
+      "related_label": "RELATED PRODUCTS",
+      "filter_label": "All products",
+      "detail": {
+        "title": "Product detail",
+        "contact_cta": "Contact for purchasing",
+        "label": {
+          "variant": "Variant",
+          "weight": "Weight",
+          "packaging": "Packaging",
+          "dimension": "Dimension",
+          "retail_price": "Retail price",
+          "wholesale_price": "Wholesale price"
+        }
+      },
+      "form_contact": {
+        "section_title": "LEAVE YOUR CONTACT INFORMATION SO APEC PLASTIC CAN CONSULT MORE DETAILED ABOUT THE PRODUCT",
+        "product_label": "PRODUCT"
+      }
+    }
+  }
+  
