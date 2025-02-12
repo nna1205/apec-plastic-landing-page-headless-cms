@@ -15,7 +15,7 @@ const SearchInput = ({
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   ref?: RefObject<HTMLInputElement | null>;
 }) => {
-  const t = useTranslations();
+  const t = useTranslations("search");
   const {
     searchInput,
     setSearchInput,
@@ -40,9 +40,7 @@ const SearchInput = ({
         onSubmit={handleSearchSubmit}
         className="relative flex flex-col gap-3 p-4 bg-white rounded-md"
       >
-        <h2 className="text-2xl text-green-800 font-bold">
-          {t("search_title")}
-        </h2>
+        <h2 className="text-2xl text-green-800 font-bold">{t("title")}</h2>
         <div className="relative flex justify-start items-center gap-2 p-2 border border-gray-300 rounded">
           <input
             ref={ref}
@@ -50,7 +48,7 @@ const SearchInput = ({
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             className="w-full focus:outline-none focus:ring-transparent"
-            placeholder={t("search_placeholder")}
+            placeholder={t("placeholder")}
           />
           <button type="submit" className="">
             <Search size={24} color="green" />
@@ -68,13 +66,13 @@ const SearchInput = ({
           <div className="w-full max-h-40">
             <div className="w-full flex justify-between items-center mb-1">
               <span className="text-gray-500 text-sm opacity-60">
-                {t("search_history")}
+                {t("history_label")}
               </span>
               <button
                 onClick={clearSearchHistory}
                 className="text-red-300 text-center ml-auto text-xs flex justify-center items-center gap-2"
               >
-                <Trash size={12} /> {t("clear_history")}
+                <Trash size={12} /> {t("clear_history_cta")}
               </button>
             </div>
             <ul className="flex max-w-full gap-2 mb-1">

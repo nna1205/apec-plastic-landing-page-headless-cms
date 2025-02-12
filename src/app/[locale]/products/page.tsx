@@ -51,6 +51,7 @@ export default async function Page(props: {
   const { locale } = await props.params;
   const fallbackLocale = routing.defaultLocale;
   setRequestLocale(locale);
+  const t = await getTranslations();
   const productData = await request(ProductsDocument, {
     locale: locale,
     fallbackLocale: [fallbackLocale],
@@ -94,12 +95,13 @@ export default async function Page(props: {
           <div className="text-3xl font-bold text-slate-800 mb-3">
             {query.type === "search" && resultProducts.length === 0 ? (
               <h1>
-                Không tìm thấy kết quả giống với{" "}
+                {t("search.result_empty_label")}{" "}
                 <span className="text-green-400">{query.value}</span>
               </h1>
             ) : (
               <h1>
-                {query.type === "search" && `Kết quả cho: ${query.value}`}
+                {query.type === "search" &&
+                  `${t("search.result_label")}: ${query.value}`}
               </h1>
             )}
           </div>

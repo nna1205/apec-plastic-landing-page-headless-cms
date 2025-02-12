@@ -1,15 +1,19 @@
 {
     "select_language": "Select Language",
-    "search_placeholder": "What are you looking for?",
-    "search_title": "Search for products",
-    "search_history": "Search History",
-    "clear_history": "Clear all",
     "form_submit": "Submit",
     "form_success": "Successfully",
     "form_error": "Something went wrong",
     "page_title": {
       "company_name": "Apec Plastic",
       "product_detail": "Products of Apec Plastic"
+    },
+    "search": {
+      "placeholder": "What are you looking for?",
+      "title": "Search for products",
+      "history_label": "Search History",
+      "clear_history_cta": "Clear all",
+      "result_label": "Result for",
+      "result_empty_label": "No results found with keyword"
     },
     "not_found": {
       "title": "Page not found",

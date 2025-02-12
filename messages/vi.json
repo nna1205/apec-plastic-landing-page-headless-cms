@@ -1,15 +1,19 @@
 {
     "select_language": "Chọn ngôn ngữ",
-    "search_placeholder": "Bạn đang tìm sản phẩm gì?",
-    "search_title": "Tìm kiếm sản phẩm",
-    "search_history": "Lịch sử tìm kiếm",
-    "clear_history": "Xóa tất cả",
     "form_submit": "Gửi thông tin",
     "form_success": "Thành công",
     "form_error": "Đã có lỗi xảy ra",
     "page_title": {
       "company_name": "Nhựa Apec",
       "product_detail": "Sản phẩm của Nhựa Apec"
+    },
+    "search": {
+      "placeholder": "Bạn đang tìm sản phẩm gì?",
+      "title": "Tìm kiếm sản phẩm",
+      "history_label": "Lịch sử tìm kiếm",
+      "clear_history_cta": "Xóa tất cả",
+      "result_label": "Kết quả cho",
+      "result_empty_label": "Không tìm thấy kết quả với từ khóa"
     },
     "not_found": {
       "title": "Không tìm thấy trang",
