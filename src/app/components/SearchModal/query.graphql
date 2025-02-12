@@ -1,0 +1,25 @@
+query Suggestion(
+  $query: String!
+  $locale: SiteLocale
+  $fallbackLocale: [SiteLocale!]
+) {
+  allProducts(
+    locale: $locale
+    fallbackLocales: $fallbackLocale
+    first: "5"
+    orderBy: title_ASC
+    filter: {
+      OR: [
+        { title: { matches: { pattern: $query, caseSensitive: "false" } } }
+        {
+          description: { matches: { pattern: $query, caseSensitive: "false" } }
+        }
+      ]
+    }
+  ) {
+    id
+    title
+    description
+    url
+  }
+}
