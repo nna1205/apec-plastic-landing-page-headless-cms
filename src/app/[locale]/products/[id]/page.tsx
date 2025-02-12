@@ -67,7 +67,7 @@ export default async function Page({
     notFound();
   }
   return (
-    <div className="w-screen min-h-screen px-4 py-10 my-20 gap-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="overflow-x-hidden min-h-screen px-4 py-10 my-20 gap-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="w-full flex flex-col justify-center items-start gap-6">
         <ProductContainer data={productData.product} />
         <ProductPolicySection locale={locale} fallbackLocale={fallbackLocale} />

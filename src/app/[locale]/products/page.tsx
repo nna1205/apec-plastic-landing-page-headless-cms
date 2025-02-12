@@ -80,14 +80,14 @@ export default async function Page(props: {
       return product.productCategory.url.includes(query.value.toLowerCase());
     } else {
       // Filter by product name otherwise
-      return product.title.includes(query.value.toLowerCase());
+      return product.title.toLowerCase().includes(query.value.toLowerCase());
     }
   });
 
   const showCategoryFilter = query.type === "" || query.type === "category";
 
   return (
-    <div className="w-screen min-h-screen px-4 py-10 my-20 gap-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="overflow-x-hidden min-h-screen px-4 py-10 my-20 gap-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <section className="w-full flex flex-col lg:flex-row justify-center gap-3 lg:gap-6">
         {showCategoryFilter && <CategoryFilter data={uniqueCategories} />}
         <main className="w-full lg:w-4/5 flex flex-col">

@@ -66,7 +66,7 @@ export default async function Page({
   // Enable static rendering
   setRequestLocale(locale);
   return (
-    <div className="w-screen min-h-screen py-10 my-20 gap-8 px-4 lg:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="overflow-x-hidden min-h-screen py-10 my-20 gap-8 px-4 lg:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-40 row-start-2 items-center sm:items-start">
         {pageData.page?.sections.map((section) => {
           switch (section.__typename) {
