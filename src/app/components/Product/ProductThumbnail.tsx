@@ -13,7 +13,9 @@ const ProductThumbnail: React.FC<{ data: ProductProps }> = ({ data }) => {
       key={data.id}
       className="w-full h-full p-1 lg:p-3 rounded-sm lg:rounded-xl border-2 border-slate-200"
     >
-      <div className={`relative w-full border-2 h-32 lg:h-60`}>
+      <div
+        className={`relative overflow-hidden w-full rounded-sm lg:rounded-xl h-32 lg:h-60`}
+      >
         <Image
           src={data.productImages[0].url}
           fill

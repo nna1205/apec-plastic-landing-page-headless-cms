@@ -13,9 +13,9 @@ const FeaturedProductCard: React.FC<{
   const t = useTranslations("product");
 
   return (
-    <div className="w-full h-full p-1 rounded-xl border-2 border-slate-200 lg:p-3 lg:rounded-sm">
+    <div className="w-full h-full p-1 rounded-sm border-2 border-slate-200 lg:p-3 lg:rounded-xl">
       <div
-        className={`relative w-full border-2 ${
+        className={`relative w-full overflow-hidden rounded-sm lg:rounded-xl ${
           highlight ? "h-40 lg:h-80" : "h-28 lg:h-60"
         }`}
       >

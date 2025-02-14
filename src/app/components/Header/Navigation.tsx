@@ -14,7 +14,7 @@ const Navigation: React.FC<{ data: LayoutQuery["rootLayout"] }> = ({
   };
 
   return (
-    <nav className="ml-auto lg:ml-0 bg-opacity-90 z-[9999]">
+    <nav className="ml-auto lg:ml-0 bg-opacity-90">
       <div className="container flex items-center justify-between mx-auto">
         <div className="lg:hidden">
           <button
