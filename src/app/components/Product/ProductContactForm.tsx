@@ -2,7 +2,10 @@
 
 import { useState } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { z } from "zod";
+import {
+  useProductFormSchema,
+  type ProductContactFormData,
+} from "./form.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ProductQuery } from "@/graphql/types/graphql";
 import { client } from "@/lib/datocms";
@@ -10,44 +13,10 @@ import { ApiError } from "@datocms/cma-client-browser";
 import SubmitButton from "@/components/Button/SubmitButton";
 import { useTranslations } from "next-intl";
 
-const productContactFormSchema = z.object({
-  name: z.string().min(1, "Tên khách hàng không được để trống"),
-  message: z
-    .string()
-    .min(1, "Tin nhắn không được để trống")
-    .max(500, { message: "Không được vượt quá 500 ký tự" }),
-  contact: z
-    .object({
-      method: z.enum(["email", "phone"]),
-      value: z.string().min(1, {
-        message: "Thông tin liên lạc không được để trống",
-      }),
-    })
-    .refine(
-      (input) => {
-        if (input.method === "email") {
-          return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(
-            input.value
-          );
-        } else if (input.method === "phone") {
-          return /^\+?[0-9]{1,3}[-. ]?[0-9]{3}[-. ]?[0-9]{4}$/.test(
-            input.value
-          );
-        }
-        return true;
-      },
-      {
-        message: "Thông tin liên lạc không hợp lệ",
-        path: ["contact.value"],
-      }
-    ),
-});
-
-type ProductContactFormData = z.infer<typeof productContactFormSchema>;
-
 const ProductContactForm: React.FC<{
   data: ProductQuery["product"];
 }> = ({ data }) => {
+  const productContactFormSchema = useProductFormSchema();
   const {
     handleSubmit,
     control,
@@ -122,7 +91,9 @@ const ProductContactForm: React.FC<{
     <div className="w-full box-border p-3 bg-white border border-slate-100 rounded-lg shadow-md lg:p-6 lg:w-1/2">
       {/* Product Summary */}
       <div className="flex flex-col text-start justify-start items-start bg-gray-100 rounded-lg mb-3 px-3 py-2">
-        <span className="font-bold text-xs text-green-400">SẢN PHẨM</span>
+        <span className="font-bold text-xs text-green-400">
+          {t("product.form_contact.product_label")}
+        </span>
         <span className="font-black text-base lg:text-xl text-green-800">
           {productData?.title}
         </span>
@@ -135,10 +106,12 @@ const ProductContactForm: React.FC<{
       >
         {/* Customer Name */}
         <div>
-          <label className="hidden mb-1 font-medium">Tên khách hàng</label>
+          <label className="hidden mb-1 font-medium">
+            {t("form.customer_name_label")}
+          </label>
           <input
             {...register("name")}
-            placeholder="Tên khách hàng"
+            placeholder={t("form.customer_name_label")}
             className={`w-full p-3 box-border border rounded focus:outline-none focus:ring-1 ${
               errors.name
                 ? "border-red-400 focus:ring-red-400"
@@ -152,15 +125,17 @@ const ProductContactForm: React.FC<{
 
         {/* Contact Method */}
         <div>
-          <label className="hidden mb-1 font-medium">Liên lạc</label>
+          <label className="hidden mb-1 font-medium">
+            {t("form.contact_method_label")}
+          </label>
           <div className="w-full flex justify-between items-center">
             <select
               {...register("contact.method")}
               title="Liên lạc"
-              className="w-min max-w-min box-border flex-none text-sm p-3 mr-3 border border-gray-300 rounded lg:text-xl focus:outline-none focus:ring-1 focus:ring-green-400"
+              className="w-min box-border flex-none text-sm p-3 mr-3 border border-gray-300 rounded lg:text-xl focus:outline-none focus:ring-1 focus:ring-green-400"
             >
               <option value="email">Email</option>
-              <option value="phone">Điện thoại</option>
+              <option value="phone">{t("form.contact_phone_label")}</option>
             </select>
             <Controller
               name="contact.value"
@@ -192,11 +167,13 @@ const ProductContactForm: React.FC<{
 
         {/* Message */}
         <div>
-          <label className="hidden mb-1 font-medium">Lời nhắn</label>
+          <label className="hidden mb-1 font-medium">
+            {t("form.customer_message_label")}
+          </label>
           <textarea
             {...register("message")}
             rows={4}
-            placeholder="Tin nhắn"
+            placeholder={t("form.customer_message_label")}
             className={`w-full max-h-20 box-border p-3 border rounded focus:outline-none focus:ring-1 ${
               errors.message
                 ? "border-red-400 focus:ring-red-400"

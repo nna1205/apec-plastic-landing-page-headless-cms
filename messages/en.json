@@ -3,6 +3,17 @@
     "form_submit": "Submit",
     "form_success": "Successfully",
     "form_error": "Something went wrong",
+    "form_description": "Sign up to receive the latest news about our products, services, and promotions.",
+    "form": {
+      "customer_name_label": "Customer Name",
+      "contact_method_label": "Contact Method",
+      "contact_phone_label": "Phone",
+      "customer_message_label": "Message",
+      "error_message": {
+        "required": "This field is required",
+        "invalid": "Invalid phone number"
+      }
+    },
     "page_title": {
       "company_name": "Apec Plastic",
       "product_detail": "Products of Apec Plastic"

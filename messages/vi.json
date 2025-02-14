@@ -3,6 +3,17 @@
     "form_submit": "Gửi thông tin",
     "form_success": "Thành công",
     "form_error": "Đã có lỗi xảy ra",
+    "form_description": "Đăng ký để nhận tin tức mới nhất về các chương trình khuyến mãi, ưu đãi, chính sách mới nhất của chúng tôi.",
+    "form": {
+      "customer_name_label": "Tên khách hàng",
+      "contact_method_label": "Liên lạc",
+      "contact_phone_label": "Điện thoại",
+      "customer_message_label": "Lời nhắn",
+      "error_message": {
+        "required": "Không được bỏ trống",
+        "invalid": "Số điện thoại không hợp lệ"
+      }
+    },
     "page_title": {
       "company_name": "Nhựa Apec",
       "product_detail": "Sản phẩm của Nhựa Apec"
