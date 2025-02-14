@@ -10,6 +10,8 @@ import { routing } from "@/../i18n/routing";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { toNextMetadata } from "@/utils/SEO";
 import { notFound } from "next/navigation";
+import { PackageX } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface SearchQueryProps {
   type: string;
@@ -23,7 +25,6 @@ export async function generateMetadata({
 }) {
   const { slug, locale } = await params;
   const fallbackLocale = routing.defaultLocale;
-  const t = await getTranslations("page_title");
   const pageData = await request(PageDocument, {
     slug: slug,
     locale: locale,
@@ -34,12 +35,24 @@ export async function generateMetadata({
     notFound();
   }
 
-  const metadata = toNextMetadata(pageData.page?._seoMetaTags || []);
-  return {
-    ...metadata,
-    title: `${pageData.page?.title} | ${t("company_name")}`,
-  };
+  return toNextMetadata(pageData.page?._seoMetaTags || []);
 }
+
+const NotFoundResultBanner = ({ query }: { query: string }) => {
+  const t = useTranslations("search");
+  return (
+    <div className="w-full flex justify-start items-center gap-3 text-center p-3 mb-3 border border-gray-400 bg-gray-200 rounded-xl">
+      <PackageX size={24} />
+      <div className="text-start">
+        <h1 className="text-base">
+          {t("result_empty_label")}{" "}
+          <span className="font-bold text-green-800">"{query}"</span>
+        </h1>
+        <p className="text-xs opacity-60">{t("result_empty_description")}</p>
+      </div>
+    </div>
+  );
+};
 
 export default async function Page(props: {
   params: Promise<{ locale: SiteLocale }>;
@@ -51,7 +64,7 @@ export default async function Page(props: {
   const { locale } = await props.params;
   const fallbackLocale = routing.defaultLocale;
   setRequestLocale(locale);
-  const t = await getTranslations();
+  const t = await getTranslations("search");
   const productData = await request(ProductsDocument, {
     locale: locale,
     fallbackLocale: [fallbackLocale],
@@ -72,7 +85,7 @@ export default async function Page(props: {
     ).values(),
   ];
 
-  const resultProducts = productData.allProducts.filter((product) => {
+  let resultProducts = productData.allProducts.filter((product) => {
     // If both type and value are empty strings, return all products
     if (!query.type && !query.value) {
       return true;
@@ -85,26 +98,29 @@ export default async function Page(props: {
     }
   });
 
-  const showCategoryFilter = query.type === "" || query.type === "category";
+  // If search returns no results, keep all products but still show the banner
+  const showNotFoundBanner =
+    query.type === "search" && resultProducts.length === 0;
+  if (showNotFoundBanner) {
+    resultProducts = productData.allProducts;
+  }
 
   return (
-    <div className="overflow-x-hidden min-h-screen px-4 py-10 my-20 gap-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="w-screen bg-gray-100 min-h-screen px-4 py-10 my-20 gap-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+      {showNotFoundBanner && <NotFoundResultBanner query={query.value} />}
       <section className="w-full flex flex-col lg:flex-row justify-center gap-3 lg:gap-6">
-        {showCategoryFilter && <CategoryFilter data={uniqueCategories} />}
-        <main className="w-full lg:w-4/5 flex flex-col">
-          <div className="text-3xl font-bold text-slate-800 mb-3">
-            {query.type === "search" && resultProducts.length === 0 ? (
+        <CategoryFilter data={uniqueCategories} />
+        <main className="w-full lg:w-4/5 flex flex-col bg-white p-3 rounded-md lg:rounded-xl">
+          {query.type === "search" && !showNotFoundBanner && (
+            <div className="flex justify-start items-center text-xl text-slate-800 mb-3 gap-1">
               <h1>
-                {t("search.result_empty_label")}{" "}
-                <span className="text-green-400">{query.value}</span>
+                {t("result_label")}{" "}
+                <span className="font-bold text-green-800">
+                  "{query.value}"
+                </span>
               </h1>
-            ) : (
-              <h1>
-                {query.type === "search" &&
-                  `${t("search.result_label")}: ${query.value}`}
-              </h1>
-            )}
-          </div>
+            </div>
+          )}
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-6">
             {resultProducts.map((product) => {
               return <ProductThumbnail key={product.id} data={product} />;
