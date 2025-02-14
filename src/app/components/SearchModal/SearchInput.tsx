@@ -7,6 +7,7 @@ import { useSearchSuggestions } from "@/hooks/useSuggestion";
 import { Trash, Search } from "lucide-react";
 import { useTranslations } from "next-intl";
 import SuggestionList from "./SearchSuggestion";
+import SearchHistory from "./SearchHistory";
 
 const SearchInput = ({
   setIsOpen,
@@ -75,7 +76,11 @@ const SearchInput = ({
                 <Trash size={12} /> {t("clear_history_cta")}
               </button>
             </div>
-            <ul className="flex max-w-full gap-2 mb-1">
+            <SearchHistory
+              searchHistory={searchHistory}
+              setSearchInput={setSearchInput}
+            />
+            {/* <ul className="flex max-w-full gap-2 mb-1">
               {searchHistory.map((query, index) => (
                 <li
                   key={index}
@@ -85,7 +90,7 @@ const SearchInput = ({
                   {query}
                 </li>
               ))}
-            </ul>
+            </ul> */}
           </div>
         )}
         <button

@@ -12,8 +12,11 @@
       "title": "Tìm kiếm sản phẩm",
       "history_label": "Lịch sử tìm kiếm",
       "clear_history_cta": "Xóa tất cả",
-      "result_label": "Kết quả cho",
-      "result_empty_label": "Không tìm thấy kết quả với từ khóa"
+      "result_label": "Kết quả cho từ khóa",
+      "result_empty_label": "Không tìm thấy kết quả với từ khóa",
+      "result_empty_description": "Thử tìm kiếm với các từ khóa khác hoặc xem các sản phẩm khác dưới đây",
+      "history_show_more": "Xem thêm",
+      "history_show_less": "Rút gọn"
     },
     "not_found": {
       "title": "Không tìm thấy trang",

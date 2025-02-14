@@ -12,8 +12,11 @@
       "title": "Search for products",
       "history_label": "Search History",
       "clear_history_cta": "Clear all",
-      "result_label": "Result for",
-      "result_empty_label": "No results found with keyword"
+      "result_label": "Result for keyword",
+      "result_empty_label": "No results found with keyword",
+      "result_empty_description": "Try to search with different keywords or browse our products below",
+      "history_show_more": "Show more",
+      "history_show_less": "Show less"
     },
     "not_found": {
       "title": "Page not found",
