@@ -1,5 +1,6 @@
 import { LayoutQuery } from "@/graphql/types/graphql";
 import Link from "next/link";
+import Image from "next/image";
 import ContactForm from "@/components/ContactForm";
 import { useTranslations } from "next-intl";
 
@@ -12,11 +13,14 @@ const Footer: React.FC<{ data: FooterProps }> = ({ data }) => {
       <div className="w-full flex flex-col lg:flex-row bg-white px-10">
         <div className="w-full lg:w-1/2 flex flex-col gap-3 lg:gap-6 p-6 lg:p-10">
           <div className="flex justify-center items-center gap-3">
-            <img
-              src={data.brandDetail?.logo.url as string}
-              alt="logo"
-              className="w-16 h-16 lg:w-24 lg:h-24"
-            />
+            <div className="block relative w-16 h-16 lg:w-24 lg:h-24">
+              <Image
+                src={data.brandDetail?.logo.url as string}
+                alt="logo"
+                fill
+                sizes="(min-width: 100px) 50%, 100%"
+              />
+            </div>
             <div className="flex flex-col justify-start gap-2 mr-auto">
               <span className="text-green-800 text-3xl lg:text-5xl font-black">
                 {data.brandDetail?.companyName}

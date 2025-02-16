@@ -24,12 +24,12 @@ const Header: React.FC<{ data: HeaderProps }> = ({ data }) => {
       </div>
       <div className="bg-white w-full px-6 lg:px-20 py-1 lg:py-3 relative flex lg:justify-between items-center shadow-sm">
         <Link href="/home" className="flex justify-center items-center gap-3">
-          <div className="relative w-10 h-10 lg:w-16 lg:h-16">
+          <div className="block relative w-10 h-10 lg:w-16 lg:h-16">
             <Image
               src={data.brandDetail?.logo.url as string}
               alt="logo"
               fill
-              sizes="(min-width: 1024px) 50%, 100%"
+              sizes="(min-width: 100px) 50%, 100%"
             />
           </div>
           <div className="hidden lg:flex lg:w-full flex-col items-start">
