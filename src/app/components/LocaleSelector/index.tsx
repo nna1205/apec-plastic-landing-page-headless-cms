@@ -25,7 +25,7 @@ export default function LocaleSelector() {
     if (savedLocale && savedLocale !== locale) {
       handleLocaleChange(savedLocale);
     }
-  }, []);
+  });
 
   const handleLocaleChange = (nextLocale: SiteLocale) => {
     localStorage.setItem("selectedLocale", nextLocale);
@@ -71,12 +71,16 @@ export default function LocaleSelector() {
               <li
                 key={cur}
                 onClick={() => handleLocaleChange(cur as SiteLocale)}
-                className="relative flex justify-start items-center px-3 hover:bg-gray-200 cursor-pointer"
               >
-                <span className="text-sm">{getLocaleName(cur)}</span>
-                {locale === cur && (
-                  <Check size={16} className="opacity-80 ml-1" />
-                )}
+                <button
+                  disabled={isPending}
+                  className="flex justify-start items-center px-3 hover:bg-gray-200 cursor-pointer"
+                >
+                  <span className="text-sm">{getLocaleName(cur)}</span>
+                  {locale === cur && (
+                    <Check size={16} className="opacity-80 ml-1" />
+                  )}
+                </button>
               </li>
             ))}
           </motion.ul>

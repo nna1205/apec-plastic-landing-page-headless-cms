@@ -52,6 +52,7 @@ export type SeoTag = SeoTitleTag | SeoMetaTag;
 export type FaviconTag = SeoMetaTag | SeoLinkTag;
 export type SeoOrFaviconTag = SeoTag | FaviconTag;
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 export const isSeoTitleTag = (tag: any): tag is SeoTitleTag =>
   "tag" in tag && tag.tag === "title" && !tag.attributes;
 

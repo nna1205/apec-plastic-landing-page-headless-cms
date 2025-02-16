@@ -38,7 +38,7 @@ export function useSearchSuggestions(query: string) {
     }
     
     fetchSuggestions();
-  }, [query]);
+  }, [query, locale, fallbackLocale]);
 
   return { suggestions, autoComplete, loading };
 }

@@ -17,7 +17,7 @@ export function useSearch() {
 
   const updateSearchHistory = (query: string) => {
     if (!query.trim()) return;
-    let updatedHistory = [query, ...searchHistory.filter((q) => q !== query)].slice(0, 10);
+    const updatedHistory = [query, ...searchHistory.filter((q) => q !== query)].slice(0, 10);
     setSearchHistory(updatedHistory);
     localStorage.setItem("searchHistory", JSON.stringify(updatedHistory));
   };
@@ -31,7 +31,6 @@ export function useSearch() {
     e.preventDefault();
     startTransition(() => {
       const params = new URLSearchParams(searchParams);
-      let locale = pathname.split("/")[1];
 
       if (searchInput.trim()) {
         updateSearchHistory(searchInput.trim());

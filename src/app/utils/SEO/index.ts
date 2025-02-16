@@ -65,15 +65,16 @@ import {
   };
   
   const camelize = (string: string) =>
-    string.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
+    string.replace(/_([a-z])/g, (letter) => letter.toUpperCase());
   
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   export function toNextMetadata(
     data: TitleMetaLinkTag[] | SeoOrFaviconTag[],
   ): Metadata {
     const metadata: Record<string, any> = {};
   
     data.forEach((datum) => {
-      const { tag, attributes, content } = datum;
+      const { tag, content } = datum;
   
       if (tag === 'title') {
         metadata.title = content;
@@ -84,7 +85,7 @@ import {
           const { property, content } = datum.attributes;
   
           if (property.match(/^og:/)) {
-            const [_, ...parts] = property.split(':');
+            const [...parts] = property.split(':');
   
             if (parts?.length === 1) {
               if (parts[0] === 'image') {
@@ -128,7 +129,7 @@ import {
           if (name.match(/^msapplication-/)) {
             // Ignore: already deprecated at the release of Next 13.
           } else if (name.match(/^twitter:/)) {
-            const [_, ...parts] = name.split(':');
+            const [...parts] = name.split(':');
   
             if (parts?.length === 1) {
               metadata.twitter = {

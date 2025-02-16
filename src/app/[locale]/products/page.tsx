@@ -46,7 +46,9 @@ const NotFoundResultBanner = ({ query }: { query: string }) => {
       <div className="text-start">
         <h1 className="text-base">
           {t("result_empty_label")}{" "}
-          <span className="font-bold text-green-800">"{query}"</span>
+          <span className="font-bold text-green-800">
+            &ldquo;{query}&rdquo;
+          </span>
         </h1>
         <p className="text-xs opacity-60">{t("result_empty_description")}</p>
       </div>
@@ -116,7 +118,7 @@ export default async function Page(props: {
               <h1>
                 {t("result_label")}{" "}
                 <span className="font-bold text-green-800">
-                  "{query.value}"
+                  &ldquo;{query.value}&rdquo;
                 </span>
               </h1>
             </div>
