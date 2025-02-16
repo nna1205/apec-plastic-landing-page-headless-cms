@@ -5,10 +5,10 @@ import {
   type SiteLocale,
 } from "@/app/graphql/types/graphql";
 import { notFound } from "next/navigation";
-import HeroSection from "@/app/components/Sections/HeroSectionRecord/HeroSection";
-import TestimonialSection from "@/app/components/Sections/TestimonialSectionRecord/TestimonialSection";
-import ServiceSection from "@/app/components/Sections/ServiceSectionRecord/ServiceSection";
-import FeaturedProductSection from "@/app/components/Sections/FeaturedProductSectionRecord/FeaturedProductSection";
+import HeroSection from "@/app/components/Sections/HeroSectionRecord/HeroSection/index";
+import TestimonialSection from "@/app/components/Sections/TestimonialSectionRecord/TestimonialSection/index";
+import ServiceSection from "@/app/components/Sections/ServiceSectionRecord/ServiceSection/index";
+import FeaturedProductSection from "@/app/components/Sections/FeaturedProductSectionRecord/FeaturedProductSection/index";
 import { toNextMetadata } from "@/app/utils/SEO";
 import { routing } from "@/i18n/routing";
 import { setRequestLocale, getTranslations } from "next-intl/server";

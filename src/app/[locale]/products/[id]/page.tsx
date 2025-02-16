@@ -9,7 +9,7 @@ import { notFound } from "next/navigation";
 import ProductContainer from "@/app/components/Product";
 import ProductContactForm from "@/app/components/Product/ProductContactForm";
 import ProductRelated from "@/app/components/Product/ProductRelated";
-import ProductPolicySection from "@/app/components/Sections/ProductPolicySectionRecord/ProductPolicySection";
+import ProductPolicySection from "@/app/components/Sections/ProductPolicySectionRecord/ProductPolicySection/index";
 import type { Metadata } from "next";
 import { routing } from "@/i18n/routing";
 import { setRequestLocale, getTranslations } from "next-intl/server";
