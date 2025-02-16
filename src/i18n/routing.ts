@@ -1,6 +1,6 @@
 import {defineRouting} from 'next-intl/routing';
 import {createNavigation} from 'next-intl/navigation';
-import { SiteLocale } from '@/graphql/types/graphql';
+import { SiteLocale } from '@/app/graphql/types/graphql';
  
 export const routing = defineRouting({
   // A list of all locales that are supported

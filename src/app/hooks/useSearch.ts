@@ -1,6 +1,6 @@
 import { useState, useEffect, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
-import { usePathname, useRouter} from "@/../i18n/routing";
+import { usePathname, useRouter} from "@/i18n/routing";
 
 export function useSearch() {
   const [isPending, startTransition] = useTransition();

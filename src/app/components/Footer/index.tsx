@@ -1,7 +1,7 @@
-import { LayoutQuery } from "@/graphql/types/graphql";
+import { LayoutQuery } from "@/app/graphql/types/graphql";
 import Link from "next/link";
 import Image from "next/image";
-import ContactForm from "@/components/ContactForm";
+import ContactForm from "@/app/components/ContactForm";
 import { useTranslations } from "next-intl";
 
 type FooterProps = LayoutQuery;

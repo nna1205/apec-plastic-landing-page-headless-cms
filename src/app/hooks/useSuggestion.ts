@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { request } from "@/lib/datocms"
-import { SuggestionDocument, SuggestionQuery, type SiteLocale } from "@/graphql/types/graphql"
-import { routing } from "@/../i18n/routing";
+import { request } from "@/app/lib/datocms"
+import { SuggestionDocument, SuggestionQuery, type SiteLocale } from "@/app/graphql/types/graphql"
+import { routing } from "@/i18n/routing";
 import { useLocale } from "next-intl";
 
 export function useSearchSuggestions(query: string) {

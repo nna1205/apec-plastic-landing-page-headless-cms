@@ -1,8 +1,8 @@
-import { request } from "@/lib/datocms";
+import { request } from "@/app/lib/datocms";
 import {
   ProductPolicySectionDocument,
   type SiteLocale,
-} from "@/graphql/types/graphql";
+} from "@/app/graphql/types/graphql";
 import ReactMarkdown from "react-markdown";
 
 const ProductPolicySection: React.FC<{

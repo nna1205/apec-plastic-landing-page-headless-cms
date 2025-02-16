@@ -1,5 +1,5 @@
-import { type FragmentType, getFragmentData } from "@/graphql/types";
-import { TestimonialSectionFragmentDoc } from "@/graphql/types/graphql";
+import { type FragmentType, getFragmentData } from "@/app/graphql/types";
+import { TestimonialSectionFragmentDoc } from "@/app/graphql/types/graphql";
 import * as motion from "motion/react-client";
 import TestimonialCard from "./TestimonialCard";
 

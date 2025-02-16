@@ -1,6 +1,6 @@
-import { ProductsDocument, SiteLocale } from "@/graphql/types/graphql";
-import ProductThumbnail from "@/components/Product/ProductThumbnail";
-import { request } from "@/lib/datocms";
+import { ProductsDocument, SiteLocale } from "@/app/graphql/types/graphql";
+import ProductThumbnail from "@/app/components/Product/ProductThumbnail";
+import { request } from "@/app/lib/datocms";
 import { getTranslations } from "next-intl/server";
 
 async function ProductRelated({

@@ -1,10 +1,10 @@
-import { LayoutQuery } from "@/graphql/types/graphql";
-import { Link } from "@/../i18n/routing";
+import { LayoutQuery } from "@/app/graphql/types/graphql";
+import { Link } from "@/i18n/routing";
 import Image from "next/image";
-import Icon, { IconName } from "@/components/LucideIcon";
+import Icon, { IconName } from "@/app/components/LucideIcon";
 import Navigation from "./Navigation";
-import SearchModal from "@/components/SearchModal";
-import LocaleSelector from "@/components/LocaleSelector";
+import SearchModal from "@/app/components/SearchModal";
+import LocaleSelector from "@/app/components/LocaleSelector";
 
 type HeaderProps = LayoutQuery;
 

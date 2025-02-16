@@ -1,9 +1,9 @@
 "use client";
 
 import { Dispatch, SetStateAction, RefObject } from "react";
-import { useDebouncedValue } from "@/hooks/useDebouncedValue";
-import { useSearch } from "@/hooks/useSearch";
-import { useSearchSuggestions } from "@/hooks/useSuggestion";
+import { useDebouncedValue } from "@/app/hooks/useDebouncedValue";
+import { useSearch } from "@/app/hooks/useSearch";
+import { useSearchSuggestions } from "@/app/hooks/useSuggestion";
 import { Trash, Search } from "lucide-react";
 import { useTranslations } from "next-intl";
 import SuggestionList from "./SearchSuggestion";
@@ -80,17 +80,6 @@ const SearchInput = ({
               searchHistory={searchHistory}
               setSearchInput={setSearchInput}
             />
-            {/* <ul className="flex max-w-full gap-2 mb-1">
-              {searchHistory.map((query, index) => (
-                <li
-                  key={index}
-                  className="cursor-pointer border border-gray-300 px-3 py-1 rounded"
-                  onClick={() => setSearchInput(query)}
-                >
-                  {query}
-                </li>
-              ))}
-            </ul> */}
           </div>
         )}
         <button

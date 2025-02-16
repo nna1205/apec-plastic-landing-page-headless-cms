@@ -1,9 +1,9 @@
 "use client";
 
-import { Link } from "@/../i18n/routing";
+import { Link } from "@/i18n/routing";
 import { useState } from "react";
 import { X, Menu } from "lucide-react";
-import { LayoutQuery } from "@/graphql/types/graphql";
+import { LayoutQuery } from "@/app/graphql/types/graphql";
 
 const Navigation: React.FC<{ data: LayoutQuery["rootLayout"] }> = ({
   data,

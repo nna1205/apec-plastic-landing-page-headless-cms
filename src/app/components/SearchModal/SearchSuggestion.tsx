@@ -1,5 +1,5 @@
-import { Link } from "@/../i18n/routing";
-import { SuggestionQuery } from "@/graphql/types/graphql";
+import { Link } from "@/i18n/routing";
+import { SuggestionQuery } from "@/app/graphql/types/graphql";
 import { Package2, MoveUpLeft, CornerUpRight } from "lucide-react";
 
 type SuggestionListProps = {

@@ -1,8 +1,8 @@
 import { Quote, CircleUserRound } from "lucide-react";
 //import Image from "next/image";
 import * as motion from "motion/react-client";
-import DatoImage from "@/components/ResponsiveImage";
-import { TestimonialSectionFragment } from "@/graphql/types/graphql";
+import DatoImage from "@/app/components/ResponsiveImage";
+import { TestimonialSectionFragment } from "@/app/graphql/types/graphql";
 
 type FeedbackProps = TestimonialSectionFragment["customerFeedback"][0];
 

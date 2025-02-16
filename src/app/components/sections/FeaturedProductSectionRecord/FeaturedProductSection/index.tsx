@@ -1,7 +1,7 @@
-import { type FragmentType, getFragmentData } from "@/graphql/types";
-import { FeaturedProductSectionFragmentDoc } from "@/graphql/types/graphql";
+import { type FragmentType, getFragmentData } from "@/app/graphql/types";
+import { FeaturedProductSectionFragmentDoc } from "@/app/graphql/types/graphql";
 import * as motion from "motion/react-client";
-import FeaturedCategory from "@/components/Category/FeaturedCategory";
+import FeaturedCategory from "@/app/components/Category/FeaturedCategory";
 
 type Props = {
   fragment: FragmentType<typeof FeaturedProductSectionFragmentDoc>;

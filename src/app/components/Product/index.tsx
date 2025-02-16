@@ -1,6 +1,6 @@
-import ProductDetail from "@/components/Product/ProductDetail";
-import ProductImageCarousel from "@/components/Product/ProductImageCarousel";
-import { ProductQuery } from "@/graphql/types/graphql";
+import ProductDetail from "@/app/components/Product/ProductDetail";
+import ProductImageCarousel from "@/app/components/Product/ProductImageCarousel";
+import { ProductQuery } from "@/app/graphql/types/graphql";
 
 const ProductContainer = ({ data }: { data: ProductQuery["product"] }) => {
   return (

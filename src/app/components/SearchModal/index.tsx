@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import Modal from "@/components/Modal";
+import Modal from "@/app/components/Modal";
 import SearchInput from "./SearchInput";
 import { Search } from "lucide-react";
 import { useTranslations } from "next-intl";

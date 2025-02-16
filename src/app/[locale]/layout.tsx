@@ -1,8 +1,8 @@
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { routing } from "../../i18n/routing";
-import { type SiteLocale } from "@/graphql/types/graphql";
-import BaseLayout from "@/components/BaseLayout";
+import { routing } from "@/i18n/routing";
+import { type SiteLocale } from "@/app/graphql/types/graphql";
+import BaseLayout from "@/app/components/BaseLayout";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

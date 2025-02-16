@@ -1,6 +1,6 @@
-import BaseLayout from "@/components/BaseLayout";
+import BaseLayout from "@/app/components/BaseLayout";
 import { routing } from "../i18n/routing";
-import NotFoundPage from "@/components/NotFound";
+import NotFoundPage from "@/app/components/NotFound";
 
 export default function GlobalNotFound() {
   return (

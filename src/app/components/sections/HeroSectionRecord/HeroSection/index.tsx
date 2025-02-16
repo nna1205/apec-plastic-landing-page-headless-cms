@@ -1,9 +1,9 @@
-import { type FragmentType, getFragmentData } from "@/graphql/types";
-import { HeroSectionFragmentDoc } from "@/graphql/types/graphql";
+import { type FragmentType, getFragmentData } from "@/app/graphql/types";
+import { HeroSectionFragmentDoc } from "@/app/graphql/types/graphql";
 import Link from "next/link";
 import * as motion from "motion/react-client";
-import DatoImage from "@/components/ResponsiveImage";
-import Button, { ButtonProps } from "@/components/Button";
+import DatoImage from "@/app/components/ResponsiveImage";
+import Button, { ButtonProps } from "@/app/components/Button";
 
 type Props = {
   fragment: FragmentType<typeof HeroSectionFragmentDoc>;
