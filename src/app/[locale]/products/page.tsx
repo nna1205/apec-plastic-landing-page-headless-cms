@@ -106,11 +106,11 @@ export default async function Page(props: {
   }
 
   return (
-    <div className="w-screen bg-gray-100 min-h-screen px-4 py-10 my-20 gap-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="w-screen bg-gray-100 min-h-screen px-4 py-10 mt-20 gap-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       {showNotFoundBanner && <NotFoundResultBanner query={query.value} />}
       <section className="w-full flex flex-col lg:flex-row justify-center gap-3 lg:gap-6">
         <CategoryFilter data={uniqueCategories} />
-        <main className="w-full lg:w-4/5 flex flex-col bg-white p-3 rounded-md lg:rounded-xl">
+        <main className="w-full lg:w-4/5 flex flex-col">
           {query.type === "search" && !showNotFoundBanner && (
             <div className="flex justify-start items-center text-xl text-slate-800 mb-3 gap-1">
               <h1>
@@ -121,7 +121,7 @@ export default async function Page(props: {
               </h1>
             </div>
           )}
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-4">
             {resultProducts.map((product) => {
               return <ProductThumbnail key={product.id} data={product} />;
             })}

@@ -11,7 +11,7 @@ const ProductThumbnail: React.FC<{ data: ProductProps }> = ({ data }) => {
   return (
     <div
       key={data.id}
-      className="w-full h-full p-1 lg:p-3 rounded-sm lg:rounded-xl border-2 border-slate-200"
+      className="w-full h-full p-1 lg:p-3 rounded-sm lg:rounded-xl border shadow-sm bg-white"
     >
       <div
         className={`relative overflow-hidden w-full rounded-sm lg:rounded-xl h-32 lg:h-60`}

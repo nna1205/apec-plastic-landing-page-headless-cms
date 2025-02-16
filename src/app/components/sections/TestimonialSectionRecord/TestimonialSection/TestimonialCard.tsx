@@ -1,5 +1,5 @@
 import { Quote, CircleUserRound } from "lucide-react";
-import Image from "next/image";
+//import Image from "next/image";
 import * as motion from "motion/react-client";
 import DatoImage from "@/components/ResponsiveImage";
 import { TestimonialSectionFragment } from "@/graphql/types/graphql";
@@ -31,6 +31,8 @@ const TestimonialCard: React.FC<{ data: FeedbackProps }> = ({ data }) => {
             quality={100}
             fill
             sizes="(min-width: 1024px) 50%, 100%"
+            className="h-full w-full object-contain"
+            style={{ objectFit: "cover" }}
           />
         </div>
         <div className="h-full flex flex-col justify-between items-start">
@@ -54,7 +56,7 @@ const TestimonialCard: React.FC<{ data: FeedbackProps }> = ({ data }) => {
     );
   return (
     <motion.div
-      className={`${layoutOrder} relative w-full h-[480px] rounded overflow-hidden lg:h-full`}
+      className={`${layoutOrder} relative w-full h-[640px] rounded overflow-hidden lg:h-full`}
       initial={{ opacity: 0, y: -100 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}
@@ -65,6 +67,7 @@ const TestimonialCard: React.FC<{ data: FeedbackProps }> = ({ data }) => {
         quality={100}
         fill
         sizes="(min-width: 1024px) 50%, 100%"
+        className="h-full w-full object-contain"
         style={{ objectFit: "cover" }}
       />
       <div className="w-full absolute z-10 top-0 p-3">
@@ -80,11 +83,9 @@ const TestimonialCard: React.FC<{ data: FeedbackProps }> = ({ data }) => {
               </span>
             </div>
           </div>
-          <div className="flex justify-start items-start gap-3 mt-3">
+          <div className="flex justify-start items-start gap-3 mt-3 w-full">
             <Quote className="text-green-800 w-12 h-12" />
-            <p className="max-w-60 font-bold text-xl lg:text-3xl">
-              {data.content}
-            </p>
+            <p className="font-bold text-xl lg:text-2xl">{data.content}</p>
           </div>
         </div>
       </div>
