@@ -1,6 +1,6 @@
-import { FeaturedProductSectionFragment } from "@/app/graphql/types/graphql";
-import { Link } from "@/i18n/routing";
-import DatoImage from "@/app/components/ResponsiveImage";
+import { FeaturedProductSectionFragment } from "@/graphql/types/graphql";
+import { Link } from "@/../i18n/routing";
+import DatoImage from "@/components/ResponsiveImage";
 import { useTranslations } from "next-intl";
 
 type FeaturedProductProps =

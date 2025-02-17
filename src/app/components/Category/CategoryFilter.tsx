@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductsQuery } from "@/app/graphql/types/graphql";
+import { ProductsQuery } from "@/graphql/types/graphql";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState, useEffect } from "react";

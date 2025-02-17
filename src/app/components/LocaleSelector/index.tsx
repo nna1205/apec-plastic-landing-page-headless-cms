@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState, useTransition } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { routing, useRouter, usePathname } from "@/i18n/routing";
-import { type SiteLocale } from "@/app/graphql/types/graphql";
+import { routing, useRouter, usePathname } from "@/../i18n/routing";
+import { type SiteLocale } from "@/graphql/types/graphql";
 import { motion } from "motion/react";
 import { AnimatePresence } from "motion/react";
 import { Globe, ChevronDown, Check } from "lucide-react";

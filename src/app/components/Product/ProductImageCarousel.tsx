@@ -4,7 +4,7 @@ import { useState } from "react";
 import * as motion from "motion/react-client";
 import { AnimatePresence } from "motion/react";
 import Image from "next/image";
-import { ProductQuery } from "@/app/graphql/types/graphql";
+import { ProductQuery } from "@/graphql/types/graphql";
 
 const ProductImageCarousel: React.FC<{
   data: ProductQuery["product"];

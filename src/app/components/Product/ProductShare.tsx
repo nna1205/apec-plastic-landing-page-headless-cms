@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Facebook, Share, ClipboardCopy } from "lucide-react";
-import { ProductQuery } from "@/app/graphql/types/graphql";
+import { ProductQuery } from "@/graphql/types/graphql";
 import { useTranslations } from "next-intl";
 
 const ProductShare: React.FC<{ data: ProductQuery["product"] }> = ({

@@ -1,7 +1,7 @@
-import { ProductQuery } from "@/app/graphql/types/graphql";
+import { ProductQuery } from "@/graphql/types/graphql";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import ProductShare from "@/app/components/Product/ProductShare";
+import ProductShare from "@/components/Product/ProductShare";
 import { useTranslations } from "next-intl";
 
 const ProductDetail: React.FC<{ data: ProductQuery["product"] }> = ({

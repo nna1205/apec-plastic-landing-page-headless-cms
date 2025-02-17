@@ -1,12 +1,12 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import { LayoutDocument, type SiteLocale } from "@/app/graphql/types/graphql";
-import { request } from "@/app/lib/datocms";
-import Header from "@/app/components/Header";
-import Footer from "@/app/components/Footer";
+import { LayoutDocument, type SiteLocale } from "@/graphql/types/graphql";
+import { request } from "@/lib/datocms";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { routing } from "@/i18n/routing";
-import { PostHogProvider } from "@/app/lib/PostHogProviders";
+import { routing } from "@/../i18n/routing";
+import { PostHogProvider } from "@/lib/PostHogProviders";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +30,7 @@ export default async function LocaleLayout({
 
   const data = await request(LayoutDocument, {
     locale: locale,
-    fallbackLocale: [routing.defaultLocale as SiteLocale],
+    fallbackLocale: [routing.defaultLocale],
   });
 
   return (

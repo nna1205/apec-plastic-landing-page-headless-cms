@@ -1,9 +1,9 @@
 "use client";
 
 import { Dispatch, SetStateAction, RefObject } from "react";
-import { useDebouncedValue } from "@/app/hooks/useDebouncedValue";
-import { useSearch } from "@/app/hooks/useSearch";
-import { useSearchSuggestions } from "@/app/hooks/useSuggestion";
+import { useDebouncedValue } from "@/hooks/useDebouncedValue";
+import { useSearch } from "@/hooks/useSearch";
+import { useSearchSuggestions } from "@/hooks/useSuggestion";
 import { Trash, Search } from "lucide-react";
 import { useTranslations } from "next-intl";
 import SuggestionList from "./SearchSuggestion";

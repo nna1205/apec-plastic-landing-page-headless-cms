@@ -1,14 +1,14 @@
-import CategoryFilter from "@/app/components/Category";
-import ProductThumbnail from "@/app/components/Product/ProductThumbnail";
-import { request } from "@/app/lib/datocms";
+import CategoryFilter from "@/components/Category";
+import ProductThumbnail from "@/components/Product/ProductThumbnail";
+import { request } from "@/lib/datocms";
 import {
   PageDocument,
   ProductsDocument,
   type SiteLocale,
-} from "@/app/graphql/types/graphql";
-import { routing } from "@/i18n/routing";
+} from "@/graphql/types/graphql";
+import { routing } from "@/../i18n/routing";
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { toNextMetadata } from "@/app/utils/SEO";
+import { toNextMetadata } from "@/utils/SEO";
 import { notFound } from "next/navigation";
 import { PackageX } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -28,7 +28,7 @@ export async function generateMetadata({
   const pageData = await request(PageDocument, {
     slug: slug,
     locale: locale,
-    fallbackLocale: [fallbackLocale as SiteLocale],
+    fallbackLocale: [fallbackLocale],
   });
 
   if (!pageData.page) {
@@ -69,7 +69,7 @@ export default async function Page(props: {
   const t = await getTranslations("search");
   const productData = await request(ProductsDocument, {
     locale: locale,
-    fallbackLocale: [fallbackLocale as SiteLocale],
+    fallbackLocale: [fallbackLocale],
   });
   const searchParams = await props.searchParams;
 

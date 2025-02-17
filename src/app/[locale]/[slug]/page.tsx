@@ -1,16 +1,16 @@
-import { request } from "@/app/lib/datocms";
+import { request } from "@/lib/datocms";
 import {
   PageStaticParamsDocument,
   PageDocument,
   type SiteLocale,
-} from "@/app/graphql/types/graphql";
+} from "@/graphql/types/graphql";
 import { notFound } from "next/navigation";
-import HeroSection from "@/app/components/Sections/HeroSectionRecord/HeroSection/index";
-import TestimonialSection from "@/app/components/Sections/TestimonialSectionRecord/TestimonialSection/index";
-import ServiceSection from "@/app/components/Sections/ServiceSectionRecord/ServiceSection/index";
-import FeaturedProductSection from "@/app/components/Sections/FeaturedProductSectionRecord/FeaturedProductSection/index";
-import { toNextMetadata } from "@/app/utils/SEO";
-import { routing } from "@/i18n/routing";
+import HeroSection from "@/components/Sections/HeroSectionRecord/HeroSection";
+import TestimonialSection from "@/components/Sections/TestimonialSectionRecord/TestimonialSection";
+import ServiceSection from "@/components/Sections/ServiceSectionRecord/ServiceSection";
+import FeaturedProductSection from "@/components/Sections/FeaturedProductSectionRecord/FeaturedProductSection";
+import { toNextMetadata } from "@/utils/SEO";
+import { routing } from "@/../i18n/routing";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 
 export async function generateStaticParams() {
@@ -37,7 +37,7 @@ export async function generateMetadata({
   const pageData = await request(PageDocument, {
     slug: slug,
     locale: locale,
-    fallbackLocale: [fallbackLocale as SiteLocale],
+    fallbackLocale: [fallbackLocale],
   });
 
   if (!pageData.page) {

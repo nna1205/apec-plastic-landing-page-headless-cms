@@ -4,9 +4,9 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import {
   useContactFormSchema,
   type ContactFormData,
-} from "@/app/components/ContactForm/form.schema";
+} from "@/components/ContactForm/form.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { client } from "@/app/lib/datocms";
+import { client } from "@/lib/datocms";
 import { ApiError } from "@datocms/cma-client-browser";
 import { useTranslations } from "next-intl";
 

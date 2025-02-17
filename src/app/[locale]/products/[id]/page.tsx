@@ -1,17 +1,17 @@
-import { request } from "@/app/lib/datocms";
+import { request } from "@/lib/datocms";
 import {
   ProductStaticParamsDocument,
   ProductDocument,
   type SiteLocale,
   type ProductRecord,
-} from "@/app/graphql/types/graphql";
+} from "@/graphql/types/graphql";
 import { notFound } from "next/navigation";
-import ProductContainer from "@/app/components/Product";
-import ProductContactForm from "@/app/components/Product/ProductContactForm";
-import ProductRelated from "@/app/components/Product/ProductRelated";
-import ProductPolicySection from "@/app/components/Sections/ProductPolicySectionRecord/ProductPolicySection/index";
+import ProductContainer from "@/components/Product";
+import ProductContactForm from "@/components/Product/ProductContactForm";
+import ProductRelated from "@/components/Product/ProductRelated";
+import ProductPolicySection from "@/components/Sections/ProductPolicySectionRecord/ProductPolicySection";
 import type { Metadata } from "next";
-import { routing } from "@/i18n/routing";
+import { routing } from "@/../i18n/routing";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 
 export async function generateStaticParams() {
@@ -33,7 +33,7 @@ export async function generateMetadata({
   const productData = await request(ProductDocument, {
     id: id,
     locale: locale,
-    fallbackLocale: [fallbackLocale as SiteLocale],
+    fallbackLocale: [fallbackLocale],
   });
 
   if (!productData) {
@@ -60,7 +60,7 @@ export default async function Page({
   const productData = await request(ProductDocument, {
     id: id,
     locale: locale,
-    fallbackLocale: [fallbackLocale as SiteLocale],
+    fallbackLocale: [fallbackLocale],
   });
 
   if (!productData || !routing.locales.includes(locale as SiteLocale)) {
@@ -70,10 +70,7 @@ export default async function Page({
     <div className="overflow-x-hidden min-h-screen px-4 py-10 my-20 gap-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="w-full flex flex-col justify-center items-start gap-6">
         <ProductContainer data={productData.product} />
-        <ProductPolicySection
-          locale={locale}
-          fallbackLocale={fallbackLocale as SiteLocale}
-        />
+        <ProductPolicySection locale={locale} fallbackLocale={fallbackLocale} />
         <section
           id="contact-form"
           className="relative w-full my-9 scroll-mt-40"
@@ -88,7 +85,7 @@ export default async function Page({
         <ProductRelated
           productCategory={productData.product?.productCategory.title}
           locale={locale}
-          fallbackLocale={fallbackLocale as SiteLocale}
+          fallbackLocale={fallbackLocale}
         />
       </main>
     </div>

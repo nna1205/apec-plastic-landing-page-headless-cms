@@ -7,10 +7,10 @@ import {
   type ProductContactFormData,
 } from "./form.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ProductQuery } from "@/app/graphql/types/graphql";
-import { client } from "@/app/lib/datocms";
+import { ProductQuery } from "@/graphql/types/graphql";
+import { client } from "@/lib/datocms";
 import { ApiError } from "@datocms/cma-client-browser";
-import SubmitButton from "@/app/components/Button/SubmitButton";
+import SubmitButton from "@/components/Button/SubmitButton";
 import { useTranslations } from "next-intl";
 
 const ProductContactForm: React.FC<{

@@ -1,6 +1,6 @@
 import {getRequestConfig} from 'next-intl/server';
 import {routing} from './routing';
-import { type SiteLocale } from "@/app/graphql/types/graphql";
+import { type SiteLocale } from "@/graphql/types/graphql";
  
 export default getRequestConfig(async ({requestLocale}) => {
   // This typically corresponds to the `[locale]` segment

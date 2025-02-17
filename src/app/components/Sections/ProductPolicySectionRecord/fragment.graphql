@@ -1,0 +1,9 @@
+query ProductPolicySection(
+  $locale: SiteLocale
+  $fallbackLocale: [SiteLocale!]
+) {
+  productPolicy(locale: $locale, fallbackLocales: $fallbackLocale) {
+    id
+    content(locale: $locale, fallbackLocales: $fallbackLocale, markdown: false)
+  }
+}

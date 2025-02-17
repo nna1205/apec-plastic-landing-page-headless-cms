@@ -1,5 +1,5 @@
-import { ProductsQuery } from "@/app/graphql/types/graphql";
-import { Link } from "@/i18n/routing";
+import { ProductsQuery } from "@/graphql/types/graphql";
+import { Link } from "@/../i18n/routing";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 

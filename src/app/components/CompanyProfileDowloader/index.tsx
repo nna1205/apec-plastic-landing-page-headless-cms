@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import SubmitButton from "@/app/components/Button/SubmitButton"; // assuming this is in the same folder
-import { request } from "@/app/lib/datocms"; // make sure to import the request function
+import SubmitButton from "@/components/Button/SubmitButton"; // assuming this is in the same folder
+import { request } from "@/lib/datocms"; // make sure to import the request function
 import {
   CompanyProfileDocument,
   type SiteLocale,
-} from "@/app/graphql/types/graphql";
+} from "@/graphql/types/graphql";
 
 const DownloadSection: React.FC<{
   locale: SiteLocale;

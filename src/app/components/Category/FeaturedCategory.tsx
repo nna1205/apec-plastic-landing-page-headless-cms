@@ -1,7 +1,7 @@
-import { FeaturedProductSectionFragment } from "@/app/graphql/types/graphql";
+import { FeaturedProductSectionFragment } from "@/graphql/types/graphql";
 import * as motion from "motion/react-client";
-import Icon, { IconName } from "@/app/components/LucideIcon";
-import FeaturedProductCard from "@/app/components/Product/FeaturedProductCard";
+import Icon, { IconName } from "@/components/LucideIcon";
+import FeaturedProductCard from "@/components/Product/FeaturedProductCard";
 
 type FeaturedCategoryProps =
   FeaturedProductSectionFragment["featuredProductsList"][0];
