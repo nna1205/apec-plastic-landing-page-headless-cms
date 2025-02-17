@@ -5,7 +5,7 @@ import { buildClient, LogLevel } from '@datocms/cma-client-browser';
 export const cacheTag = 'datocms';
 
 export const client = buildClient({
-  apiToken: process.env.NEXT_PUBLIC_DATOCMS_API_TOKEN as string,
+  apiToken: process.env.DATOCMS_READONLY_API_TOKEN as string,
   logLevel: LogLevel.BASIC,
 });
 
@@ -17,7 +17,7 @@ export async function request<
   variables?: TVariables,
   isDraft?: boolean,
 ): Promise<TResult> {
-  if (!process.env.NEXT_PUBLIC_DATOCMS_API_TOKEN) {
+  if (!process.env.DATOCMS_READONLY_API_TOKEN) {
     throw new Error(
       'Missing DatoCMS API token: make sure a DATOCMS_READONLY_API_TOKEN environment variable is set!',
     );
@@ -27,7 +27,7 @@ export async function request<
     'Content-Type': 'application/json',
     Accept: 'application/json',
     'X-Exclude-Invalid': 'true',
-    Authorization: `Bearer ${process.env.NEXT_PUBLIC_DATOCMS_API_TOKEN}`,
+    Authorization: `Bearer ${process.env.DATOCMS_READONLY_API_TOKEN}`,
   };
 
   if (isDraft) headers['X-Include-Drafts'] = 'true';
