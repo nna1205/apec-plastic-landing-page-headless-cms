@@ -1,13 +1,16 @@
 import Image, { ImageProps } from "next/image";
 import { type FragmentType, getFragmentData } from "@/graphql/types";
 import { DatoImageFragmentDoc } from "@/graphql/types/graphql";
+import { boolean } from "zod";
 
 type DatoImageProps = {
   responsiveImage?: FragmentType<typeof DatoImageFragmentDoc> | null;
+  priority?: boolean;
 } & Omit<ImageProps, "src" | "alt" | "width" | "height">; // Exclude conflicting props from ImageProps
 
 const DatoImage: React.FC<DatoImageProps> = ({
   responsiveImage,
+  priority = false,
   ...rest // Collect all additional props
 }) => {
   if (!responsiveImage) {
@@ -19,7 +22,9 @@ const DatoImage: React.FC<DatoImageProps> = ({
 
   const { src, alt, title } = data;
 
-  return <Image src={src} alt={alt || title || ""} {...rest} />;
+  return (
+    <Image src={src} priority={priority} alt={alt || title || ""} {...rest} />
+  );
 };
 
 export default DatoImage;

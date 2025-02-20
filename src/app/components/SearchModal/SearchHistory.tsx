@@ -66,7 +66,6 @@ export default function SearchHistory({
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -5 }}
-                transition={{ duration: 0.2 }}
                 className="cursor-pointer border border-gray-300 px-3 py-1 rounded"
                 onClick={() => setSearchInput(query)}
               >

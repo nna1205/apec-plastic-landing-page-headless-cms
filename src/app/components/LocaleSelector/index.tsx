@@ -31,7 +31,6 @@ export default function LocaleSelector() {
     localStorage.setItem("selectedLocale", nextLocale);
     startTransition(() => {
       router.replace({ pathname }, { locale: nextLocale });
-      // setIsOpen(false);
     });
   };
 
@@ -61,10 +60,9 @@ export default function LocaleSelector() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.1 }}
             className="absolute right-0 top-8 mt-2 w-full min-w-[124px] bg-white text-black rounded-lg border border-gray-300 ring-1 ring-black ring-opacity-5 py-1"
           >
-            <label className="text-xs opacity-30 px-3 pb-6 truncate">
+            <label className="text-xs opacity-30 px-3 truncate">
               {t("select_language")}
             </label>
             {routing.locales.map((cur) => (

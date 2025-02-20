@@ -18,7 +18,6 @@ const TestimonialSection = ({ fragment }: Props) => {
         <motion.div
           initial={{ opacity: 0, y: -100 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
           viewport={{ once: true, amount: 0.8 }}
         >
           <h2 className="font-black text-center text-black text-xl line-clamp-2 mb-3 lg:mb-10 lg:text-5xl">

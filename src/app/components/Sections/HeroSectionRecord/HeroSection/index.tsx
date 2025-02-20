@@ -21,7 +21,7 @@ const HeroSection = ({ fragment }: Props) => {
         <motion.div
           initial={{ opacity: 0, x: -100, y: -50 }}
           animate={{ opacity: 1, x: 0, y: 0 }}
-          transition={{ duration: 0.3 }}
+          style={{ willChange: "transform, opacity" }}
         >
           <header className="flex flex-col gap-1">
             <h1 className="font-black text-3xl lg:text-[64px] leading-tight">
@@ -49,7 +49,7 @@ const HeroSection = ({ fragment }: Props) => {
         className="relative w-full h-[360px] lg:w-1/2 lg:h-full flex flex-col items-center"
         initial={{ opacity: 0, x: 100, y: -50 }}
         animate={{ opacity: 1, x: 0, y: 0 }}
-        transition={{ duration: 0.3 }}
+        style={{ willChange: "transform, opacity" }}
       >
         <DatoImage
           responsiveImage={image.responsiveImage}

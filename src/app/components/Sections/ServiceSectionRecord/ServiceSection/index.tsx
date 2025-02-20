@@ -21,7 +21,6 @@ const ServiceSection = ({ fragment }: Props) => {
         className="relative w-full h-[600px] rounded-xl lg:w-1/2"
         initial={{ opacity: 0, x: -50, y: -50 }}
         whileInView={{ opacity: 1, x: 0, y: 0 }}
-        transition={{ duration: 0.5 }}
         viewport={{ once: true, amount: 0.25 }}
       >
         <DatoImage
@@ -37,7 +36,6 @@ const ServiceSection = ({ fragment }: Props) => {
           className="flex flex-col justify-between items-center gap-0 lg:gap-3"
           initial={{ opacity: 0, x: 100, y: -50 }}
           whileInView={{ opacity: 1, x: 0, y: 0 }}
-          transition={{ duration: 0.5 }}
           viewport={{ once: true, amount: 0.8 }}
         >
           <div className="">
