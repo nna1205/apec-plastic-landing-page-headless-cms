@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { request } from "@/lib/datocms"
-import { SuggestionDocument, SuggestionQuery, type SiteLocale } from "@/graphql/types/graphql"
+import { getSuggestions } from "@/actions/getSuggestions";
+import { SuggestionQuery, type SiteLocale } from "@/graphql/types/graphql"
 import { routing } from "@/../i18n/routing";
 import { useLocale } from "next-intl";
 
@@ -21,13 +21,9 @@ export function useSearchSuggestions(query: string) {
     const fetchSuggestions = async () => {
       setLoading(true);
       try {
-      const data = await request(SuggestionDocument, {
-        query: query.trim().toLowerCase(),
-        locale: locale,
-        fallbackLocale: [fallbackLocale],
-      });
-      setSuggestions(data.allProducts.slice(0, 2));
-      setAutoComplete(data.allProducts.map((product) => product.title));
+      const data = await getSuggestions(query, locale)
+      setSuggestions(data);
+      setAutoComplete(data.map((product) => product.title));
       setLoading(false);
     } catch (error) {
         console.error("Error fetching suggestions:", error);
