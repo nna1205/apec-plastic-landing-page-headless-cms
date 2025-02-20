@@ -83,7 +83,7 @@ export default async function Page({
           </div>
         </section>
         <ProductRelated
-          productCategory={productData.product?.productCategory.title}
+          product={productData.product}
           locale={locale}
           fallbackLocale={fallbackLocale}
         />

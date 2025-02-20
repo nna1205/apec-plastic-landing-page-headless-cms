@@ -1,14 +1,18 @@
-import { ProductsDocument, SiteLocale } from "@/graphql/types/graphql";
+import {
+  ProductsDocument,
+  ProductQuery,
+  SiteLocale,
+} from "@/graphql/types/graphql";
 import ProductThumbnail from "@/components/Product/ProductThumbnail";
 import { request } from "@/lib/datocms";
 import { getTranslations } from "next-intl/server";
 
 async function ProductRelated({
-  productCategory,
+  product,
   locale,
   fallbackLocale,
 }: {
-  productCategory: string | undefined;
+  product: ProductQuery["product"];
   locale: SiteLocale;
   fallbackLocale: SiteLocale;
 }) {
@@ -18,21 +22,23 @@ async function ProductRelated({
     fallbackLocale: [fallbackLocale],
   });
 
-  const relatedProducts = allProductData.allProducts.filter((product) =>
-    product.productCategory.title.includes(productCategory || "")
+  const relatedProducts = allProductData.allProducts.filter(
+    (item) =>
+      item.id !== product?.id &&
+      item.productCategory.title.includes(product?.productCategory.title || "")
   );
 
   if (!relatedProducts) return null;
   return (
-    <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-6">
-      <div className="bg-green-400 p-6 rounded-xl">
-        <h3 className="font-black text-xl text-white line-clamp-2 lg:text-4xl lg:mt-6">
-          {t("related_label")}
-        </h3>
+    <div className="w-full flex flex-col gap-6">
+      <h3 className="mr-auto font-black text-green-400 text-xl lg:text-4xl">
+        {t("related_label")}
+      </h3>
+      <div className="w-full grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-6">
+        {relatedProducts.map((product) => (
+          <ProductThumbnail key={product.id} data={product} />
+        ))}
       </div>
-      {relatedProducts.map((product) => (
-        <ProductThumbnail key={product.id} data={product} />
-      ))}
     </div>
   );
 }
