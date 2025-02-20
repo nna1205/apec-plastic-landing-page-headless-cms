@@ -1,7 +1,6 @@
 import Image, { ImageProps } from "next/image";
 import { type FragmentType, getFragmentData } from "@/graphql/types";
 import { DatoImageFragmentDoc } from "@/graphql/types/graphql";
-import { boolean } from "zod";
 
 type DatoImageProps = {
   responsiveImage?: FragmentType<typeof DatoImageFragmentDoc> | null;

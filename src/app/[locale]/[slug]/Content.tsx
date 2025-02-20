@@ -51,4 +51,6 @@ const Content = memo(
   }
 );
 
+Content.displayName = "Content";
+
 export default Content;
