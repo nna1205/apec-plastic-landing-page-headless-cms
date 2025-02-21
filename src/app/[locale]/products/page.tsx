@@ -1,5 +1,6 @@
 import CategoryFilter from "@/components/Category";
-import ProductThumbnail from "@/components/Product/ProductThumbnail";
+import ProductResult from "@/components/Product/ProductResult";
+import ProductResultBanner from "@/components/Product/ProductResultBanner";
 import { request } from "@/lib/datocms";
 import {
   PageDocument,
@@ -10,8 +11,7 @@ import { routing } from "@/../i18n/routing";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { toNextMetadata } from "@/utils/SEO";
 import { notFound } from "next/navigation";
-import { PackageX } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { cache } from "react";
 
 interface SearchQueryProps {
   type: string;
@@ -38,23 +38,15 @@ export async function generateMetadata({
   return toNextMetadata(pageData.page?._seoMetaTags || []);
 }
 
-const NotFoundResultBanner = ({ query }: { query: string }) => {
-  const t = useTranslations("search");
-  return (
-    <div className="w-full flex justify-start items-center gap-3 text-center p-3 mb-3 border border-gray-400 bg-gray-200 rounded-xl">
-      <PackageX size={24} />
-      <div className="text-start">
-        <h1 className="text-base">
-          {t("result_empty_label")}{" "}
-          <span className="font-bold text-green-800">
-            &ldquo;{query}&rdquo;
-          </span>
-        </h1>
-        <p className="text-xs opacity-60">{t("result_empty_description")}</p>
-      </div>
-    </div>
-  );
-};
+const fetchProducts = cache(
+  async (locale: SiteLocale, fallbackLocale: SiteLocale) => {
+    const productData = await request(ProductsDocument, {
+      locale: locale,
+      fallbackLocale: [fallbackLocale],
+    });
+    return productData.allProducts;
+  }
+);
 
 export default async function Page(props: {
   params: Promise<{ locale: SiteLocale }>;
@@ -67,10 +59,7 @@ export default async function Page(props: {
   const fallbackLocale = routing.defaultLocale;
   setRequestLocale(locale);
   const t = await getTranslations("search");
-  const productData = await request(ProductsDocument, {
-    locale: locale,
-    fallbackLocale: [fallbackLocale],
-  });
+  const productData = await fetchProducts(locale, fallbackLocale);
   const searchParams = await props.searchParams;
 
   const query: SearchQueryProps = {
@@ -78,56 +67,46 @@ export default async function Page(props: {
     value: searchParams?.value || "",
   };
 
-  const uniqueCategories = [
-    ...new Map(
-      productData.allProducts.map((product) => [
-        product.productCategory.id,
-        product.productCategory,
-      ])
-    ).values(),
-  ];
+  let resultProducts = productData;
 
-  let resultProducts = productData.allProducts.filter((product) => {
-    // If both type and value are empty strings, return all products
-    if (!query.type && !query.value) {
-      return true;
-    } else if (query.type === "category") {
-      // Filter by category if type is "category"
-      return product.productCategory.url.includes(query.value.toLowerCase());
-    } else {
-      // Filter by product name otherwise
-      return product.title.toLowerCase().includes(query.value.toLowerCase());
+  if (query.type && query.value) {
+    switch (query.type) {
+      case "category":
+        resultProducts = resultProducts.filter(
+          (product) => product.productCategory.id === query.value
+        );
+        break;
+      case "search":
+        resultProducts = resultProducts.filter((product) =>
+          product.title.toLowerCase().includes(query.value.toLowerCase())
+        );
+        break;
+      default:
+        break;
     }
-  });
+  }
 
-  // If search returns no results, keep all products but still show the banner
   const showNotFoundBanner =
     query.type === "search" && resultProducts.length === 0;
+
+  // Manually reset result to all products
+  // allow users keep browsing
   if (showNotFoundBanner) {
-    resultProducts = productData.allProducts;
+    resultProducts = productData;
   }
 
   return (
     <div className="w-screen bg-gray-100 min-h-screen px-4 py-10 mt-20 gap-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      {showNotFoundBanner && <NotFoundResultBanner query={query.value} />}
       <section className="w-full flex flex-col lg:flex-row justify-center gap-3 lg:gap-6">
-        <CategoryFilter data={uniqueCategories} />
+        <CategoryFilter data={productData} />
         <main className="w-full lg:w-4/5 flex flex-col">
-          {query.type === "search" && !showNotFoundBanner && (
-            <div className="flex justify-start items-center text-xl text-slate-800 mb-3 gap-1">
-              <h1>
-                {t("result_label")}{" "}
-                <span className="font-bold text-green-800">
-                  &ldquo;{query.value}&rdquo;
-                </span>
-              </h1>
-            </div>
+          {query.type === "search" && (
+            <ProductResultBanner
+              query={query.value}
+              showNotFoundBanner={showNotFoundBanner}
+            />
           )}
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-4">
-            {resultProducts.map((product) => {
-              return <ProductThumbnail key={product.id} data={product} />;
-            })}
-          </div>
+          <ProductResult data={resultProducts} />
         </main>
       </section>
     </div>
