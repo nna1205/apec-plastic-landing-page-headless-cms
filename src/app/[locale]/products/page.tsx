@@ -8,7 +8,7 @@ import {
   type SiteLocale,
 } from "@/graphql/types/graphql";
 import { routing } from "@/../i18n/routing";
-import { setRequestLocale, getTranslations } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 import { toNextMetadata } from "@/utils/SEO";
 import { notFound } from "next/navigation";
 import { cache } from "react";
