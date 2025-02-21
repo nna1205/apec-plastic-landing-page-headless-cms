@@ -41,15 +41,19 @@ export function useSearch() {
         params.delete("value");
       }
 
-    if (pathname.includes("/products/")) {
+    // Handle the case where user is on /[locale]/products/[id] 
+    // or any other routes
+    if (!pathname.includes("/products") || pathname.includes("/products/")) {
       router.push({
         pathname: "/products",
         query: Object.fromEntries(params),
       });
     } else if (pathname.includes("/products")) {
       // Stay on "/[locale]/products" and update search params
-      router.replace(`${pathname}?${params.toString()}`);
+      router.push(`${pathname}?${params.toString()}`);
     }
+
+      // Clear the search input
       setSearchInput("");
     });
   };

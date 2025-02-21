@@ -1,13 +1,17 @@
 "use client";
 
-import { Dispatch, SetStateAction, RefObject } from "react";
+import { Dispatch, SetStateAction, RefObject, Suspense } from "react";
+import dynamic from "next/dynamic";
 import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import { useSearch } from "@/hooks/useSearch";
 import { useSearchSuggestions } from "@/hooks/useSuggestion";
-import { Trash, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { useTranslations } from "next-intl";
 import SuggestionList from "./SearchSuggestion";
-import SearchHistory from "./SearchHistory";
+
+const DynamicSearchHistory = dynamic(() => import("./SearchHistory"), {
+  ssr: false,
+});
 
 const SearchInput = ({
   setIsOpen,
@@ -64,23 +68,13 @@ const SearchInput = ({
           />
         )}
         {searchHistory.length > 0 && (
-          <div className="w-full max-h-40">
-            <div className="w-full flex justify-between items-center mb-1">
-              <span className="text-gray-500 text-sm opacity-60">
-                {t("history_label")}
-              </span>
-              <button
-                onClick={clearSearchHistory}
-                className="text-red-300 text-center ml-auto text-xs flex justify-center items-center gap-2"
-              >
-                <Trash size={12} /> {t("clear_history_cta")}
-              </button>
-            </div>
-            <SearchHistory
+          <Suspense fallback={<div className="p-4">Loading...</div>}>
+            <DynamicSearchHistory
               searchHistory={searchHistory}
               setSearchInput={setSearchInput}
+              clearSearchHistory={clearSearchHistory}
             />
-          </div>
+          </Suspense>
         )}
         <button
           type="button"
