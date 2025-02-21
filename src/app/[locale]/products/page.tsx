@@ -58,7 +58,7 @@ export default async function Page(props: {
   const { locale } = await props.params;
   const fallbackLocale = routing.defaultLocale;
   setRequestLocale(locale);
-  const t = await getTranslations("search");
+
   const productData = await fetchProducts(locale, fallbackLocale);
   const searchParams = await props.searchParams;
 
