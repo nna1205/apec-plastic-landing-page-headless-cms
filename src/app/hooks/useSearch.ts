@@ -1,6 +1,8 @@
 import { useState, useEffect, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
 import { usePathname, useRouter} from "@/../i18n/routing";
+import { useLocale } from "next-intl";
+import { type SiteLocale } from "@/graphql/types/graphql"
 
 export function useSearch() {
   const [isPending, startTransition] = useTransition();
@@ -9,21 +11,22 @@ export function useSearch() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
+  const locale = useLocale() as SiteLocale;
 
   useEffect(() => {
-    const storedHistory = JSON.parse(localStorage.getItem("searchHistory") || "[]");
+    const storedHistory = JSON.parse(localStorage.getItem(`searchHistory_${locale}`) || "[]");
     setSearchHistory(storedHistory);
-  }, []);
+  }, [locale]);
 
   const updateSearchHistory = (query: string) => {
     if (!query.trim()) return;
     const updatedHistory = [query, ...searchHistory.filter((q) => q !== query)].slice(0, 10);
     setSearchHistory(updatedHistory);
-    localStorage.setItem("searchHistory", JSON.stringify(updatedHistory));
+    localStorage.setItem(`searchHistory_${locale}`, JSON.stringify(updatedHistory));
   };
 
   const clearSearchHistory = () => {
-    localStorage.removeItem("searchHistory");
+    localStorage.removeItem(`searchHistory_${locale}`);
     setSearchHistory([]);
   };
 
