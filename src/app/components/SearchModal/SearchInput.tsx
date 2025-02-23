@@ -59,7 +59,11 @@ const SearchInput = ({
             <Search size={24} color="green" />
           </button>
         </div>
-        {!loading && (
+        {loading ? (
+          <span className="opacity-60">
+            {t("loading")} &ldquo;{debouncedSearchInput}&rdquo;...
+          </span>
+        ) : (
           <SuggestionList
             query={debouncedSearchInput}
             autoComplete={autoComplete}

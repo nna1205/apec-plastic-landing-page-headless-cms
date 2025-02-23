@@ -28,9 +28,10 @@ export default function SearchModal() {
       <button
         onClick={() => startTransition(() => setIsOpen(true))}
         disabled={isPending}
-        className="lg:w-[240px] flex justify-between items-center text-gray-300 bg-white lg:border-gray-300 lg:border px-3 py-1 text-sm rounded-lg"
+        aria-label="Open search modal"
+        className="lg:w-[240px] flex justify-between items-center bg-white lg:border-gray-300 lg:border px-3 py-1 text-sm rounded-lg"
       >
-        <span className="hidden lg:block">{t("title")}</span>
+        <span className="opacity-40 hidden lg:block">{t("title")}</span>
         <Search size={24} color="green" />
       </button>
       <Modal isOpen={isOpen} setIsOpen={setIsOpen}>

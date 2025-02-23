@@ -21,6 +21,7 @@
     "search": {
       "placeholder": "Bạn đang tìm sản phẩm gì?",
       "title": "Tìm kiếm sản phẩm",
+      "loading": "Đang tìm kiếm",
       "history_label": "Lịch sử tìm kiếm",
       "clear_history_cta": "Xóa tất cả",
       "result_label": "Kết quả cho từ khóa",
