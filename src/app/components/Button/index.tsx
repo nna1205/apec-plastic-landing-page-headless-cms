@@ -7,34 +7,36 @@ export type ButtonProps = {
 } & React.ButtonHTMLAttributes<HTMLButtonElement>; // Include standard button attributes
 
 const Button: React.FC<ButtonProps> = ({
-  variant = "primary", // Default to 'primary' variant
+  variant = "primary",
   children,
-  className = "", // Default empty string for custom className
+  className = "",
   ...rest
 }) => {
-  // Define class names based on the variant
   const getVariantClassName = (variant: ButtonProps["variant"]) => {
     switch (variant) {
       case "primary":
-        return "bg-green-800 rounded-md px-3 py-2 text-sm text-wrap lg:px-9 lg:py-3 text-white lg:text-2xl font-bold";
+        return "bg-green-800 text-white font-bold";
       case "secondary":
-        return "bg-green-400 rounded-md px-3 py-2 text-sm text-wrap lg:px-9 lg:py-3 text-white lg:text-2xl font-bold";
+        return "bg-green-400 text-white font-bold";
       case "outline":
-        return "bg-transparent border border-slate-300 box-border rounded-md px-3 py-2 text-sm text-wrap lg:px-9 lg:py-3 lg:text-2xl font-bold";
+        return "bg-transparent box-border border border-slate-300 text-black font-bold";
       default:
         return "";
     }
   };
 
-  // Combine base classes with variant and custom classes
-  const buttonClassName =
-    `px-4 py-2 rounded focus:outline-none focus:ring transition-all ${getVariantClassName(
-      variant
-    )} ${className}`.trim();
-
   return (
-    <button className={buttonClassName} {...rest}>
-      {children}
+    <button
+      className={`inline-flex items-center justify-center min-w-[48px] min-h-[48px] text-sm text-wrap lg:text-2xl focus:outline-none focus:ring-2 focus:ring-green-400 transition-all ${className}`}
+      {...rest}
+    >
+      <span
+        className={`rounded-md px-4 py-2 lg:px-6 lg:py-3 ${getVariantClassName(
+          variant
+        )}`}
+      >
+        {children}
+      </span>
     </button>
   );
 };
