@@ -21,8 +21,10 @@ const FeaturedProductCard: React.FC<{
       >
         <DatoImage
           responsiveImage={data.productImages[0].responsiveImage}
-          fill
-          sizes="(min-width: 1024px) 50%, 100%"
+          style={{
+            width: "100%",
+            height: "auto",
+          }}
         />
       </div>
       <div className="mt-2 lg:mt-4">

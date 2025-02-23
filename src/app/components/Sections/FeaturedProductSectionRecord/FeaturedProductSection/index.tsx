@@ -7,7 +7,7 @@ type Props = {
   fragment: FragmentType<typeof FeaturedProductSectionFragmentDoc>;
 };
 
-export default function FeaturedProductSection({ fragment }: Props) {
+const FeaturedProductSection = ({ fragment }: Props) => {
   const { sectionHeader, featuredProductsList } = getFragmentData(
     FeaturedProductSectionFragmentDoc,
     fragment
@@ -31,4 +31,6 @@ export default function FeaturedProductSection({ fragment }: Props) {
       </motion.div>
     </section>
   );
-}
+};
+
+export default FeaturedProductSection;

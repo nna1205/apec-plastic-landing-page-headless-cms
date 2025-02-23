@@ -26,8 +26,10 @@ const ServiceSection = ({ fragment }: Props) => {
         <DatoImage
           responsiveImage={image.responsiveImage}
           className="rounded-lg"
-          fill
-          sizes="(min-width: 1024px) 50%, 100%"
+          style={{
+            width: "100%",
+            height: "auto",
+          }}
           priority
         />
       </motion.div>
