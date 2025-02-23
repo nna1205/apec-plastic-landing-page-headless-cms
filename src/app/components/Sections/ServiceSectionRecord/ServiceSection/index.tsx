@@ -1,6 +1,6 @@
 import { type FragmentType, getFragmentData } from "@/graphql/types";
 import { ServiceSectionFragmentDoc } from "@/graphql/types/graphql";
-import Link from "next/link";
+import { Link } from "@/../i18n/routing";
 import * as motion from "motion/react-client";
 import DatoImage from "@/components/ResponsiveImage";
 import Button, { ButtonProps } from "@/components/Button";
