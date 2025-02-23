@@ -21,6 +21,7 @@ const Navigation: React.FC<{ data: LayoutQuery["rootLayout"] }> = ({
             className="ml-auto select-none rounded-lg text-center align-middle text-xs font-medium uppercase text-inherit transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50"
             onClick={toggleMobileMenu}
             type="button"
+            aria-label="Open menu"
           >
             <Menu size={36} />
           </button>
