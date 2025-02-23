@@ -3,14 +3,12 @@ import React from "react";
 export type ButtonProps = {
   variant?: "primary" | "secondary" | "outline"; // Define available variants
   children: React.ReactNode;
-  asChild?: boolean;
   className?: string; // Allow additional class names
 } & React.ButtonHTMLAttributes<HTMLButtonElement>; // Include standard button attributes
 
 const Button: React.FC<ButtonProps> = ({
   variant = "primary",
   children,
-  asChild = false,
   className = "",
   ...rest
 }) => {

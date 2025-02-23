@@ -35,7 +35,6 @@ const HeroSection = ({ fragment }: Props) => {
             {callToActions.map((item) => {
               return (
                 <Button
-                  asChild={true}
                   key={item.id}
                   variant={item.variant as ButtonProps["variant"]}
                 >
