@@ -21,6 +21,7 @@
     "search": {
       "placeholder": "What are you looking for?",
       "title": "Search for products",
+      "loading": "Searching for",
       "history_label": "Search History",
       "clear_history_cta": "Clear all",
       "result_label": "Result for keyword",

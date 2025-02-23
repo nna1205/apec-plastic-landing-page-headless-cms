@@ -1,11 +1,25 @@
-import HeroSection from "@/components/Sections/HeroSectionRecord/HeroSection";
-import TestimonialSection from "@/components/Sections/TestimonialSectionRecord/TestimonialSection";
-import ServiceSection from "@/components/Sections/ServiceSectionRecord/ServiceSection";
-import FeaturedProductSection from "@/components/Sections/FeaturedProductSectionRecord/FeaturedProductSection";
 import { PageQuery, SiteLocale } from "@/graphql/types/graphql";
 import { memo } from "react";
 import { routing } from "@/../i18n/routing";
 import { notFound } from "next/navigation";
+import dynamic from "next/dynamic";
+
+const HeroSection = dynamic(
+  () => import("@/components/Sections/HeroSectionRecord/HeroSection")
+);
+const TestimonialSection = dynamic(
+  () =>
+    import("@/components/Sections/TestimonialSectionRecord/TestimonialSection")
+);
+const ServiceSection = dynamic(
+  () => import("@/components/Sections/ServiceSectionRecord/ServiceSection")
+);
+const FeaturedProductSection = dynamic(
+  () =>
+    import(
+      "@/components/Sections/FeaturedProductSectionRecord/FeaturedProductSection"
+    )
+);
 
 const Content = memo(
   ({ data, locale }: { data: PageQuery; locale: SiteLocale }) => {

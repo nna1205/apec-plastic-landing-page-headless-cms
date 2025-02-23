@@ -10,7 +10,7 @@ const Footer: React.FC<{ data: FooterProps }> = ({ data }) => {
   const t = useTranslations();
   return (
     <footer className="flex flex-col justify-center items-center border-t border-gray-200">
-      <div className="w-full flex flex-col lg:flex-row bg-white px-10">
+      <div className="w-full flex flex-col lg:flex-row px-10">
         <div className="w-full lg:w-1/2 flex flex-col gap-3 lg:gap-6 p-6 lg:p-10">
           <div className="flex justify-center items-center gap-3">
             <div className="block relative w-16 h-16 lg:w-24 lg:h-24">
@@ -58,15 +58,13 @@ const Footer: React.FC<{ data: FooterProps }> = ({ data }) => {
         </div>
         <div className="w-full lg:w-1/2 p-6 lg:p-10">
           <div className="">
-            <p className="text-sm lg:text-base text-gray-400 opacity-80 mb-2">
-              {t("form_description")}
-            </p>
+            <p className="text-sm lg:text-base mb-2">{t("form_description")}</p>
             <ContactForm />
           </div>
         </div>
       </div>
       <div className="w-full bg-green-800 flex justify-center items-center text-white text-sm py-1 lg:text-md lg:py-2">
-        {data.rootLayout?.copyrightStatement}
+        &copy; {data.rootLayout?.copyrightStatement}
       </div>
     </footer>
   );

@@ -7,33 +7,28 @@ export type ButtonProps = {
 } & React.ButtonHTMLAttributes<HTMLButtonElement>; // Include standard button attributes
 
 const Button: React.FC<ButtonProps> = ({
-  variant = "primary", // Default to 'primary' variant
+  variant = "primary",
   children,
-  className = "", // Default empty string for custom className
+  className = "",
   ...rest
 }) => {
-  // Define class names based on the variant
-  const getVariantClassName = (variant: ButtonProps["variant"]) => {
-    switch (variant) {
-      case "primary":
-        return "bg-green-800 rounded-md px-3 py-2 text-sm text-wrap lg:px-9 lg:py-3 text-white lg:text-2xl font-bold";
-      case "secondary":
-        return "bg-green-400 rounded-md px-3 py-2 text-sm text-wrap lg:px-9 lg:py-3 text-white lg:text-2xl font-bold";
-      case "outline":
-        return "bg-transparent border border-slate-300 box-border rounded-md px-3 py-2 text-sm text-wrap lg:px-9 lg:py-3 lg:text-2xl font-bold";
-      default:
-        return "";
-    }
+  // Base styles for the button
+  const baseStyles =
+    "min-w-[48px] min-h-[48px] px-4 lg:px-6 py-2 lg:py-3 text-sm lg:text-2xl font-bold rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-200";
+
+  // Variant-specific styles
+  const variantStyles = {
+    primary: "bg-green-800 text-white hover:bg-green-700 focus:ring-green-500",
+    secondary: "bg-green-400 text-white hover:bg-gray-700 focus:ring-gray-500",
+    outline:
+      "bg-transparent border border-gray-600 text-gray-700 hover:bg-gray-100 focus:ring-gray-500",
   };
 
-  // Combine base classes with variant and custom classes
-  const buttonClassName =
-    `px-4 py-2 rounded focus:outline-none focus:ring transition-all ${getVariantClassName(
-      variant
-    )} ${className}`.trim();
+  // Combine base styles, variant styles, and any additional className
+  const combinedClassName = `${baseStyles} ${variantStyles[variant]} ${className}`;
 
   return (
-    <button className={buttonClassName} {...rest}>
+    <button className={combinedClassName} {...rest}>
       {children}
     </button>
   );

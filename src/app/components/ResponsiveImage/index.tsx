@@ -19,10 +19,17 @@ const DatoImage: React.FC<DatoImageProps> = ({
   // Use getFragmentData to extract the data from the fragment
   const data = getFragmentData(DatoImageFragmentDoc, responsiveImage);
 
-  const { src, alt, title } = data;
+  const { src, alt, title, width, height } = data;
 
   return (
-    <Image src={src} priority={priority} alt={alt || title || ""} {...rest} />
+    <Image
+      src={src}
+      priority={priority}
+      width={width}
+      height={height}
+      alt={alt || title || ""}
+      {...rest}
+    />
   );
 };
 

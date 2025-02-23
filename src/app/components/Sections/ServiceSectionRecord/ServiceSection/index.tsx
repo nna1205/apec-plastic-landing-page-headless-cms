@@ -1,6 +1,6 @@
 import { type FragmentType, getFragmentData } from "@/graphql/types";
 import { ServiceSectionFragmentDoc } from "@/graphql/types/graphql";
-import Link from "next/link";
+import { Link } from "@/../i18n/routing";
 import * as motion from "motion/react-client";
 import DatoImage from "@/components/ResponsiveImage";
 import Button, { ButtonProps } from "@/components/Button";
@@ -26,8 +26,10 @@ const ServiceSection = ({ fragment }: Props) => {
         <DatoImage
           responsiveImage={image.responsiveImage}
           className="rounded-lg"
-          fill
-          sizes="(min-width: 1024px) 50%, 100%"
+          style={{
+            width: "100%",
+            height: "auto",
+          }}
           priority
         />
       </motion.div>

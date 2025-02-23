@@ -25,14 +25,15 @@ const TestimonialCard: React.FC<{ data: FeedbackProps }> = ({ data }) => {
         transition={{ duration: 1 }}
         viewport={{ once: true, amount: 0.5 }}
       >
-        <div className="relative w-full h-52">
+        <div className="relative w-full">
           <DatoImage
             responsiveImage={data.image.responsiveImage}
             quality={100}
-            fill
-            sizes="(min-width: 1024px) 50%, 100%"
+            style={{
+              width: "100%",
+              height: "auto",
+            }}
             className="h-full w-full object-contain"
-            style={{ objectFit: "cover" }}
           />
         </div>
         <div className="h-full flex flex-col justify-between items-start">
@@ -65,10 +66,11 @@ const TestimonialCard: React.FC<{ data: FeedbackProps }> = ({ data }) => {
       <DatoImage
         responsiveImage={data.image.responsiveImage}
         quality={100}
-        fill
-        sizes="(min-width: 1024px) 50%, 100%"
+        style={{
+          width: "100%",
+          height: "auto",
+        }}
         className="h-full w-full object-contain"
-        style={{ objectFit: "cover" }}
       />
       <div className="w-full absolute z-10 top-0 p-3">
         <div className="bg-white p-3 rounded">

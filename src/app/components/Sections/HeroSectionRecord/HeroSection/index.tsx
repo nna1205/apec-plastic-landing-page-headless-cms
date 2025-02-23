@@ -1,6 +1,6 @@
 import { type FragmentType, getFragmentData } from "@/graphql/types";
 import { HeroSectionFragmentDoc } from "@/graphql/types/graphql";
-import Link from "next/link";
+import { Link } from "@/../i18n/routing";
 import * as motion from "motion/react-client";
 import DatoImage from "@/components/ResponsiveImage";
 import Button, { ButtonProps } from "@/components/Button";
@@ -31,14 +31,19 @@ const HeroSection = ({ fragment }: Props) => {
               {sectionHeader.subtitle || ""}
             </p>
           </header>
-          <div className="flex items-center gap-3 lg:gap-9 mt-3">
+          <div className="flex items-center gap-3 lg:gap-9 mt-6 lg:mt-9">
             {callToActions.map((item) => {
               return (
                 <Button
                   key={item.id}
                   variant={item.variant as ButtonProps["variant"]}
                 >
-                  <Link href={item.slug || "#"}>{item.label}</Link>
+                  <Link
+                    href={item.slug || "#"}
+                    className="inline-block w-full h-full"
+                  >
+                    {item.label}
+                  </Link>
                 </Button>
               );
             })}
@@ -53,8 +58,10 @@ const HeroSection = ({ fragment }: Props) => {
       >
         <DatoImage
           responsiveImage={image.responsiveImage}
-          fill
-          sizes="(min-width: 1024px) 50%, 100%"
+          style={{
+            width: "100%",
+            height: "auto",
+          }}
           priority
         />
       </motion.div>

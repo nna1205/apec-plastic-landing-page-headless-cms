@@ -33,8 +33,8 @@ export async function request<
   if (isDraft) headers['X-Include-Drafts'] = 'true';
 
   const response = await fetch('https://graphql.datocms.com/', {
-    // cache: 'force-cache',
-    next: { tags: [cacheTag] },
+    cache: 'force-cache',
+    next: { tags: [cacheTag], revalidate: 60 },
     method: 'POST',
     headers,
     body: JSON.stringify({ query: print(document), variables }),
