@@ -33,7 +33,12 @@ const Navigation: React.FC<{ data: LayoutQuery["rootLayout"] }> = ({
             isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
           } lg:hidden z-50`}
         >
-          <button onClick={toggleMobileMenu} className="absolute top-4 right-4">
+          <button
+            type="button"
+            aria-label="Close menu"
+            onClick={toggleMobileMenu}
+            className="absolute top-4 right-4"
+          >
             <X size={24} />
           </button>
           <ul className="flex flex-col h-full gap-6 p-4 mt-9 ml-9">
