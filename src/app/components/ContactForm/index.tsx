@@ -132,7 +132,7 @@ const ContactForm = () => {
 
       <button
         type="submit"
-        className="w-full bg-green-400 text-white py-3 rounded font-bold hover:bg-green-400 transition"
+        className="w-full bg-green-400 text-black py-3 rounded font-bold hover:bg-green-400 transition"
       >
         {t("form_submit")}
       </button>
