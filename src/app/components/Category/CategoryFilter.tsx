@@ -80,7 +80,7 @@ const CategoryFilter: React.FC<{ data: CategoryFilterProps }> = memo(
               {selectedCategory === category.id && (
                 <motion.div
                   layoutId="category-highlight"
-                  className="absolute inset-0 bg-green-400 rounded-lg -z-10 text-white font-bold"
+                  className="absolute inset-0 bg-green-800 rounded-lg -z-10"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
