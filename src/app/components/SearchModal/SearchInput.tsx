@@ -1,6 +1,6 @@
 "use client";
 
-import { Dispatch, SetStateAction, RefObject, Suspense } from "react";
+import { Dispatch, SetStateAction, RefObject } from "react";
 import dynamic from "next/dynamic";
 import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import { useSearch } from "@/hooks/useSearch";
@@ -72,13 +72,11 @@ const SearchInput = ({
           />
         )}
         {searchHistory.length > 0 && (
-          <Suspense fallback={<div className="p-4">Loading...</div>}>
-            <DynamicSearchHistory
-              searchHistory={searchHistory}
-              setSearchInput={setSearchInput}
-              clearSearchHistory={clearSearchHistory}
-            />
-          </Suspense>
+          <DynamicSearchHistory
+            searchHistory={searchHistory}
+            setSearchInput={setSearchInput}
+            clearSearchHistory={clearSearchHistory}
+          />
         )}
         <button
           type="button"
