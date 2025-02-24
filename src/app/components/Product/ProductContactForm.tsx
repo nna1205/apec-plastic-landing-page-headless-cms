@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, memo } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import {
   useProductFormSchema,
@@ -15,7 +15,7 @@ import { useTranslations } from "next-intl";
 
 const ProductContactForm: React.FC<{
   data: ProductQuery["product"];
-}> = ({ data }) => {
+}> = memo(({ data }) => {
   const productContactFormSchema = useProductFormSchema();
   const {
     handleSubmit,
@@ -193,6 +193,8 @@ const ProductContactForm: React.FC<{
       </form>
     </div>
   );
-};
+});
+
+ProductContactForm.displayName = "ProductContactForm";
 
 export default ProductContactForm;

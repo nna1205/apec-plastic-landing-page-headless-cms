@@ -1,33 +1,39 @@
 "use client";
 
-import { useState } from "react";
-import * as motion from "motion/react-client";
-import { AnimatePresence } from "motion/react";
+import { useState, memo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { ProductQuery } from "@/graphql/types/graphql";
 
 const ProductImageCarousel: React.FC<{
   data: ProductQuery["product"];
-}> = ({ data }) => {
+}> = memo(({ data }) => {
   const imagesData = data?.productImages || [];
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % imagesData!.length);
+    setCurrentIndex((prev) => (prev + 1) % imagesData.length);
   };
 
   const handlePrev = () => {
     setCurrentIndex(
-      (prev) => (prev - 1 + imagesData!.length) % imagesData!.length
+      (prev) => (prev - 1 + imagesData.length) % imagesData.length
     );
   };
 
   return (
     <div className="relative w-full h-full mx-auto lg:w-1/2">
+      {/* Preload the first image */}
+      <link
+        rel="preload"
+        href={imagesData[0]?.responsiveImage?.src}
+        as="image"
+      />
+
       {/* Carousel Container */}
       <div className="overflow-hidden relative w-full h-[280px] bg-gray-200 rounded-lg lg:h-[480px]">
         <AnimatePresence>
-          {imagesData!.map(
+          {imagesData.map(
             (image, index) =>
               index === currentIndex && (
                 <motion.div
@@ -44,6 +50,9 @@ const ProductImageCarousel: React.FC<{
                     fill
                     sizes="(min-width: 1024px) 50%, 100%"
                     className="object-cover rounded-lg"
+                    priority={index === 0}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    quality={index === 0 ? 90 : 75}
                   />
                 </motion.div>
               )
@@ -67,10 +76,10 @@ const ProductImageCarousel: React.FC<{
 
       {/* Pagination Thumbnails */}
       <div className="mt-4 flex justify-start items-center gap-4 overflow-x-auto">
-        {imagesData!.map((image, index) => (
+        {imagesData.map((image, index) => (
           <div
             key={image.id}
-            className={`relative w-12 h-12 cursor-pointer border-2 rounded-md lg:w-20 lg:h-20${
+            className={`relative w-12 h-12 cursor-pointer border-2 rounded-md lg:w-20 lg:h-20 ${
               index === currentIndex ? "border-blue-600" : "border-gray-300"
             }`}
             onClick={() => setCurrentIndex(index)}
@@ -83,12 +92,16 @@ const ProductImageCarousel: React.FC<{
               className={`object-cover rounded-md ${
                 index === currentIndex ? "opacity-100" : "opacity-70"
               } hover:opacity-100 transition-opacity`}
+              loading="lazy"
+              quality={75}
             />
           </div>
         ))}
       </div>
     </div>
   );
-};
+});
+
+ProductImageCarousel.displayName = "ProductImageCarousel";
 
 export default ProductImageCarousel;
