@@ -6,13 +6,22 @@ import {
   type ProductRecord,
 } from "@/graphql/types/graphql";
 import { notFound } from "next/navigation";
-import ProductContainer from "@/components/Product";
-import ProductContactForm from "@/components/Product/ProductContactForm";
-import ProductRelated from "@/components/Product/ProductRelated";
+import ProductDetail from "@/components/Product";
+import ProductImageCarousel from "@/components/Product/ProductImageCarousel";
 import ProductPolicySection from "@/components/Sections/ProductPolicySectionRecord/ProductPolicySection";
 import type { Metadata } from "next";
 import { routing } from "@/../i18n/routing";
 import { setRequestLocale, getTranslations } from "next-intl/server";
+import { cache } from "react";
+import dynamic from "next/dynamic";
+
+const ProductContactForm = dynamic(
+  () => import("@/components/Product/ProductContactForm")
+);
+
+const ProductRelated = dynamic(
+  () => import("@/components/Product/ProductRelated")
+);
 
 export async function generateStaticParams() {
   const locales = routing.locales;
@@ -46,6 +55,21 @@ export async function generateMetadata({
   };
 }
 
+const fetchProduct = cache(
+  async (
+    id: ProductRecord["id"],
+    locale: SiteLocale,
+    fallbackLocale: SiteLocale
+  ) => {
+    const productData = await request(ProductDocument, {
+      id: id,
+      locale: locale,
+      fallbackLocale: [fallbackLocale],
+    });
+    return productData.product;
+  }
+);
+
 export default async function Page({
   params,
 }: {
@@ -57,11 +81,7 @@ export default async function Page({
   setRequestLocale(locale);
   const t = await getTranslations("product");
 
-  const productData = await request(ProductDocument, {
-    id: id,
-    locale: locale,
-    fallbackLocale: [fallbackLocale],
-  });
+  const productData = await fetchProduct(id, locale, fallbackLocale);
 
   if (!productData || !routing.locales.includes(locale as SiteLocale)) {
     notFound();
@@ -69,7 +89,10 @@ export default async function Page({
   return (
     <div className="overflow-x-hidden min-h-screen px-4 py-10 my-20 gap-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="w-full flex flex-col justify-center items-start gap-6">
-        <ProductContainer data={productData.product} />
+        <div className="w-full h-full flex flex-col justify-center gap-6 lg:gap-12 lg:flex-row">
+          <ProductImageCarousel data={productData} />
+          <ProductDetail data={productData} />
+        </div>
         <ProductPolicySection locale={locale} fallbackLocale={fallbackLocale} />
         <section
           id="contact-form"
@@ -79,11 +102,11 @@ export default async function Page({
             <span className="w-full text-black font-black text-2xl lg:line-clamp-4 lg:w-1/2 lg:text-5xl lg:leading-[64px]">
               {t("form_contact.section_title")}
             </span>
-            <ProductContactForm data={productData.product} />
+            <ProductContactForm data={productData} />
           </div>
         </section>
         <ProductRelated
-          product={productData.product}
+          product={productData}
           locale={locale}
           fallbackLocale={fallbackLocale}
         />

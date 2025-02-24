@@ -5,7 +5,6 @@ import Modal from "@/components/Modal";
 import { Search } from "lucide-react";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
-import { Suspense } from "react";
 
 const DynamicSearchInput = dynamic(() => import("./SearchInput"), {
   ssr: false,
@@ -35,11 +34,7 @@ export default function SearchModal() {
         <Search size={24} color="green" />
       </button>
       <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-        {isOpen && (
-          <Suspense fallback={<div className="p-4">Loading...</div>}>
-            <DynamicSearchInput setIsOpen={setIsOpen} ref={inputRef} />
-          </Suspense>
-        )}
+        {isOpen && <DynamicSearchInput setIsOpen={setIsOpen} ref={inputRef} />}
       </Modal>
     </div>
   );

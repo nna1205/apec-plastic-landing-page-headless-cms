@@ -83,6 +83,8 @@ const ProductShare: React.FC<{ data: ProductQuery["product"] }> = ({
           <>
             {/* Facebook Share */}
             <button
+              type="button"
+              aria-label="Share on Facebook"
               onClick={handleFacebookShare}
               className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
             >
@@ -91,6 +93,8 @@ const ProductShare: React.FC<{ data: ProductQuery["product"] }> = ({
 
             {/* Web Share API */}
             <button
+              type="button"
+              aria-label="Share on social media"
               onClick={handleWebShare}
               className="bg-slate-300 w-min flex justify-center items-center text-sm gap-2 px-3 py-2 rounded lg:text-base lg:px-4"
             >
@@ -100,6 +104,8 @@ const ProductShare: React.FC<{ data: ProductQuery["product"] }> = ({
           </>
         ) : (
           <button
+            type="button"
+            aria-label="Copy link"
             onClick={handleCopyLink}
             className="bg-slate-300  flex justify-center items-center gap-2 px-4 py-2 rounded"
           >

@@ -12,6 +12,8 @@ query Products($locale: SiteLocale, $fallbackLocale: [SiteLocale!]) {
       id
       title
       url
+      width
+      height
     }
   }
 }
