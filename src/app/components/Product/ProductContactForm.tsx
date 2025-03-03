@@ -1,17 +1,22 @@
 "use client";
 
-import { useState, memo } from "react";
+import {
+  useEffect,
+  useRef,
+  useActionState,
+  memo,
+  startTransition,
+} from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import {
   useProductFormSchema,
   type ProductContactFormData,
 } from "./form.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ProductQuery } from "@/graphql/types/graphql";
-import { client } from "@/lib/datocms";
-import { ApiError } from "@datocms/cma-client-browser";
-import SubmitButton from "@/components/Button/SubmitButton";
 import { useTranslations } from "next-intl";
+import { ProductQuery } from "@/graphql/types/graphql";
+import SubmitButton from "@/components/Button/SubmitButton";
+import { SubmiProductContactFormHandler } from "@/actions/submitProductContactForm";
 
 const ProductContactForm: React.FC<{
   data: ProductQuery["product"];
@@ -23,7 +28,7 @@ const ProductContactForm: React.FC<{
     register,
     watch,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitSuccessful },
   } = useForm<ProductContactFormData>({
     resolver: zodResolver(productContactFormSchema),
     defaultValues: {
@@ -39,50 +44,29 @@ const ProductContactForm: React.FC<{
   const productData = data;
   const contactMethod = watch("contact.method"); // Watch the selected contact method
 
-  const [status, setStatus] = useState<
-    "idle" | "loading" | "success" | "error"
-  >("idle");
+  const [state, formAction] = useActionState(SubmiProductContactFormHandler, {
+    success: false,
+  });
 
-  const onSubmit: SubmitHandler<ProductContactFormData> = async (formData) => {
-    setStatus("loading");
-    try {
-      const result = await client.items.create({
-        item_type: { type: "item_type", id: "HUuou7VGSOit4M2dVjU9eg" },
-        message: formData.message,
-        product: productData?.id,
-        customer_information: {
-          type: "item",
-          attributes: {
-            name: formData.name,
-            email:
-              formData.contact.method === "email" ? formData.contact.value : "",
-            phone:
-              formData.contact.method === "phone" ? formData.contact.value : "",
-          },
-          relationships: {
-            item_type: {
-              data: { type: "item_type", id: "IeGLw8eLSeqoET9G9NmVCA" },
-            },
-          },
-        },
-      });
-      console.log(result);
-      setStatus("success");
-      setTimeout(() => setStatus("idle"), 3000);
-    } catch (error) {
-      setStatus("error");
-      setTimeout(() => setStatus("idle"), 3000);
-      if (error instanceof ApiError) {
-        console.log(error.response.body);
-      } else {
-        throw error;
-      }
+  useEffect(() => {
+    if (isSubmitSuccessful && state.success) {
+      reset();
     }
-    // Reset the form after submission
-    reset();
-  };
+  }, [reset, isSubmitSuccessful, state.success]);
 
+  const formRef = useRef(null);
   const t = useTranslations();
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleSubmit(() => {
+      const formData = new FormData(formRef.current!);
+      formData.append("productId", (productData?.id! as string) || "");
+      startTransition(() => {
+        formAction(formData);
+      });
+    })(e);
+  };
 
   if (!productData) {
     return <div>Loading...</div>;
@@ -101,7 +85,9 @@ const ProductContactForm: React.FC<{
 
       {/* Product Contact Form */}
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        ref={formRef}
+        action={formAction}
+        onSubmit={onSubmit}
         className="w-full box-border flex flex-col text-sm gap-1 lg:gap-3 lg:text-xl"
       >
         {/* Customer Name */}
@@ -120,6 +106,11 @@ const ProductContactForm: React.FC<{
           />
           {errors.name && (
             <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+          )}
+          {state?.errors?.name && (
+            <p className="text-red-500 text-sm mt-1">
+              {state?.errors?.name[0]}
+            </p>
           )}
         </div>
 
@@ -163,6 +154,11 @@ const ProductContactForm: React.FC<{
               {errors.contact?.value.message}
             </p>
           )}
+          {state?.errors?.contact && (
+            <p className="text-red-400 text-sm mt-1">
+              {state?.errors?.contact}
+            </p>
+          )}
         </div>
 
         {/* Message */}
@@ -185,9 +181,14 @@ const ProductContactForm: React.FC<{
               {errors.message.message}
             </p>
           )}
+          {state?.errors?.message && (
+            <p className="text-red-400 text-sm mt-1">
+              {state?.errors?.message}
+            </p>
+          )}
         </div>
 
-        <SubmitButton type="submit" status={status} variant="primary">
+        <SubmitButton state={state} variant="primary">
           {t("form_submit")}
         </SubmitButton>
       </form>

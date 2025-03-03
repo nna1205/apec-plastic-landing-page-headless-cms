@@ -1,55 +1,75 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { LoaderCircle, CheckCircle, AlertTriangle } from "lucide-react";
-import Button, { ButtonProps } from ".";
+import Button, { ButtonProps } from "@/components/Button";
 import { useTranslations } from "next-intl";
+import { useFormStatus } from "react-dom";
 
-type SubmitButtonProps = {
-  status?: "idle" | "loading" | "success" | "error"; // Handle different states
-} & ButtonProps;
+interface SubmitButtonProps extends ButtonProps {
+  state?: {
+    success?: boolean;
+    errors?: Record<string, string[]>;
+  };
+}
 
-const SubmitButton: React.FC<SubmitButtonProps> = ({
-  status = "idle",
+export default function SubmitButton({
   children,
-  ...rest
-}) => {
+  state,
+  ...props
+}: SubmitButtonProps) {
   const t = useTranslations();
-  const getButtonContent = () => {
-    switch (status) {
-      case "loading":
-        return (
-          <>
-            <LoaderCircle className="animate-spin w-5 h-5 text-white mr-3" />
-            Loading...
-          </>
-        );
-      case "success":
-        return (
-          <>
-            <CheckCircle className="w-5 h-5 text-white mr-3" />
-            {t("form_success")}
-          </>
-        );
-      case "error":
-        return (
-          <>
-            <AlertTriangle className="w-5 h-5 text-white mr-3" />
-            {t("form_error")}
-          </>
-        );
-      default:
-        return children;
+  const { pending } = useFormStatus();
+  const resetDelay = 2000;
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  useEffect(() => {
+    if (state?.success) {
+      setShowSuccess(true);
+      const timer = setTimeout(() => {
+        setShowSuccess(false);
+      }, resetDelay);
+
+      return () => clearTimeout(timer);
     }
+  }, [state?.success, resetDelay]);
+
+  const renderContent = () => {
+    if (pending) {
+      return (
+        <>
+          <LoaderCircle className="h-4 w-4 animate-spin" />
+          <span>Loading...</span>
+        </>
+      );
+    }
+
+    if (showSuccess) {
+      return (
+        <>
+          <CheckCircle className="h-4 w-4" />
+          <span>{t("form_success")}</span>
+        </>
+      );
+    }
+
+    if (state?.errors?.form) {
+      return (
+        <>
+          <AlertTriangle className="h-4 w-4" />
+          <span>{state.errors.form[0] || t("form_error")}</span>
+        </>
+      );
+    }
+
+    return children;
   };
 
   return (
-    <Button
-      {...rest}
-      disabled={status === "loading"}
-      className={`flex items-center justify-center gap-2 ${rest.className}`}
-    >
-      {getButtonContent()}
+    <Button type="submit" disabled={pending || showSuccess} {...props}>
+      <span className="w-full flex justify-center items-center gap-2">
+        {renderContent()}
+      </span>
     </Button>
   );
-};
-
-export default SubmitButton;
+}
