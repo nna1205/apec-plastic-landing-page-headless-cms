@@ -2,9 +2,7 @@ import { LayoutQuery } from "@/graphql/types/graphql";
 import { Link } from "@/../i18n/routing";
 import Image from "next/image";
 import Icon, { IconName } from "@/components/LucideIcon";
-import Navigation from "./Navigation";
-import SearchModal from "@/components/SearchModal";
-import LocaleSelector from "@/components/LocaleSelector";
+import { MobileMenu, DesktopMenu } from "./Navigation";
 
 type HeaderProps = LayoutQuery;
 
@@ -33,6 +31,8 @@ const Header: React.FC<{ data: HeaderProps }> = ({ data }) => {
         ))}
       </div>
       <div className="bg-white w-full px-6 lg:px-20 py-1 lg:py-3 relative flex lg:justify-between items-center shadow-sm">
+        {/* Logo  */}
+        <MobileMenu data={data} />
         <Link href="/home" className="flex justify-center items-center gap-3">
           <div className="block relative w-10 h-10 lg:w-16 lg:h-16">
             <Image
@@ -51,11 +51,7 @@ const Header: React.FC<{ data: HeaderProps }> = ({ data }) => {
             </span>
           </div>
         </Link>
-        <Navigation data={data.rootLayout} />
-        <div className="flex gap-2 items-center">
-          <SearchModal />
-          <LocaleSelector />
-        </div>
+        <DesktopMenu data={data.rootLayout} />
       </div>
     </header>
   );
