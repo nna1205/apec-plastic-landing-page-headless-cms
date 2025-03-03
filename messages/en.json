@@ -1,5 +1,6 @@
 {
     "select_language": "Select Language",
+    "back_cta": "Go back",
     "form_submit": "Submit",
     "form_success": "Successfully",
     "form_error": "Something went wrong",
