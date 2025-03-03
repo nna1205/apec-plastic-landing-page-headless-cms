@@ -69,6 +69,7 @@ const SearchInput = ({
             autoComplete={autoComplete}
             suggestions={suggestions}
             onSelect={(value) => setSearchInput(value)}
+            setIsOpen={setIsOpen}
           />
         )}
         {searchHistory.length > 0 && (
