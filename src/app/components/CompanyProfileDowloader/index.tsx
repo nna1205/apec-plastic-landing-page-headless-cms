@@ -12,12 +12,12 @@ const DownloadSection: React.FC<{
   locale: SiteLocale;
   fallbackLocale: SiteLocale;
 }> = ({ locale, fallbackLocale }) => {
-  const [status, setStatus] = useState<
-    "idle" | "loading" | "success" | "error"
-  >("idle");
+  const [state, setState] = useState<{
+    success?: boolean;
+    errors?: Record<string, string[]>;
+  }>({});
 
   const handleDownload = async () => {
-    setStatus("loading");
     try {
       const result = await request(CompanyProfileDocument, {
         locale: locale,
@@ -52,19 +52,24 @@ const DownloadSection: React.FC<{
       link.target = "_blank"; // Open in new tab for safety (optional)
       link.click();
 
-      setStatus("success");
-      setTimeout(() => setStatus("idle"), 3000);
+      setState({
+        success: true,
+      });
     } catch (error) {
       console.error("Error fetching the PDF:", error);
-      setStatus("error");
-      setTimeout(() => setStatus("idle"), 3000);
+      setState({
+        success: false,
+        errors: {
+          form: ["Failed to download file. Please try again."],
+        },
+      });
     }
   };
 
   return (
     <div className="my-4">
       <h2>Download PDF</h2>
-      <SubmitButton status={status} onClick={handleDownload}>
+      <SubmitButton state={state} onClick={handleDownload}>
         Tải xuống thông tin
       </SubmitButton>
     </div>
