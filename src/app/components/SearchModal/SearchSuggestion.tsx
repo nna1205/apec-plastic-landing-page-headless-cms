@@ -1,12 +1,14 @@
 import { Link } from "@/../i18n/routing";
 import { SuggestionQuery } from "@/graphql/types/graphql";
 import { Package2, MoveUpLeft, CornerUpRight } from "lucide-react";
+import { Dispatch, SetStateAction } from "react";
 
 type SuggestionListProps = {
   query: string;
   autoComplete: string[];
   suggestions: SuggestionQuery["allProducts"];
   onSelect: (value: string) => void;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 const highlightMatch = (text: string, query: string) => {
@@ -30,6 +32,7 @@ export default function SuggestionList({
   autoComplete,
   suggestions,
   onSelect,
+  setIsOpen,
 }: SuggestionListProps) {
   return (
     <div className=" w-full flex flex-col justify-start items-center">
@@ -62,6 +65,7 @@ export default function SuggestionList({
                 <Link
                   href={`/products/${product.id}`}
                   className="w-full flex items-center gap-3"
+                  onClick={() => setIsOpen(false)}
                 >
                   <Package2 size={16} color="green" />
                   <div className="">
