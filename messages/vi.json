@@ -1,9 +1,10 @@
 {
     "select_language": "Chọn ngôn ngữ",
+    "back_cta": "Quay lại",
     "form_submit": "Gửi thông tin",
     "form_success": "Thành công",
     "form_error": "Đã có lỗi xảy ra",
-    "form_description": "Đăng ký để nhận tin tức mới nhất về các chương trình khuyến mãi, ưu đãi, chính sách mới nhất của chúng tôi.",
+    "form_description": "Đăng ký để nhận tin tức mới nhất về các chương trình khuyến mãi, ưu đãi, chính sách của chúng tôi.",
     "form": {
       "customer_name_label": "Tên khách hàng",
       "contact_method_label": "Liên lạc",

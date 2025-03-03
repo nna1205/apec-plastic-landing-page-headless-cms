@@ -14,10 +14,9 @@ import { routing } from "@/../i18n/routing";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { cache } from "react";
 import dynamic from "next/dynamic";
+import ProductContactFormWrapper from "@/components/Product/ProductContactFormWrapper";
 
-const ProductContactForm = dynamic(
-  () => import("@/components/Product/ProductContactForm")
-);
+const BackButton = dynamic(() => import("@/components/Button/BackButton"));
 
 const ProductRelated = dynamic(
   () => import("@/components/Product/ProductRelated")
@@ -88,6 +87,7 @@ export default async function Page({
   }
   return (
     <div className="overflow-x-hidden min-h-screen px-4 py-10 my-20 gap-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+      <BackButton className="mb-3" />
       <main className="w-full flex flex-col justify-center items-start gap-6">
         <div className="w-full h-full flex flex-col justify-center gap-6 lg:gap-12 lg:flex-row">
           <ProductImageCarousel data={productData} />
@@ -102,7 +102,7 @@ export default async function Page({
             <span className="w-full text-black font-black text-2xl lg:line-clamp-4 lg:w-1/2 lg:text-5xl lg:leading-[64px]">
               {t("form_contact.section_title")}
             </span>
-            <ProductContactForm data={productData} />
+            <ProductContactFormWrapper data={productData} />
           </div>
         </section>
         <ProductRelated

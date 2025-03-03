@@ -35,5 +35,4 @@ export const useContactFormSchema = () => {
 
   return contactFormSchema;
 };
-
 export type ContactFormData = z.infer<ReturnType<typeof useContactFormSchema>>;
