@@ -7,7 +7,7 @@ import {
   memo,
   startTransition,
 } from "react";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import {
   useProductFormSchema,
   type ProductContactFormData,
