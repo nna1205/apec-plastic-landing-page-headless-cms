@@ -23,19 +23,20 @@ export default function SearchModal() {
   }, [isOpen]);
 
   return (
-    <div>
+    <>
       <button
         onClick={() => startTransition(() => setIsOpen(true))}
         disabled={isPending}
+        type="button"
         aria-label="Open search modal"
-        className="lg:w-[240px] flex justify-between items-center bg-white lg:border-gray-300 lg:border px-3 py-1 text-sm rounded-lg"
+        className="w-[180px] lg:w-[240px] flex justify-between items-center bg-white border-gray-300 border px-1 lg:px-3 py-1 text-sm rounded-lg"
       >
-        <span className="opacity-40 hidden lg:block">{t("title")}</span>
-        <Search size={24} color="green" />
+        <span className="opacity-40">{t("title")}</span>
+        <Search className="w-4 h-4 lg:w-6 lg:h-6" color="green" />
       </button>
       <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
         {isOpen && <DynamicSearchInput setIsOpen={setIsOpen} ref={inputRef} />}
       </Modal>
-    </div>
+    </>
   );
 }

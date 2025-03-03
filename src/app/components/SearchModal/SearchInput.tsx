@@ -40,7 +40,7 @@ const SearchInput = ({
   };
 
   return (
-    <div className="relative w-full max-w-lg bg-white rounded-xl shadow-lg">
+    <div className="relative w-full bg-white rounded-xl shadow-lg">
       <form
         onSubmit={handleSearchSubmit}
         className="relative flex flex-col gap-3 p-4 bg-white rounded-md"

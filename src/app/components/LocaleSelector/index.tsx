@@ -7,12 +7,15 @@ import { type SiteLocale } from "@/graphql/types/graphql";
 import { motion } from "motion/react";
 import { AnimatePresence } from "motion/react";
 import { Globe, ChevronDown, Check } from "lucide-react";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 export default function LocaleSelector() {
   const t = useTranslations();
   const locale = useLocale() as SiteLocale;
   const router = useRouter();
   const pathname = usePathname();
+
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   const [isPending, startTransition] = useTransition();
   const [isOpen, setIsOpen] = useState(false);
@@ -52,7 +55,7 @@ export default function LocaleSelector() {
   return (
     <div
       ref={dropdownRef}
-      className="relative inline-block border border-gray-300 gap-2 px-3 py-1 rounded-lg"
+      className="w-full lg:w-min relative inline-block gap-2 rounded-lg border border-gray-300"
     >
       <AnimatePresence>
         {isOpen && (
@@ -60,7 +63,7 @@ export default function LocaleSelector() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="absolute right-0 top-8 mt-2 w-full min-w-[124px] bg-white text-black rounded-lg border border-gray-300 ring-1 ring-black ring-opacity-5 py-1"
+            className="absolute right-0 top-12 lg:top-8 mt-2 w-full min-w-[124px] bg-white text-black rounded-lg border border-gray-300 ring-1 ring-black ring-opacity-5 py-1"
           >
             <label className="text-xs opacity-30 px-3 truncate">
               {t("select_language")}
@@ -72,12 +75,14 @@ export default function LocaleSelector() {
               >
                 <button
                   disabled={isPending}
-                  className="flex justify-start items-center px-3 hover:bg-gray-200 cursor-pointer"
+                  className="w-full px-3 hover:bg-gray-200 cursor-pointer"
                 >
-                  <span className="text-sm">{getLocaleName(cur)}</span>
-                  {locale === cur && (
-                    <Check size={16} className="opacity-80 ml-1" />
-                  )}
+                  <span className="text-sm w-full flex justify-between items-center">
+                    {getLocaleName(cur)}{" "}
+                    {locale === cur && (
+                      <Check size={16} className="opacity-80" />
+                    )}
+                  </span>
                 </button>
               </li>
             ))}
@@ -88,10 +93,12 @@ export default function LocaleSelector() {
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         // onBlur={() => setIsOpen(false)}
-        className="flex items-center gap-2 bg-white text-black rounded-md focus:outline-none"
+        className="w-full px-6 py-3 lg:px-3 lg:py-1 flex justify-between items-center gap-2 bg-white text-black rounded-md focus:outline-none"
       >
-        <Globe size={20} className="opacity-60" />
-        {locale.toUpperCase()}
+        <div className="flex items-center gap-2">
+          <Globe size={20} className="opacity-60" />
+          {isDesktop ? locale.toUpperCase() : getLocaleName(locale)}
+        </div>
         <ChevronDown className="w-4 h-4" />
       </button>
     </div>
