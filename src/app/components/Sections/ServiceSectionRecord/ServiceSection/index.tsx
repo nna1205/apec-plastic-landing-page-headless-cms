@@ -18,7 +18,7 @@ const ServiceSection = ({ fragment }: Props) => {
   return (
     <section className="flex flex-col-reverse justify-between gap-3 lg:flex-row lg:gap-6">
       <motion.div
-        className="relative w-full h-[600px] rounded-xl lg:w-1/2"
+        className="relative w-full h-full rounded-xl lg:w-1/2"
         initial={{ opacity: 0, x: -50, y: -50 }}
         whileInView={{ opacity: 1, x: 0, y: 0 }}
         viewport={{ once: true, amount: 0.25 }}
