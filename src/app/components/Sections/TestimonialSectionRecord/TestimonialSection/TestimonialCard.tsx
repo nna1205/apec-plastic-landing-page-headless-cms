@@ -57,7 +57,7 @@ const TestimonialCard: React.FC<{ data: FeedbackProps }> = ({ data }) => {
     );
   return (
     <motion.div
-      className={`${layoutOrder} relative w-full h-[640px] rounded overflow-hidden lg:h-full`}
+      className={`${layoutOrder} relative w-full h-full rounded overflow-hidden`}
       initial={{ opacity: 0, y: -100 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}

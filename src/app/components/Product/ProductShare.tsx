@@ -3,15 +3,16 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import { Facebook, Share, ClipboardCopy } from "lucide-react";
-import { ProductQuery } from "@/graphql/types/graphql";
-import { useTranslations } from "next-intl";
+import { ProductQuery, SiteLocale } from "@/graphql/types/graphql";
+import { useTranslations, useLocale } from "next-intl";
 
 const ProductShare: React.FC<{ data: ProductQuery["product"] }> = ({
   data,
 }) => {
+  const locale = useLocale() as SiteLocale;
   const productUrl = `${
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
-  }/products/${data!.id}`;
+    process.env.NEXT_PUBLIC_SITE_URL || "http://apecplastic.vercel.app"
+  }/${locale}/products/${data!.id}`;
 
   const [supportsWebShare, setSupportsWebShare] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
@@ -28,14 +29,16 @@ const ProductShare: React.FC<{ data: ProductQuery["product"] }> = ({
   };
 
   const handleWebShare = async () => {
+    const shareContent = `✨${data!.title} | ${t(
+      "page_title.product_detail"
+    )}\n${data!.description}\n${t(
+      "share_content.more_detail"
+    )}: ${productUrl}\n${t("share_content.contact_us")}`;
     if (navigator.share) {
       try {
         await navigator.share({
-          title: data!.title,
-          text:
-            data!.description && data!.description.trim() !== ""
-              ? data!.description
-              : "No description",
+          title: `${data!.title} | ${t("page_title.product_detail")}`,
+          text: shareContent,
           url: productUrl,
         });
       } catch (error) {
@@ -53,13 +56,21 @@ const ProductShare: React.FC<{ data: ProductQuery["product"] }> = ({
     });
   };
 
-  const t = useTranslations("product");
+  const t = useTranslations();
 
   return (
     <>
       {/* Open Graph and Meta Tags */}
       <Head>
         <title>{data!.title}</title>
+        <meta
+          name="description"
+          content={
+            data!.description && data!.description.trim() !== ""
+              ? data!.description
+              : "No description"
+          }
+        />
         <meta property="og:title" content={data!.title} />
         <meta
           property="og:description"
@@ -75,10 +86,11 @@ const ProductShare: React.FC<{ data: ProductQuery["product"] }> = ({
         />
         <meta property="og:url" content={productUrl} />
         <meta property="og:type" content="product" />
+        <meta property="og:site_name" content={t("page_title.company_name")} />
       </Head>
 
       <div className="mr-auto flex justify-center items-center gap-3">
-        <span className="">{`${t("share")}:`}</span>
+        <span className="">{`${t("product.share")}:`}</span>
         {supportsWebShare ? (
           <>
             {/* Facebook Share */}
@@ -98,7 +110,7 @@ const ProductShare: React.FC<{ data: ProductQuery["product"] }> = ({
               onClick={handleWebShare}
               className="bg-slate-300 w-min flex justify-center items-center text-sm gap-2 px-3 py-2 rounded lg:text-base lg:px-4"
             >
-              {t("send")}
+              {t("product.send")}
               <Share className="w-4 h-4 lg:w-5 lg:h-5" />
             </button>
           </>

@@ -15,6 +15,10 @@
         "invalid": "Invalid phone number"
       }
     },
+    "share_content": {
+      "more_detail" : "View more details here",
+      "contact_us": "Contact us directly via Zalo or Hotline: 0987900669"
+    },
     "page_title": {
       "company_name": "Apec Plastic",
       "product_detail": "Products of Apec Plastic"
